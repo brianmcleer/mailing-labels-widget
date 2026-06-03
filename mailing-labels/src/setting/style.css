@@ -1,0 +1,510 @@
+/* Mailing Labels Widget - Settings Panel Styles */
+
+/* Main settings container */
+.widget-setting-mailing-labels {
+    padding: 20px;
+    background: #ffffff;
+    font-family: 'Avenir Next', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    line-height: 1.5;
+}
+
+/* Settings sections */
+.jimu-widget-setting--section {
+    margin-bottom: 24px;
+    padding: 20px;
+    background: #f8f9fb;
+    border-radius: 8px;
+    border-left: 4px solid #0079c1;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+    .jimu-widget-setting--section:last-child {
+        margin-bottom: 0;
+    }
+
+    /* Section titles */
+    .jimu-widget-setting--section .jimu-widget-setting--section-header {
+        margin-bottom: 16px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+        .jimu-widget-setting--section .jimu-widget-setting--section-header h6 {
+            margin: 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2e2e2e;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+/* Section icons */
+.section-icon {
+    width: 20px;
+    height: 20px;
+    opacity: 0.8;
+}
+
+/* Setting rows */
+.jimu-widget-setting--row {
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+    .jimu-widget-setting--row:last-child {
+        margin-bottom: 0;
+    }
+
+    /* Setting labels */
+    .jimu-widget-setting--row .jimu-widget-setting--row-label {
+        font-weight: 600;
+        color: #555;
+        font-size: 0.9rem;
+        margin-bottom: 4px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+.setting-label-required {
+    color: #d32f2f;
+    font-size: 0.8rem;
+}
+
+.setting-label-optional {
+    color: #757575;
+    font-size: 0.8rem;
+    font-weight: 400;
+}
+
+/* Form controls */
+.jimu-widget-setting .form-control,
+.jimu-widget-setting .jimu-input,
+.jimu-widget-setting .jimu-numeric-input input,
+.jimu-widget-setting select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    background: white;
+    color: #333;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+    .jimu-widget-setting .form-control:focus,
+    .jimu-widget-setting .jimu-input:focus,
+    .jimu-widget-setting .jimu-numeric-input input:focus,
+    .jimu-widget-setting select:focus {
+        outline: none;
+        border-color: #0079c1;
+        box-shadow: 0 0 0 3px rgba(0, 121, 193, 0.1);
+    }
+
+    .jimu-widget-setting .form-control:hover,
+    .jimu-widget-setting .jimu-input:hover,
+    .jimu-widget-setting select:hover {
+        border-color: #bdbdbd;
+    }
+
+/* Select dropdown styling */
+.jimu-widget-setting select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+    padding-right: 40px;
+}
+
+/* Map widget selector */
+.map-widget-selector {
+    margin-top: 8px;
+}
+
+.map-widget-item {
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-bottom: 8px;
+}
+
+    .map-widget-item:hover {
+        border-color: #bdbdbd;
+        background: #f5f5f5;
+    }
+
+    .map-widget-item.selected {
+        border-color: #0079c1;
+        background: #e3f2fd;
+    }
+
+    .map-widget-item .widget-name {
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 4px;
+    }
+
+    .map-widget-item .widget-description {
+        font-size: 0.8rem;
+        color: #666;
+    }
+
+/* Switch controls */
+.jimu-widget-setting .jimu-switch {
+    margin-top: 4px;
+}
+
+.switch-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 0;
+}
+
+.switch-label {
+    flex: 1;
+    margin-right: 12px;
+}
+
+.switch-description {
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 4px;
+}
+
+/* Numeric inputs */
+.numeric-input-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+    .numeric-input-container .unit-label {
+        font-size: 0.8rem;
+        color: #666;
+        white-space: nowrap;
+    }
+
+/* Label format preview */
+.label-format-preview {
+    margin-top: 12px;
+    padding: 16px;
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+}
+
+.label-format-specs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 12px;
+    font-size: 0.8rem;
+}
+
+.spec-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.spec-label {
+    color: #666;
+}
+
+.spec-value {
+    font-weight: 600;
+    color: #333;
+}
+
+/* Custom dimensions section */
+.custom-dimensions {
+    margin-top: 16px;
+    padding: 16px;
+    background: #fff3e0;
+    border: 1px solid #ffcc02;
+    border-radius: 6px;
+}
+
+    .custom-dimensions h6 {
+        margin: 0 0 12px 0;
+        color: #f57c00;
+        font-size: 0.9rem;
+        font-weight: 600;
+    }
+
+.dimension-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+/* Instructions and help text */
+.setting-text-note {
+    background: #f8f9fa;
+    padding: 16px;
+    border-radius: 6px;
+    border-left: 4px solid #0079c1;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    margin-top: 16px;
+}
+
+    .setting-text-note h6 {
+        margin: 0 0 12px 0;
+        color: #333;
+        font-size: 1rem;
+        font-weight: 600;
+    }
+
+    .setting-text-note p {
+        margin: 0 0 12px 0;
+        color: #555;
+    }
+
+        .setting-text-note p:last-child {
+            margin-bottom: 0;
+        }
+
+    .setting-text-note ol,
+    .setting-text-note ul {
+        margin: 12px 0;
+        padding-left: 20px;
+        color: #555;
+    }
+
+    .setting-text-note li {
+        margin-bottom: 6px;
+        line-height: 1.4;
+    }
+
+    .setting-text-note strong {
+        color: #333;
+        font-weight: 600;
+    }
+
+/* Warning and info boxes */
+.setting-warning {
+    background: #fff3e0;
+    border: 1px solid #ffcc02;
+    border-left: 4px solid #ff9800;
+    padding: 12px;
+    border-radius: 6px;
+    margin-top: 12px;
+}
+
+    .setting-warning .warning-icon {
+        color: #f57c00;
+        margin-right: 8px;
+    }
+
+.setting-info {
+    background: #e3f2fd;
+    border: 1px solid #90caf9;
+    border-left: 4px solid #2196f3;
+    padding: 12px;
+    border-radius: 6px;
+    margin-top: 12px;
+}
+
+    .setting-info .info-icon {
+        color: #1976d2;
+        margin-right: 8px;
+    }
+
+/* Feature list styling */
+.feature-list {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0;
+}
+
+    .feature-list li {
+        padding: 8px 0;
+        border-bottom: 1px solid #f0f0f0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+
+    .feature-list .feature-icon {
+        color: #4caf50;
+        font-size: 1.1em;
+    }
+
+/* Supported formats table */
+.formats-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px;
+    font-size: 0.8rem;
+}
+
+    .formats-table th,
+    .formats-table td {
+        padding: 8px 12px;
+        text-align: left;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .formats-table th {
+        background: #f5f5f5;
+        font-weight: 600;
+        color: #333;
+    }
+
+    .formats-table td {
+        color: #555;
+    }
+
+    .formats-table tr:hover {
+        background: #f9f9f9;
+    }
+
+/* Validation indicators */
+.validation-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.8rem;
+    margin-top: 4px;
+}
+
+    .validation-indicator.valid {
+        color: #4caf50;
+    }
+
+    .validation-indicator.invalid {
+        color: #f44336;
+    }
+
+    .validation-indicator.warning {
+        color: #ff9800;
+    }
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .widget-setting-mailing-labels {
+        padding: 16px;
+    }
+
+    .jimu-widget-setting--section {
+        padding: 16px;
+        margin-bottom: 20px;
+    }
+
+    .dimension-inputs {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .label-format-specs {
+        grid-template-columns: 1fr;
+    }
+
+    .formats-table {
+        font-size: 0.75rem;
+    }
+
+        .formats-table th,
+        .formats-table td {
+            padding: 6px 8px;
+        }
+}
+
+@media (max-width: 480px) {
+    .widget-setting-mailing-labels {
+        padding: 12px;
+    }
+
+    .jimu-widget-setting--section {
+        padding: 12px;
+    }
+
+    .setting-text-note {
+        padding: 12px;
+        font-size: 0.8rem;
+    }
+
+    .numeric-input-container {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 4px;
+    }
+}
+
+/* Dark theme support */
+@media (prefers-color-scheme: dark) {
+    .widget-setting-mailing-labels {
+        background: #2d3748;
+        color: #e2e8f0;
+    }
+
+    .jimu-widget-setting--section {
+        background: #374151;
+    }
+
+        .jimu-widget-setting--section .jimu-widget-setting--section-header h6 {
+            color: #f7fafc;
+        }
+
+    .form-control,
+    .jimu-input,
+    .jimu-numeric-input input,
+    select {
+        background: #4a5568;
+        border-color: #718096;
+        color: #e2e8f0;
+    }
+
+    .map-widget-item {
+        background: #4a5568;
+        border-color: #718096;
+    }
+
+        .map-widget-item.selected {
+            background: #2d3748;
+            border-color: #63b3ed;
+        }
+
+    .setting-text-note {
+        background: #374151;
+        color: #e2e8f0;
+    }
+
+    .formats-table th {
+        background: #4a5568;
+        color: #e2e8f0;
+    }
+
+    .formats-table td {
+        color: #cbd5e0;
+    }
+}
+
+/* Print styles */
+@media print {
+    .widget-setting-mailing-labels {
+        box-shadow: none;
+        background: transparent;
+    }
+
+    .jimu-widget-setting--section {
+        break-inside: avoid;
+        box-shadow: none;
+    }
+}

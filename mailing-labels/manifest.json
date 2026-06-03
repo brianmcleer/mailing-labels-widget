@@ -1,0 +1,31 @@
+{
+  "name": "mailing-labels",
+  "label": "Mailing Labels",
+  "type": "widget",
+  "version": "1.0.0",
+  "exbVersion": "1.20.0",
+  "author": "Brian McLeer",
+  "description": "Generate mailing labels from web map layer data with address search, partial sheet support, Avery formats, and CSV or PDF output.",
+  "properties": {
+    "supportInlineEditing": false,
+    "supportRepeat": false,
+    "canCrossFilter": false
+  },
+  "translatedLocales": [ "en" ],
+  "defaultLocale": "en",
+  "dependencies": [
+    "jimu-core",
+    "jimu-ui",
+    "jimu-arcgis"
+  ],
+  "hasStyle": true,
+  "hasConfig": true,
+  "hasSettingPanel": true,
+  "settingUiPath": "setting/setting",
+  "supportDataSource": true,
+  "useDataSources": [
+    {
+      "types": [ "WebMap" ]
+    }
+  ]
+}

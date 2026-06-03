@@ -1,0 +1,187 @@
+﻿/* ================================================================
+   Mailing Labels Widget – Runtime Styles
+   WCAG 2.1 AA Compliant
+   Enhancement layer only – layout is inline in widget.tsx
+   ================================================================ */
+
+/* ----------------------------------------
+   Accessibility: Visually Hidden (WCAG 1.3.1)
+   ---------------------------------------- */
+.visually-hidden {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+
+/* ----------------------------------------
+   Focus Indicators (WCAG 2.4.7)
+   ---------------------------------------- */
+.widget-mailing-labels *:focus {
+    outline: 2px solid #005fcc;
+    outline-offset: 2px;
+}
+
+    .widget-mailing-labels *:focus:not(:focus-visible) {
+        outline: none;
+    }
+
+.widget-mailing-labels *:focus-visible {
+    outline: 2px solid #005fcc;
+    outline-offset: 2px;
+}
+
+.widget-mailing-labels button:focus-visible,
+.widget-mailing-labels [role="button"]:focus-visible {
+    outline: 3px solid #005fcc;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(0, 95, 204, 0.25);
+}
+
+/* Radio & checkbox focus */
+.widget-mailing-labels input[type="radio"]:focus-visible,
+.widget-mailing-labels input[type="checkbox"]:focus-visible {
+    outline: 2px solid #005fcc;
+    outline-offset: 2px;
+}
+
+/* Select & input focus */
+.widget-mailing-labels input:focus,
+.widget-mailing-labels select:focus,
+.widget-mailing-labels textarea:focus {
+    border-color: #005fcc;
+    box-shadow: 0 0 0 3px rgba(0, 95, 204, 0.25);
+    outline: none;
+}
+
+/* ----------------------------------------
+   Fieldset reset for ExB context
+   ---------------------------------------- */
+.widget-mailing-labels fieldset {
+    margin: 0;
+}
+
+    .widget-mailing-labels fieldset legend {
+        padding: 0;
+    }
+
+/* ----------------------------------------
+   Toolbar focus z-index (WCAG 4.1.2)
+   ---------------------------------------- */
+.widget-mailing-labels [role="toolbar"] button:focus-visible {
+    z-index: 1;
+}
+
+/* ----------------------------------------
+   Disabled state (WCAG 1.4.1 - not relying on color alone)
+   ---------------------------------------- */
+.widget-mailing-labels button:disabled,
+.widget-mailing-labels [role="button"]:disabled {
+    cursor: not-allowed;
+}
+
+.widget-mailing-labels input:disabled,
+.widget-mailing-labels select:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+/* ----------------------------------------
+   Reduced Motion (WCAG 2.3.3)
+   ---------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+    .widget-mailing-labels *,
+    .widget-mailing-labels *::before,
+    .widget-mailing-labels *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ----------------------------------------
+   High Contrast Mode (WCAG 1.4.11)
+   ---------------------------------------- */
+@media (forced-colors: active) {
+    .widget-mailing-labels {
+        border: 2px solid CanvasText;
+    }
+
+        .widget-mailing-labels input,
+        .widget-mailing-labels select {
+            border: 2px solid CanvasText;
+        }
+
+        .widget-mailing-labels button,
+        .widget-mailing-labels [role="button"] {
+            border: 2px solid ButtonText;
+        }
+
+            .widget-mailing-labels button:disabled,
+            .widget-mailing-labels [role="button"]:disabled {
+                border-color: GrayText;
+                color: GrayText;
+            }
+
+        .widget-mailing-labels input:disabled,
+        .widget-mailing-labels select:disabled {
+            border-color: GrayText;
+            color: GrayText;
+        }
+
+        .widget-mailing-labels *:focus-visible {
+            outline: 3px solid Highlight !important;
+            outline-offset: 2px;
+        }
+}
+
+/* ----------------------------------------
+   Print
+   ---------------------------------------- */
+@media print {
+    .widget-mailing-labels {
+        box-shadow: none;
+        background: transparent;
+    }
+
+    [role="toolbar"],
+    [role="status"],
+    [role="alert"],
+    [role="alertdialog"] {
+        display: none;
+    }
+
+    .widget-mailing-labels *:focus {
+        outline: none;
+    }
+}
+
+/* ----------------------------------------
+   Loading spinner used inline in render
+   ---------------------------------------- */
+@keyframes mlspin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ----------------------------------------
+   Polished input/select focus styles - the
+   focus ring above is fine for keyboards;
+   this gives a calmer effect on mouse focus
+   inside the widget cards.
+   ---------------------------------------- */
+.widget-mailing-labels input:focus,
+.widget-mailing-labels select:focus {
+    border-color: #0079c1 !important;
+    box-shadow: 0 0 0 3px rgba(0, 121, 193, 0.15);
+}

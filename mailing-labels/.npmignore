@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+
+# IDE / editor cruft
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS cruft
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Tests and tooling configs (not needed by consumers)
+**/*.test.ts
+**/*.test.tsx
+__tests__/
+.eslintrc*
+.prettierrc*
+tsconfig.json

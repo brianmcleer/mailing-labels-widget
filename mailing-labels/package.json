@@ -1,0 +1,32 @@
+{
+  "name": "mailing-labels",
+  "version": "1.0.0",
+  "description": "Generate mailing labels from web map layer data with address search, partial sheet support, Avery label formats, and CSV or PDF output.",
+  "keywords": [
+    "exb-widget",
+    "experience-builder",
+    "exb",
+    "arcgis",
+    "esri",
+    "mailing-labels",
+    "avery",
+    "geocoding",
+    "address-search",
+    "pdf",
+    "csv",
+    "labels"
+  ],
+  "license": "Apache-2.0",
+  "author": "Brian McLeer",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brianmcleer/mailing-labels-widget.git"
+  },
+  "bugs": {
+    "url": "https://github.com/brianmcleer/mailing-labels-widget/issues"
+  },
+  "homepage": "https://github.com/brianmcleer/mailing-labels-widget#readme",
+  "dependencies": {
+    "jspdf": "^2.5.1"
+  }
+}
