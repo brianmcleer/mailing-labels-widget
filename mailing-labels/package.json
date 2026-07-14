@@ -28,5 +28,8 @@
   "homepage": "https://github.com/brianmcleer/mailing-labels-widget#readme",
   "dependencies": {
     "jspdf": "^4.2.1"
+  },
+  "allowScripts": {
+    "core-js": false
   }
 }
