@@ -66,7 +66,7 @@
     // Runtime interface
     selectedLayer: 'Selected Layer',
     noLayerSelected: 'No layer selected',
-    notConfigured: 'Not configured',
+    runtimeNotConfigured: 'Not configured',
 
     // Address type selection in widget
     labelTypeSelection: 'Label Type',
@@ -217,7 +217,7 @@
     generateAllFeatures: 'No selection made. Generate labels for ALL features in the layer?',
     confirmGeneration: 'Generate labels for {count} features?',
     yes: 'Yes',
-    cancel: 'Cancel',
+    cancelConfirmation: 'Cancel',
 
     // Header options
     includeHeader: 'Include Page Header',
@@ -302,7 +302,7 @@
     featureHighlighting: 'Visual feedback for selected features',
 
     // Field mapping help
-    fieldMappingTitle: 'Field Mapping Guide',
+    fieldMappingGuideTitle: 'Field Mapping Guide',
     fieldMappingIntro: 'Configure how your layer fields map to address components:',
 
     nameFieldHelp: 'Name - Recipient name or business name',

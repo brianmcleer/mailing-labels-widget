@@ -42,6 +42,11 @@ interface Config {
     geocodeUrl?: string
 }
 
+type SettingProps = AllWidgetSettingProps<Config> & {
+    id: string
+    useMapWidgetIds?: string[] | any
+}
+
 interface State {
     config: Config
     availableLayers: any[]
@@ -55,10 +60,23 @@ interface State {
     geocodeTestMessage: string
 }
 
-export default class Setting extends React.PureComponent<AllWidgetSettingProps<Config>, State> {
+export default class Setting extends React.PureComponent<SettingProps, State> {
+    /**
+     * Visual Studio can resolve `React.PureComponent` as an incomplete type when
+     * following Experience Builder 1.21's pnpm symlinks. These declarations are
+     * erased by TypeScript and only restore the inherited React instance members
+     * for editor analysis; they do not emit fields or change runtime behavior.
+     */
+    declare readonly props: Readonly<SettingProps>
+    declare state: Readonly<State>
+    declare setState: (
+        state: Partial<State> | ((prevState: Readonly<State>, props: Readonly<SettingProps>) => Partial<State> | State | null),
+        callback?: () => void
+    ) => void
+
     private mapViewManager: any
 
-    constructor(props: AllWidgetSettingProps<Config>) {
+    constructor(props: SettingProps) {
         super(props)
         this.state = {
             config: props.config || {
@@ -118,7 +136,7 @@ export default class Setting extends React.PureComponent<AllWidgetSettingProps<C
         }, 10000) // Third try after 10s
     }
 
-    componentDidUpdate(prevProps: AllWidgetSettingProps<Config>) {
+    componentDidUpdate(prevProps: SettingProps) {
         if (prevProps.config?.useMapWidgetIds !== this.props.config?.useMapWidgetIds) {
             setTimeout(() => {
                 this.loadLayersFromMap()
@@ -1063,7 +1081,7 @@ export default class Setting extends React.PureComponent<AllWidgetSettingProps<C
                                         onChange={() => {
                                             this.props.onSettingChange({
                                                 id: this.props.id,
-                                                config: this.props.config.set('enableDrawWidgetIntegration', !this.props.config.enableDrawWidgetIntegration)
+                                                config: (this.props.config as any).set('enableDrawWidgetIntegration', !this.props.config.enableDrawWidgetIntegration)
                                             })
                                         }}
                                         aria-label="Enable Draw Widget integration"

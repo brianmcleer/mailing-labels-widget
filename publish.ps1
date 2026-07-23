@@ -21,7 +21,7 @@ $ErrorActionPreference = "Stop"
 # ----- EDIT THESE THREE PER WIDGET -----------------------------------------
 $WidgetName    = "mailing-labels"
 $RepoName      = "mailing-labels-widget"
-$ExbWidgetPath = "C:\arcgis-experience-builder-1.20\client\your-extensions\widgets\$WidgetName"
+$ExbWidgetPath = "C:\arcgis-experience-builder-1.21\client\your-extensions\widgets\$WidgetName"
 # ----------------------------------------------------------------------------
 
 $RepoPath   = $PSScriptRoot

@@ -10,13 +10,28 @@ import { ClearOutlined } from 'jimu-icons/outlined/editor/clear'
 import { Config, LabelFormat, FieldMappings, LABEL_FORMATS } from '../config'
 
 // Import ArcGIS modules - simplified to avoid conflicts
+// @ts-ignore -- EB 1.21/Visual Studio misclassifies this ArcGIS 5.x declaration; webpack resolves the runtime module.
 import Graphic from 'esri/Graphic'
+// @ts-ignore -- EB 1.21/Visual Studio misclassifies this ArcGIS 5.x declaration; webpack resolves the runtime module.
 import GraphicsLayer from 'esri/layers/GraphicsLayer'
+// @ts-ignore -- EB 1.21/Visual Studio misclassifies this ArcGIS 5.x declaration; webpack resolves the runtime module.
 import geometryEngine from 'esri/geometry/geometryEngine'
+// @ts-ignore -- EB 1.21/Visual Studio misclassifies this ArcGIS 5.x declaration; webpack resolves the runtime module.
 import Polygon from 'esri/geometry/Polygon'
+// @ts-ignore -- EB 1.21/Visual Studio misclassifies this ArcGIS 5.x declaration; webpack resolves the runtime module.
 import Point from 'esri/geometry/Point'
+// @ts-ignore -- EB 1.21/Visual Studio misclassifies this ArcGIS 5.x declaration; webpack resolves the runtime module.
 import SpatialReference from 'esri/geometry/SpatialReference'
+// @ts-ignore -- EB 1.21/Visual Studio misclassifies this ArcGIS 5.x declaration; webpack resolves the runtime module.
 import SketchViewModel from "esri/widgets/Sketch/SketchViewModel";
+// @ts-ignore -- EB 1.21/Visual Studio misclassifies this ArcGIS declaration; webpack resolves it.
+import type LayerView from 'esri/views/layers/LayerView'
+// @ts-ignore -- EB 1.21/Visual Studio misclassifies this ArcGIS declaration; webpack resolves it.
+import type { GraphicHit } from 'esri/views/types'
+// @ts-ignore -- EB 1.21/Visual Studio misclassifies this ArcGIS declaration; webpack resolves it.
+import type { ClickEvent as ViewClickEvent } from 'esri/views/input/types'
+// @ts-ignore -- EB 1.21/Visual Studio misclassifies this ArcGIS declaration; webpack resolves it.
+import type { CreateEvent as SketchCreateEvent } from 'esri/widgets/Sketch/types'
 // NOTE: Geocoding is intentionally done with plain fetch+POST against the REST
 // endpoints rather than esri/rest/locator. The locator module has a Windows-only
 // casing conflict on JSAPI 5.x that breaks the very tools using it. Plain fetch
@@ -31,7 +46,7 @@ import CircleIcon from './assets/circle.svg';
 import MultipointIcon from './assets/multipoint.svg';
 import TrashIcon from './assets/trash.svg';
 
-// Import jsPDF for direct PDF download without having to go through print to PDF, need to run npm install jspdf on client folder
+// jsPDF is declared in package.json; EB 1.21 installs widget dependencies during the client-level 'pnpm ci'.
 import jsPDF from 'jspdf';
 
 // PDF Generation
@@ -41,12 +56,19 @@ declare global {
     }
 }
 
+type ArcGISGeometry = NonNullable<Graphic['geometry']>
+type RemovableHandle = { remove: () => void }
+
+// Experience Builder injects `id` at runtime, but the EB 1.21 editor can omit it
+// from AllWidgetProps when resolving pnpm-linked declarations. This is type-only.
+type RuntimeWidgetProps = AllWidgetProps<Config> & { id: string }
+
 // Selection object to track geometry and its selected features
 interface Selection {
     selectionId: string;
-    geometry: __esri.Geometry;
+    geometry: ArcGISGeometry;
     featureObjectIds: number[];
-    features: __esri.Graphic[];
+    features: Graphic[];
 }
 
 // Helper functions - simplified for layer-based addresses only
@@ -235,7 +257,7 @@ interface State {
     showConfirmDialog: { show: boolean, message: string, onConfirm: () => void }
     bufferDistance: number
     bufferUnit: string
-    highlightHandles: __esri.Handle[]
+    highlightHandles: RemovableHandle[]
     selectedFeatures: any[]
     // User-selectable options moved from config to state
     labelFormat: LabelFormat
@@ -273,12 +295,24 @@ interface State {
 let idCounter = 0;
 const generateId = (prefix: string) => `${prefix}-${++idCounter}`;
 
-export default class MailingLabelWidget extends React.PureComponent<AllWidgetProps<Config>, State> {
+export default class MailingLabelWidget extends React.PureComponent<RuntimeWidgetProps, State> {
+    /**
+     * Visual Studio can resolve React.PureComponent as an incomplete type when
+     * following Experience Builder 1.21 pnpm symlinks. These declarations are
+     * type-only and are erased during compilation.
+     */
+    declare readonly props: Readonly<RuntimeWidgetProps>
+    declare state: Readonly<State>
+    declare setState: (
+        state: Partial<State> | ((prevState: Readonly<State>, props: Readonly<RuntimeWidgetProps>) => Partial<State> | State | null),
+        callback?: () => void
+    ) => void
+
     private drawingHandlers: any[] = []
-    private sketchLayer: __esri.GraphicsLayer | null = null;
-    private sketchVM: __esri.SketchViewModel | null = null;
-    private deleteClickHandler: __esri.Handle | null = null;
-    private addClickHandler: __esri.Handle | null = null;
+    private sketchLayer: GraphicsLayer | null = null;
+    private sketchVM: SketchViewModel | null = null;
+    private deleteClickHandler: RemovableHandle | null = null;
+    private addClickHandler: RemovableHandle | null = null;
 
     // Unique IDs for form elements (WCAG 1.3.1, 4.1.2)
     private bufferInputId = generateId('buffer-distance');
@@ -293,7 +327,7 @@ export default class MailingLabelWidget extends React.PureComponent<AllWidgetPro
     // Address search machinery
     private suggestDebounceTimer: number | null = null;
     private suggestAbortController: AbortController | null = null;
-    private addressSearchMarker: __esri.Graphic | null = null;
+    private addressSearchMarker: Graphic | null = null;
 
     // Right-Click integration. The Right-Click widget pushes an `actionPoint`
     // payload into our `mutableStateProps` via MutableStoreManager. The payload
@@ -303,7 +337,7 @@ export default class MailingLabelWidget extends React.PureComponent<AllWidgetPro
     // selection, even though the sender does staggered retries.
     private lastActionPointTimestamp: number = 0;
 
-    constructor(props: AllWidgetProps<Config>) {
+    constructor(props: RuntimeWidgetProps) {
         super(props)
 
         // Determine which address types are enabled
@@ -392,7 +426,7 @@ export default class MailingLabelWidget extends React.PureComponent<AllWidgetPro
         }
     }
 
-    componentDidUpdate(prevProps: AllWidgetProps<Config>) {
+    componentDidUpdate(prevProps: RuntimeWidgetProps) {
         if (this.props.state === "CLOSED" && prevProps.state !== "CLOSED") {
             this.handleWidgetClose();
         }
@@ -543,7 +577,7 @@ export default class MailingLabelWidget extends React.PureComponent<AllWidgetPro
             };
 
             view.map.layers.forEach(layer => {
-                view.whenLayerView(layer).then((layerView: __esri.LayerView) => {
+                view.whenLayerView(layer).then((layerView: LayerView) => {
                     if (layer.type === "feature") {
                         const featureLayerView = layerView as any;
                         if ("highlightOptions" in featureLayerView) {
@@ -597,7 +631,7 @@ export default class MailingLabelWidget extends React.PureComponent<AllWidgetPro
             };
 
             view.map.layers.forEach(layer => {
-                view.whenLayerView(layer).then((layerView: __esri.LayerView) => {
+                view.whenLayerView(layer).then((layerView: LayerView) => {
                     if (layer.type === "feature") {
                         const featureLayerView = layerView as any;
                         if ("highlightOptions" in featureLayerView) {
@@ -834,7 +868,7 @@ export default class MailingLabelWidget extends React.PureComponent<AllWidgetPro
             };
 
             view.map.layers.forEach(layer => {
-                view.whenLayerView(layer).then((layerView: __esri.LayerView) => {
+                view.whenLayerView(layer).then((layerView: LayerView) => {
                     try {
                         const layerType = layer.type;
 
@@ -1198,7 +1232,7 @@ export default class MailingLabelWidget extends React.PureComponent<AllWidgetPro
                 layer: this.sketchLayer
             });
 
-            this.sketchVM.on("create", async (event: __esri.SketchViewModelCreateEvent) => {
+            this.sketchVM.on("create", async (event: SketchCreateEvent) => {
                 if (event.state !== "complete") return;
 
                 const { bufferDistance, bufferUnit } = this.state;
@@ -1403,7 +1437,7 @@ export default class MailingLabelWidget extends React.PureComponent<AllWidgetPro
 
             const { selectionMethod } = this.props.config || {}
             if (selectionMethod === 'click' || selectionMethod === 'both') {
-                jimuMapView.view.on('click', (event: __esri.ViewClickEvent) => {
+                jimuMapView.view.on('click', (event: ViewClickEvent) => {
                     if (this.state.widgetOpen) {
                         event.stopPropagation();
                         this.onMapClick(event);
@@ -1826,7 +1860,7 @@ export default class MailingLabelWidget extends React.PureComponent<AllWidgetPro
                     const graphicHits = response.results.filter(result => result.type === 'graphic')
 
                     for (const hit of graphicHits) {
-                        const graphicHit = hit as __esri.MapViewGraphicHit
+                        const graphicHit = hit as GraphicHit
 
                         if (graphicHit.graphic && graphicHit.graphic.layer === this.state.selectedLayer) {
                             const objectId = graphicHit.graphic.attributes[this.state.selectedLayer.objectIdField];
@@ -2360,7 +2394,7 @@ export default class MailingLabelWidget extends React.PureComponent<AllWidgetPro
         }
     }
 
-    removeGraphic = (graphic: __esri.Graphic) => {
+    removeGraphic = (graphic: Graphic) => {
         if (!this.state.graphicsLayer) return;
 
         // Remove the graphic from the graphics layer
@@ -2397,7 +2431,7 @@ export default class MailingLabelWidget extends React.PureComponent<AllWidgetPro
             // Look for a highlighted feature
             for (const result of hitTestResponse.results) {
                 if (result.type === 'graphic') {
-                    const graphic = (result as __esri.MapViewGraphicHit).graphic;
+                    const graphic = (result as GraphicHit).graphic;
                     
                     // Check if this is a highlighted feature
                     if (graphic.attributes?.isHighlight && graphic.attributes?.originalObjectId) {
@@ -2467,19 +2501,19 @@ export default class MailingLabelWidget extends React.PureComponent<AllWidgetPro
         
         // Remove ONLY graphics with this specific selectionId
         if (this.state.graphicsLayer) {
-            const graphicsToRemove = this.state.graphicsLayer.graphics.filter((g: __esri.Graphic) => 
+            const graphicsToRemove = this.state.graphicsLayer.graphics.filter((g: Graphic) => 
                 g.attributes?.selectionId === selectionId
             );
-            graphicsToRemove.forEach((g: __esri.Graphic) => {
+            graphicsToRemove.forEach((g: Graphic) => {
                 this.state.graphicsLayer.remove(g);
             });
         }
         
         if (this.sketchLayer) {
-            const graphicsToRemove = this.sketchLayer.graphics.filter((g: __esri.Graphic) => 
+            const graphicsToRemove = this.sketchLayer.graphics.filter((g: Graphic) => 
                 g.attributes?.selectionId === selectionId
             );
-            graphicsToRemove.forEach((g: __esri.Graphic) => {
+            graphicsToRemove.forEach((g: Graphic) => {
                 this.sketchLayer.remove(g);
             });
         }
@@ -2572,7 +2606,7 @@ export default class MailingLabelWidget extends React.PureComponent<AllWidgetPro
         return false;
     }
 
-    doesGraphicContainPoint = (graphic: __esri.Graphic, point: __esri.Point): boolean => {
+    doesGraphicContainPoint = (graphic: Graphic, point: Point): boolean => {
         if (!graphic.geometry || !point) return false;
         
         try {
@@ -2580,7 +2614,7 @@ export default class MailingLabelWidget extends React.PureComponent<AllWidgetPro
             
             if (geomType === 'point') {
                 // For point geometries, check if click is within a reasonable distance
-                const distance = geometryEngine.distance(point, graphic.geometry as __esri.Point, 'meters');
+                const distance = geometryEngine.distance(point, graphic.geometry as Point, 'meters');
                 // Use a more generous tolerance - about 20-30 pixels worth at typical scales
                 const pixelTolerance = 25;
                 const tolerance = this.state.mapView?.view?.resolution 
@@ -2599,7 +2633,7 @@ export default class MailingLabelWidget extends React.PureComponent<AllWidgetPro
             } 
             else if (geomType === 'polygon') {
                 // For polygons, check if point is contained within or very close to the polygon
-                const contained = geometryEngine.contains(graphic.geometry as __esri.Polygon, point);
+                const contained = geometryEngine.contains(graphic.geometry as Polygon, point);
                 if (contained) return true;
                 
                 // Also check if near the boundary

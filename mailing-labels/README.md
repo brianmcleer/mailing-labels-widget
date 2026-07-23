@@ -50,10 +50,10 @@ https://community.esri.com/t5/experience-builder-custom-widgets/mailing-labels-c
 
 ## Requirements
 
-- ArcGIS Experience Builder Developer Edition 1.19 or 1.20 (React 19). The 1.18 line is no longer maintained.
+- ArcGIS Experience Builder Developer Edition 1.20 or 1.21. The included editor configuration is tailored to the 1.21 pnpm layout.
 - The data source must be a **Feature Layer**. Map services and related tables are not supported. If your mailing data lives in a related table, publish that table as a feature layer to your Portal as a workaround.
 - Selection is capped at 2,000 records to keep export times reasonable.
-- jsPDF is required and installs automatically as part of the widget's `package.json` when you run `npm install` in the EB `client` folder. No separate install step.
+- jsPDF is declared in the widget's `package.json` and is installed by Experience Builder's client-level `pnpm ci`. Do not run `npm install` inside the widget folder.
 - A geocoding service URL is only required if you want to use address search. Any ArcGIS GeocodeServer works, including a portal locator or the Esri World Geocoder.
 
 ## Configuration
@@ -75,10 +75,10 @@ Open the widget settings in the Builder and configure:
    ```
 3. From the `client` folder, run:
    ```
-   npm install
+   pnpm ci
    ```
-   This installs the widget's dependencies (jsPDF) automatically because they are declared in the widget's `package.json`.
-4. Restart Experience Builder.
+   Experience Builder's bootstrap installs the widget dependency declared in `package.json`; no per-widget install is needed.
+4. Restart Experience Builder. If Visual Studio was already open, close it and remove the widget's `.vs` cache before reopening the folder.
 
 ## Feedback
 
