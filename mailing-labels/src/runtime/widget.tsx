@@ -600,28 +600,38 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
         });
     };
 
+    /**
+     * Whether map popups should be suppressed while the widget is open.
+     * Controlled by the suppressMapPopups setting (default: true).
+     */
+    shouldSuppressPopups = (): boolean => {
+        return (this.props.config as any)?.suppressMapPopups !== false;
+    };
+
     handleWidgetReopen = () => {
         const { mapView } = this.state;
 
         if (mapView?.view) {
             const view = mapView.view;
 
-            view.popupEnabled = false;
+            if (this.shouldSuppressPopups()) {
+                view.popupEnabled = false;
 
-            if (view.popup && "autoCloseEnabled" in view.popup) {
-                view.popup.autoCloseEnabled = false;
-            }
-
-            view.popup.visible = false;
-
-            try {
-                if (view.popup.viewModel?.clear) {
-                    view.popup.viewModel.clear();
-                } else if (view.popup.viewModel?.features?.length) {
-                    view.popup.viewModel.features.splice(0);
+                if (view.popup && "autoCloseEnabled" in view.popup) {
+                    view.popup.autoCloseEnabled = false;
                 }
-            } catch (err) {
-                // Handle silently
+
+                view.popup.visible = false;
+
+                try {
+                    if (view.popup.viewModel?.clear) {
+                        view.popup.viewModel.clear();
+                    } else if (view.popup.viewModel?.features?.length) {
+                        view.popup.viewModel.features.splice(0);
+                    }
+                } catch (err) {
+                    // Handle silently
+                }
             }
 
             view.highlightOptions = {
@@ -855,10 +865,12 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
         if (jimuMapView) {
             const view = jimuMapView.view;
 
-            view.popupEnabled = false;
+            if (this.shouldSuppressPopups()) {
+                view.popupEnabled = false;
 
-            if (view.popup && "autoCloseEnabled" in view.popup) {
-                view.popup.autoCloseEnabled = false;
+                if (view.popup && "autoCloseEnabled" in view.popup) {
+                    view.popup.autoCloseEnabled = false;
+                }
             }
 
             view.highlightOptions = {
@@ -1217,7 +1229,9 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
 
             const view = jimuMapView.view;
 
-            view.popupEnabled = false;
+            if (this.shouldSuppressPopups()) {
+                view.popupEnabled = false;
+            }
             view.highlightOptions = {
                 color: [0, 0, 0, 0],
                 fillOpacity: 0,
@@ -3284,7 +3298,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
 
         try {
             const verb = mode === 'print' ? 'printing' : 'downloading';
-            this.showMessage('info', `📄 PDF Generation: Processing ${features.length} features for ${verb}`);
+            this.showMessage('info', `PDF Generation: Processing ${features.length} features for ${verb}`);
 
             const pdfGenerator = new SimplePDFGenerator();
 
@@ -4676,7 +4690,6 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                                     gap: '6px'
                                 },
                                 children: [
-                                    jsx('span', { key: 'pin', 'aria-hidden': 'true', children: '📍' }),
                                     jsx('span', {
                                         key: 'lbl',
                                         style: { overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' },

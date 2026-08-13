@@ -60,6 +60,13 @@ export interface Config {
     enableDrawWidgetIntegration?: boolean
 
     /**
+     * Whether the widget suppresses map popups while it is open.
+     * Default true (preserves original behavior). When false, map popups
+     * remain enabled while the widget is open.
+     */
+    suppressMapPopups?: boolean
+
+    /**
      * URL of an ArcGIS GeocodeServer to power the in-widget address search.
      * Example: https://geocode-api.arcgis.com/arcgis/rest/services/World/GeocodeServer
      * If empty, the address search panel is hidden.
@@ -279,6 +286,7 @@ export const DEFAULT_CONFIG: Config = {
     maxRecords: 2000,
     removeEmptyRecords: true,
     removeDuplicates: false,
+    suppressMapPopups: true,
     geocodeUrl: ''
 }
 

@@ -1,6 +1,6 @@
 ﻿import { AllWidgetSettingProps } from 'jimu-for-builder'
 import { MapWidgetSelector, SettingSection, SettingRow } from 'jimu-ui/advanced/setting-components'
-import { TextInput, Label, Switch, Select, Option, NumericInput, Button } from 'jimu-ui'
+import { TextInput, Label, Switch, Select, Option, Button, Checkbox, Alert } from 'jimu-ui'
 import { React, Immutable, DataSourceManager, getAppStore } from 'jimu-core'
 import { MapViewManager } from 'jimu-arcgis'
 
@@ -39,6 +39,7 @@ interface Config {
     enableGeometrySelection?: boolean
     selectionMethod?: 'click' | 'draw' | 'both'
     enableDrawWidgetIntegration?: boolean
+    suppressMapPopups?: boolean
     geocodeUrl?: string
 }
 
@@ -58,6 +59,7 @@ interface State {
     layerLoadError: string | null
     geocodeTestStatus: 'idle' | 'testing' | 'ok' | 'error'
     geocodeTestMessage: string
+    importExportStatus: string | null
 }
 
 export default class Setting extends React.PureComponent<SettingProps, State> {
@@ -117,7 +119,8 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
             isLoadingLayers: false,
             layerLoadError: null,
             geocodeTestStatus: 'idle',
-            geocodeTestMessage: ''
+            geocodeTestMessage: '',
+            importExportStatus: null
         }
     }
 
@@ -588,159 +591,220 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
         })
     }
 
-    // Helper function to render physical address field mapping section
-    renderPhysicalFieldMappingSection = () => {
-        const { selectedFields = { name: '', nameCustomText: '', useCustomName: false, address1: '', address2: '', city: '', state: '', zip: '' } } = this.state.config
+    // ---------------------------------------------------------------
+    // Configuration import / export (XML)
+    // ---------------------------------------------------------------
 
-        return (
-            <div style={{ marginBottom: '20px', padding: '15px', border: '1px solid #007ac3', borderRadius: '5px' }}>
-                <div style={{ marginBottom: '10px', fontWeight: 'bold', color: '#007ac3', fontSize: '14px' }}>
-                    📮 Physical Mailing Address Fields
-                </div>
-                <div style={{ fontSize: '12px', color: '#6c757d', marginBottom: '15px' }}>
-                    Configure how physical mailing addresses are extracted from your data layer.
-                </div>
-                <div className="field-mapping">
-                    {/* Special handling for name field with custom text option */}
-                    <SettingRow>
-                        <Label>Name:</Label>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                <input
-                                    type="checkbox"
-                                    checked={selectedFields.useCustomName || false}
-                                    onChange={(e) => this.onPhysicalFieldMapping('useCustomName', e.target.checked)}
-                                    id="physical-useCustomName"
-                                />
-                                <label htmlFor="physical-useCustomName" style={{ fontSize: '12px' }}>
-                                    Use custom text instead of field
-                                </label>
-                            </div>
-
-                            {selectedFields.useCustomName ? (
-                                <TextInput
-                                    placeholder="Enter custom text (e.g., Current Resident)"
-                                    value={selectedFields.nameCustomText || ''}
-                                    onChange={(evt) => this.onPhysicalFieldMapping('nameCustomText', evt.target.value)}
-                                    style={{ maxWidth: '100%', boxSizing: 'border-box' }}
-                                />
-                            ) : (
-                                <Select
-                                    placeholder="Select field for name"
-                                    value={selectedFields.name || ''}
-                                    onChange={(evt) => this.onPhysicalFieldMapping('name', evt.target.value)}
-                                >
-                                    <Option value="">-- Select Field --</Option>
-                                    {this.state.availableFields.map((field: any) => (
-                                        <Option key={field.name} value={field.name}>
-                                            {field.alias || field.name}
-                                        </Option>
-                                    ))}
-                                </Select>
-                            )}
-                        </div>
-                    </SettingRow>
-
-                    {/* Regular field mappings for other fields */}
-                    {Object.keys(selectedFields).filter(key => key !== 'name' && key !== 'nameCustomText' && key !== 'useCustomName').map(labelField => (
-                        <SettingRow key={`physical-${labelField}`}>
-                            <Label>
-                                {labelField.charAt(0).toUpperCase() + labelField.slice(1)}:
-                            </Label>
-                            <Select
-                                placeholder={`Select field for ${labelField}`}
-                                value={selectedFields[labelField]}
-                                onChange={(evt) => this.onPhysicalFieldMapping(labelField, evt.target.value)}
-                            >
-                                <Option value="">-- Select Field --</Option>
-                                {this.state.availableFields.map((field: any) => (
-                                    <Option key={field.name} value={field.name}>
-                                        {field.alias || field.name}
-                                    </Option>
-                                ))}
-                            </Select>
-                        </SettingRow>
-                    ))}
-                </div>
-            </div>
-        )
+    private xmlEscape = (v: any): string => {
+        return String(v)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
     }
 
-    // Helper function to render owner address field mapping section
-    renderOwnerFieldMappingSection = () => {
-        const { ownerFields = { name: '', nameCustomText: '', useCustomName: false, address1: '', address2: '', city: '', state: '', zip: '' } } = this.state.config
+    /** Serialize a plain config object to XML elements (skips arrays and null/undefined). */
+    private objectToXml = (obj: any, indent: string): string => {
+        let out = ''
+        Object.keys(obj || {}).forEach(key => {
+            const val = obj[key]
+            if (val === undefined || val === null) return
+            if (Array.isArray(val)) return
+            if (typeof val === 'object') {
+                const inner = this.objectToXml(val, indent + '  ')
+                out += `${indent}<${key}>\n${inner}${indent}</${key}>\n`
+            } else {
+                out += `${indent}<${key} type="${typeof val}">${this.xmlEscape(val)}</${key}>\n`
+            }
+        })
+        return out
+    }
 
-        return (
-            <div style={{ marginBottom: '20px', padding: '15px', border: '1px solid #28a745', borderRadius: '5px' }}>
-                <div style={{ marginBottom: '10px', fontWeight: 'bold', color: '#28a745', fontSize: '14px' }}>
-                    🏠 Owner Address Fields
-                </div>
-                <div style={{ fontSize: '12px', color: '#6c757d', marginBottom: '15px' }}>
-                    Configure how property owner addresses are extracted from your data layer.
-                </div>
-                <div className="field-mapping">
-                    {/* Special handling for name field with custom text option */}
-                    <SettingRow>
-                        <Label>Name:</Label>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                <input
-                                    type="checkbox"
-                                    checked={ownerFields.useCustomName || false}
-                                    onChange={(e) => this.onOwnerFieldMapping('useCustomName', e.target.checked)}
-                                    id="owner-useCustomName"
-                                />
-                                <label htmlFor="owner-useCustomName" style={{ fontSize: '12px' }}>
-                                    Use custom text instead of field
-                                </label>
-                            </div>
+    /** Parse XML elements back into a plain config object using the type attribute. */
+    private xmlToObject = (node: Element): any => {
+        const obj: any = {}
+        Array.from(node.children).forEach(child => {
+            if (child.children.length > 0) {
+                obj[child.nodeName] = this.xmlToObject(child)
+            } else {
+                const t = child.getAttribute('type')
+                const raw = child.textContent ?? ''
+                obj[child.nodeName] = t === 'boolean' ? raw === 'true' : t === 'number' ? Number(raw) : raw
+            }
+        })
+        return obj
+    }
 
-                            {ownerFields.useCustomName ? (
-                                <TextInput
-                                    placeholder="Enter custom text (e.g., Property Owner)"
-                                    value={ownerFields.nameCustomText || ''}
-                                    onChange={(evt) => this.onOwnerFieldMapping('nameCustomText', evt.target.value)}
-                                    style={{ maxWidth: '100%', boxSizing: 'border-box' }}
-                                />
-                            ) : (
-                                <Select
-                                    placeholder="Select field for owner name"
-                                    value={ownerFields.name || ''}
-                                    onChange={(evt) => this.onOwnerFieldMapping('name', evt.target.value)}
-                                >
-                                    <Option value="">-- Select Field --</Option>
-                                    {this.state.ownerAvailableFields.map((field: any) => (
-                                        <Option key={field.name} value={field.name}>
-                                            {field.alias || field.name}
-                                        </Option>
-                                    ))}
-                                </Select>
-                            )}
-                        </div>
-                    </SettingRow>
+    /** Export the current widget configuration as a downloadable XML file. */
+    exportConfigXml = () => {
+        try {
+            const cfg: any = this.props.config as any
+            const plain: any = cfg?.asMutable ? cfg.asMutable({ deep: true }) : { ...cfg }
+            // Map bindings are app-specific and are intentionally not exported
+            delete plain.useMapWidgetIds
+            const xml = '<?xml version="1.0" encoding="UTF-8"?>\n'
+                + '<mailingLabelsConfig version="1">\n'
+                + this.objectToXml(plain, '  ')
+                + '</mailingLabelsConfig>\n'
+            const blob = new Blob([xml], { type: 'application/xml' })
+            const url = URL.createObjectURL(blob)
+            const a = document.createElement('a')
+            a.href = url
+            a.download = 'mailing-labels-settings.xml'
+            document.body.appendChild(a)
+            a.click()
+            a.remove()
+            URL.revokeObjectURL(url)
+            this.setState({ importExportStatus: 'Settings exported to mailing-labels-settings.xml.' })
+        } catch (err: any) {
+            this.setState({ importExportStatus: 'Export failed: ' + (err?.message || 'unknown error') })
+        }
+    }
 
-                    {/* Regular field mappings for other owner fields */}
-                    {Object.keys(ownerFields).filter(key => key !== 'name' && key !== 'nameCustomText' && key !== 'useCustomName').map(labelField => (
-                        <SettingRow key={`owner-${labelField}`}>
-                            <Label>
-                                {labelField.charAt(0).toUpperCase() + labelField.slice(1)}:
-                            </Label>
-                            <Select
-                                placeholder={`Select field for ${labelField}`}
-                                value={ownerFields[labelField] || ''}
-                                onChange={(evt) => this.onOwnerFieldMapping(labelField, evt.target.value)}
-                            >
-                                <Option value="">-- Select Field --</Option>
-                                {this.state.ownerAvailableFields.map((field: any) => (
-                                    <Option key={field.name} value={field.name}>
-                                        {field.alias || field.name}
-                                    </Option>
-                                ))}
-                            </Select>
-                        </SettingRow>
-                    ))}
-                </div>
+    private importFileInput: HTMLInputElement | null = null
+
+    /** Open the file picker for importing a settings XML file. */
+    triggerImportConfigXml = () => {
+        this.importFileInput?.click()
+    }
+
+    /** Read, validate, and apply an imported settings XML file. */
+    onImportFileSelected = (evt: React.ChangeEvent<HTMLInputElement>) => {
+        const file = evt.target.files?.[0]
+        evt.target.value = ''
+        if (!file) return
+        const reader = new FileReader()
+        reader.onload = () => {
+            try {
+                const doc = new DOMParser().parseFromString(String(reader.result), 'application/xml')
+                if (doc.getElementsByTagName('parsererror').length > 0) {
+                    throw new Error('File is not valid XML.')
+                }
+                const root = doc.documentElement
+                if (root.nodeName !== 'mailingLabelsConfig') {
+                    throw new Error('Not a Mailing Labels settings file.')
+                }
+                const imported = this.xmlToObject(root)
+                // Never let an import overwrite the map binding for this app
+                delete imported.useMapWidgetIds
+                const merged = {
+                    ...this.state.config,
+                    ...imported,
+                    useMapWidgetIds: this.state.config.useMapWidgetIds
+                }
+                this.setState({ config: merged, importExportStatus: 'Settings imported successfully.' })
+                this.props.onSettingChange({
+                    id: this.props.id,
+                    config: merged
+                })
+            } catch (err: any) {
+                this.setState({ importExportStatus: 'Import failed: ' + (err?.message || 'unknown error') })
+            }
+        }
+        reader.onerror = () => {
+            this.setState({ importExportStatus: 'Import failed: could not read the file.' })
+        }
+        reader.readAsText(file)
+    }
+
+    // ---------------------------------------------------------------
+    // Render helpers (standard jimu-ui setting layout)
+    // ---------------------------------------------------------------
+
+    /** Display labels for address field mapping keys */
+    private static readonly FIELD_LABELS: Record<string, string> = {
+        address1: 'Address 1',
+        address2: 'Address 2 (unit, suite)',
+        city: 'City',
+        state: 'State',
+        zip: 'ZIP Code',
+        country: 'Country',
+        company: 'Company'
+    }
+
+    /** A label stacked above a full-width control. Keeps every input aligned in the narrow panel. */
+    private stackedRow = (labelText: string, control: React.ReactNode, key?: string) => (
+        <SettingRow flush key={key}>
+            <div className="ml-stack">
+                <Label className="ml-field-label">{labelText}</Label>
+                {control}
             </div>
+        </SettingRow>
+    )
+
+    /** A description line under a section title or control. */
+    private descRow = (text: React.ReactNode, key?: string) => (
+        <SettingRow flush key={key}>
+            <p className="ml-desc">{text}</p>
+        </SettingRow>
+    )
+
+    /** A full-width field Select bound to a mapping handler. */
+    private fieldSelect = (
+        value: string,
+        fields: any[],
+        onChange: (val: string) => void,
+        ariaLabel: string
+    ) => (
+        <Select
+            className="ml-control"
+            size="sm"
+            value={value || ''}
+            onChange={(evt: any) => onChange(evt.target.value)}
+            aria-label={ariaLabel}
+        >
+            <Option value="">None</Option>
+            {fields.map((field: any) => (
+                <Option key={field.name} value={field.name}>
+                    {field.alias || field.name}
+                </Option>
+            ))}
+        </Select>
+    )
+
+    /** Shared renderer for physical and owner field mapping sections. */
+    private renderFieldMapping = (
+        kind: 'physical' | 'owner',
+        mappings: any,
+        fields: any[],
+        onMap: (key: string, val: any) => void
+    ) => {
+        const useCustom = mappings.useCustomName || false
+        return (
+            <>
+                {this.descRow(kind === 'physical'
+                    ? 'Map each label line to a field in the physical address layer.'
+                    : 'Map each label line to a field in the owner address layer.')}
+
+                <SettingRow tag="label" label="Use custom text for name">
+                    <Checkbox
+                        checked={useCustom}
+                        onChange={(evt: any, checked?: boolean) => onMap('useCustomName', checked ?? evt?.target?.checked)}
+                        aria-label="Use custom text for name"
+                    />
+                </SettingRow>
+
+                {useCustom
+                    ? this.stackedRow('Name (custom text)',
+                        <TextInput
+                            className="ml-control"
+                            size="sm"
+                            placeholder={kind === 'physical' ? 'e.g., Current Resident' : 'e.g., Property Owner'}
+                            value={mappings.nameCustomText || ''}
+                            onChange={(evt: any) => onMap('nameCustomText', evt.target.value)}
+                            aria-label="Custom name text"
+                        />)
+                    : this.stackedRow('Name',
+                        this.fieldSelect(mappings.name, fields, (v) => onMap('name', v), 'Name field'))}
+
+                {Object.keys(mappings)
+                    .filter(key => key !== 'name' && key !== 'nameCustomText' && key !== 'useCustomName')
+                    .map(key => this.stackedRow(
+                        Setting.FIELD_LABELS[key] || key.charAt(0).toUpperCase() + key.slice(1),
+                        this.fieldSelect(mappings[key], fields, (v) => onMap(key, v), `${key} field`),
+                        `${kind}-${key}`
+                    ))}
+            </>
         )
     }
 
@@ -751,331 +815,207 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
             selectedLayerId = '',
             ownerLayerId = '',
             selectionLayerId = '',
-            enabledAddressTypes = { physical: true, owner: true },
-            defaultAddressType = 'physical',
             enableGeometrySelection = false,
             selectionMethod = 'click'
         } = config
+
+        const physicalEnabled = config.enabledAddressTypes?.physical !== false
+        const ownerEnabled = config.enabledAddressTypes?.owner === true
 
         // Handle both regular array and ImmutableArray for useMapWidgetIds
         const mapWidgetIdsArray = Array.isArray(useMapWidgetIds) ? useMapWidgetIds :
             useMapWidgetIds?.asMutable ? useMapWidgetIds.asMutable() : []
 
+        const selectedFields = config.selectedFields || { name: '', nameCustomText: '', useCustomName: false, address1: '', address2: '', city: '', state: '', zip: '' }
+        const ownerFields = config.ownerFields || { name: '', nameCustomText: '', useCustomName: false, address1: '', address2: '', city: '', state: '', zip: '' }
+
         return (
             <div className="widget-setting-mailing-labels">
-                <SettingSection title="Map Configuration">
-                    <SettingRow>
-                        <Label>Select Map Widget:</Label>
+                {/* Map source */}
+                <SettingSection title="Source">
+                    {this.stackedRow('Map widget',
                         <MapWidgetSelector
                             onSelect={this.onMapWidgetSelected}
                             useMapWidgetIds={mapWidgetIdsArray}
-                        />
-                    </SettingRow>
+                            aria-label="Select map widget"
+                        />)}
 
-                    {/* Show loading status */}
                     {mapWidgetIdsArray.length > 0 && isLoadingLayers && (
-                        <SettingRow>
-                            <div style={{
-                                padding: '10px',
-                                background: '#e7f3ff',
-                                borderRadius: '4px',
-                                color: '#0066cc',
-                                fontSize: '12px'
-                            }}>
-                                ⏳ Connecting to map widget... This may take up to 30 seconds for maps with many layers.
-                            </div>
+                        <SettingRow flush>
+                            <Alert
+                                className="ml-alert"
+                                type="info"
+                                withIcon
+                                text="Connecting to map widget. Maps with many layers can take up to 30 seconds."
+                            />
                         </SettingRow>
                     )}
 
-                    {/* Show error status */}
                     {layerLoadError && (
-                        <SettingRow>
-                            <div style={{
-                                padding: '10px',
-                                background: '#ffe7e7',
-                                borderRadius: '4px',
-                                color: '#cc0000',
-                                fontSize: '12px',
-                                marginBottom: '8px'
-                            }}>
-                                ⚠️ {layerLoadError}
-                            </div>
-                            <Button
-                                onClick={() => {
-                                    this.setState({ layerLoadError: null })
-                                    this.loadLayersFromMap()
-                                }}
-                                size="sm"
-                                type="primary"
-                            >
-                                Retry Connection
-                            </Button>
-                        </SettingRow>
+                        <>
+                            <SettingRow flush>
+                                <Alert
+                                    className="ml-alert"
+                                    type="warning"
+                                    withIcon
+                                    text={layerLoadError}
+                                />
+                            </SettingRow>
+                            <SettingRow flush>
+                                <Button
+                                    className="ml-control"
+                                    size="sm"
+                                    type="primary"
+                                    onClick={() => {
+                                        this.setState({ layerLoadError: null })
+                                        this.loadLayersFromMap()
+                                    }}
+                                >
+                                    Retry connection
+                                </Button>
+                            </SettingRow>
+                        </>
                     )}
                 </SettingSection>
 
                 {mapWidgetIdsArray.length > 0 && !isLoadingLayers && (
                     <>
-                        {/* 1. Address Type Configuration */}
-                        <SettingSection title="Address Type Configuration">
-                            <div style={{ marginBottom: '15px', padding: '15px', borderRadius: '5px', border: '1px solid #dee2e6' }}>
-                                <p style={{ margin: '0 0 10px 0', fontWeight: 'bold', color: '#495057' }}>
-                                    ⚙️ Choose which address types to make available to end users:
-                                </p>
-                                <p style={{ margin: '0', fontSize: '12px', color: '#6c757d' }}>
-                                    Configure which address types users can select when generating mailing labels.
-                                </p>
-                            </div>
+                        {/* Address types */}
+                        <SettingSection title="Address types">
+                            {this.descRow('Choose which address types end users can generate labels for.')}
 
-                            <SettingRow>
-                                <Label>Available Address Types:</Label>
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                        <Switch
-                                            checked={config.enabledAddressTypes?.physical !== false}
-                                            onChange={(evt, checked) => this.onAddressTypeToggle('physical', checked)}
-                                        />
-                                        <Label style={{ margin: 0 }}>📮 Physical Mailing Address</Label>
-                                    </div>
-                                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                        <Switch
-                                            checked={config.enabledAddressTypes?.owner === true}
-                                            onChange={(evt, checked) => this.onAddressTypeToggle('owner', checked)}
-                                        />
-                                        <Label style={{ margin: 0 }}>🏠 Owner Address</Label>
-                                    </div>
-                                </div>
+                            <SettingRow tag="label" label="Physical mailing address">
+                                <Switch
+                                    checked={physicalEnabled}
+                                    onChange={(evt: any, checked: boolean) => this.onAddressTypeToggle('physical', checked)}
+                                    aria-label="Enable physical mailing address"
+                                />
                             </SettingRow>
 
-                            {(config.enabledAddressTypes?.physical !== false && config.enabledAddressTypes?.owner === true) && (
-                                <SettingRow>
-                                    <Label>Default Address Type:</Label>
-                                    <Select
-                                        value={config.defaultAddressType || 'physical'}
-                                        onChange={this.onDefaultAddressTypeChange}
-                                    >
-                                        <Option value="physical">📮 Physical Mailing Address</Option>
-                                        <Option value="owner">🏠 Owner Address</Option>
-                                    </Select>
-                                </SettingRow>
-                            )}
+                            <SettingRow tag="label" label="Owner address">
+                                <Switch
+                                    checked={ownerEnabled}
+                                    onChange={(evt: any, checked: boolean) => this.onAddressTypeToggle('owner', checked)}
+                                    aria-label="Enable owner address"
+                                />
+                            </SettingRow>
+
+                            {physicalEnabled && ownerEnabled && this.stackedRow('Default address type',
+                                <Select
+                                    className="ml-control"
+                                    size="sm"
+                                    value={config.defaultAddressType || 'physical'}
+                                    onChange={this.onDefaultAddressTypeChange}
+                                    aria-label="Default address type"
+                                >
+                                    <Option value="physical">Physical mailing address</Option>
+                                    <Option value="owner">Owner address</Option>
+                                </Select>)}
                         </SettingSection>
 
-                        {/* 2. Physical Address Data Layer */}
-                        {config.enabledAddressTypes?.physical !== false && (
-                            <SettingSection title="Physical Address Data Layer">
-                                <div style={{ marginBottom: '15px', padding: '10px', borderRadius: '5px', border: '1px solid #007ac3' }}>
-                                    <p style={{ margin: '0', fontSize: '12px', color: '#495057' }}>
-                                        📮 Select the layer containing <strong>physical mailing address</strong> data (where mail should be delivered).
-                                    </p>
-                                </div>
-                                <SettingRow>
-                                    <Label>Physical Address Layer:</Label>
+                        {/* Physical address layer */}
+                        {physicalEnabled && (
+                            <SettingSection title="Physical address">
+                                {this.descRow('Layer containing physical mailing address data (where mail is delivered).')}
+
+                                {this.stackedRow('Layer',
                                     <Select
-                                        placeholder="Select a layer..."
+                                        className="ml-control"
+                                        size="sm"
                                         value={selectedLayerId}
                                         onChange={this.onLayerChange}
+                                        aria-label="Physical address layer"
                                     >
-                                        <Option value="">-- Select Layer --</Option>
+                                        <Option value="">Select a layer</Option>
                                         {availableLayers.map(layer => (
-                                            <Option key={layer.id} value={layer.id}>
-                                                {layer.title}
-                                            </Option>
+                                            <Option key={layer.id} value={layer.id}>{layer.title}</Option>
                                         ))}
-                                    </Select>
-                                </SettingRow>
+                                    </Select>)}
 
-                                {availableLayers.length === 0 && mapWidgetIdsArray.length > 0 && !isLoadingLayers && !layerLoadError && (
-                                    <SettingRow>
-                                        <div style={{ color: '#888', fontStyle: 'italic', marginBottom: '10px' }}>
-                                            No layers loaded yet. Click below to load layers.
-                                        </div>
-                                        <Button
-                                            onClick={() => this.loadLayersFromMap()}
-                                            size="sm"
-                                            type="primary"
-                                        >
-                                            Load Layers
-                                        </Button>
-                                    </SettingRow>
-                                )}
-                            </SettingSection>
-                        )}
-
-                        {/* 3. Physical Address Field Mapping */}
-                        {selectedLayerId && availableFields.length > 0 && config.enabledAddressTypes?.physical !== false && (
-                            <SettingSection title="Physical Address Field Mapping">
-                                {this.renderPhysicalFieldMappingSection()}
-                            </SettingSection>
-                        )}
-
-                        {/* 4. Owner Address Data Layer */}
-                        {config.enabledAddressTypes?.owner === true && (
-                            <SettingSection title="Owner Address Data Layer">
-                                <div style={{ marginBottom: '15px', padding: '10px', borderRadius: '5px', border: '1px solid #28a745' }}>
-                                    <p style={{ margin: '0', fontSize: '12px', color: '#495057' }}>
-                                        🏠 Select the layer containing <strong>property owner address</strong> data (who owns the property).
-                                    </p>
-                                </div>
-                                <SettingRow>
-                                    <Label>Owner Address Layer:</Label>
-                                    <Select
-                                        placeholder="Select layer for owner addresses..."
-                                        value={ownerLayerId}
-                                        onChange={this.onOwnerLayerChange}
-                                    >
-                                        <Option value="">-- Select Layer --</Option>
-                                        {availableLayers.map(layer => (
-                                            <Option key={layer.id} value={layer.id}>
-                                                {layer.title}
-                                            </Option>
-                                        ))}
-                                    </Select>
-                                </SettingRow>
-                            </SettingSection>
-                        )}
-
-                        {/* 5. Owner Address Field Mapping */}
-                        {ownerLayerId && ownerAvailableFields.length > 0 && config.enabledAddressTypes?.owner === true && (
-                            <SettingSection title="Owner Address Field Mapping">
-                                {this.renderOwnerFieldMappingSection()}
-                            </SettingSection>
-                        )}
-
-                        {/* 6. Geometry Selection */}
-                        {(selectedLayerId || ownerLayerId) && (
-                            <SettingSection title="Geometry Selection">
-                                <div style={{ marginBottom: '15px', padding: '10px', borderRadius: '5px', border: '1px solid #dee2e6' }}>
-                                    <p style={{ margin: '0', fontSize: '12px', color: '#495057' }}>
-                                        🎯 Allow users to draw areas on the map to filter which features get included in mailing labels.
-                                    </p>
-                                </div>
-                                <SettingRow>
-                                    <Label>Enable Geometry Selection:</Label>
-                                    <Switch
-                                        checked={enableGeometrySelection}
-                                        onChange={this.onGeometrySelectionToggle}
-                                    />
-                                </SettingRow>
-
-                                {enableGeometrySelection && (
+                                {availableLayers.length === 0 && !layerLoadError && (
                                     <>
-                                        <SettingRow>
-                                            <Label>Selection Layer (for filtering):</Label>
-                                            <Select
-                                                placeholder="Select layer for area selection..."
-                                                value={selectionLayerId}
-                                                onChange={this.onSelectionLayerChange}
-                                            >
-                                                <Option value="">-- Select Layer --</Option>
-                                                {availableLayers.map(layer => (
-                                                    <Option key={layer.id} value={layer.id}>
-                                                        {layer.title}
-                                                    </Option>
-                                                ))}
-                                            </Select>
-                                        </SettingRow>
-
-                                        <SettingRow>
-                                            <Label>Selection Method:</Label>
-                                            <Select value={selectionMethod} onChange={this.onSelectionMethodChange}>
-                                                <Option value="click">Click to Select</Option>
-                                                <Option value="draw">Draw Selection Area</Option>
-                                                <Option value="both">Both Click and Draw</Option>
-                                            </Select>
+                                        {this.descRow('No layers loaded yet.')}
+                                        <SettingRow flush>
+                                            <Button className="ml-control" size="sm" type="primary" onClick={() => this.loadLayersFromMap()}>
+                                                Load layers
+                                            </Button>
                                         </SettingRow>
                                     </>
                                 )}
+
+                                {selectedLayerId && availableFields.length > 0 &&
+                                    this.renderFieldMapping('physical', selectedFields, availableFields, this.onPhysicalFieldMapping)}
                             </SettingSection>
                         )}
 
-                        {/* Configuration Summary */}
-                        {(selectedLayerId || ownerLayerId) && (
-                            <SettingSection title="Configuration Summary">
-                                <div style={{ padding: '15px', borderRadius: '5px', border: '1px solid #dee2e6' }}>
-                                    <div style={{ fontWeight: 'bold', marginBottom: '10px', color: '#495057' }}>
-                                        📋 Current Configuration
-                                    </div>
+                        {/* Owner address layer */}
+                        {ownerEnabled && (
+                            <SettingSection title="Owner address">
+                                {this.descRow('Layer containing property owner address data (who owns the property).')}
 
-                                    {config.enabledAddressTypes?.physical !== false && selectedLayerId && (
-                                        <div style={{ marginBottom: '8px' }}>
-                                            <strong>📮 Physical Address:</strong> {availableLayers.find(l => l.id === selectedLayerId)?.title || 'Layer not found'}
-                                        </div>
-                                    )}
-
-                                    {config.enabledAddressTypes?.owner === true && ownerLayerId && (
-                                        <div style={{ marginBottom: '8px' }}>
-                                            <strong>🏠 Owner Address:</strong> {availableLayers.find(l => l.id === ownerLayerId)?.title || 'Layer not found'}
-                                        </div>
-                                    )}
-
-                                    {config.enabledAddressTypes?.physical !== false && config.enabledAddressTypes?.owner === true && (
-                                        <div style={{ marginBottom: '8px' }}>
-                                            <strong>🎯 Default Type:</strong> {config.defaultAddressType === 'owner' ? '🏠 Owner Address' : '📮 Physical Address'}
-                                        </div>
-                                    )}
-
-                                    {enableGeometrySelection && (
-                                        <div style={{ marginBottom: '8px' }}>
-                                            <strong>🎨 Geometry Selection:</strong> Enabled ({selectionMethod})
-                                        </div>
-                                    )}
-                                </div>
-                            </SettingSection>
-                        )}
-
-                        {/* Geocoding (Address Search) */}
-                        <SettingSection title="Geocoding (Address Search)">
-                            <SettingRow>
-                                <Label style={{ margin: '0 0 4px', fontSize: '12px', fontWeight: 600 }}>
-                                    Geocode service URL
-                                </Label>
-                            </SettingRow>
-                            <SettingRow>
-                                <TextInput
-                                    style={{ width: '100%' }}
-                                    placeholder="https://.../GeocodeServer"
-                                    value={this.props.config.geocodeUrl || ''}
-                                    onChange={(evt: any) => this.onGeocodeUrlChange(evt.target.value)}
-                                    aria-label="Geocode service URL"
-                                />
-                            </SettingRow>
-                            <SettingRow>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', width: '100%' }}>
-                                    <Button
-                                        type="default"
+                                {this.stackedRow('Layer',
+                                    <Select
+                                        className="ml-control"
                                         size="sm"
-                                        disabled={!this.props.config.geocodeUrl || this.state.geocodeTestStatus === 'testing'}
-                                        onClick={this.testGeocodeUrl}
+                                        value={ownerLayerId}
+                                        onChange={this.onOwnerLayerChange}
+                                        aria-label="Owner address layer"
                                     >
-                                        {this.state.geocodeTestStatus === 'testing' ? 'Testing...' : 'Test'}
-                                    </Button>
-                                    {this.state.geocodeTestStatus !== 'idle' && (
-                                        <span style={{
-                                            fontSize: '12px',
-                                            color: this.state.geocodeTestStatus === 'ok' ? '#155724'
-                                                : this.state.geocodeTestStatus === 'error' ? '#721c24'
-                                                    : '#0c5460'
-                                        }}>
-                                            {this.state.geocodeTestMessage}
-                                        </span>
-                                    )}
-                                </div>
-                            </SettingRow>
-                            <SettingRow>
-                                <p style={{ margin: 0, fontSize: '12px', color: '#6c757d' }}>
-                                    Provide an ArcGIS GeocodeServer URL to enable address search inside the widget. Leave blank to hide the search panel. Example: <code style={{ fontSize: '11px' }}>https://geocode-api.arcgis.com/arcgis/rest/services/World/GeocodeServer</code>
-                                </p>
-                            </SettingRow>
-                        </SettingSection>
+                                        <Option value="">Select a layer</Option>
+                                        {availableLayers.map(layer => (
+                                            <Option key={layer.id} value={layer.id}>{layer.title}</Option>
+                                        ))}
+                                    </Select>)}
 
-                        {/* Draw Widget Integration */}
-                        <SettingSection title="Draw Widget Integration">
-                            <SettingRow>
-                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
-                                    <Label style={{ margin: 0 }}>
-                                        Accept geometry from Draw widget
-                                    </Label>
+                                {ownerLayerId && ownerAvailableFields.length > 0 &&
+                                    this.renderFieldMapping('owner', ownerFields, ownerAvailableFields, this.onOwnerFieldMapping)}
+                            </SettingSection>
+                        )}
+
+                        {/* Selection */}
+                        {(selectedLayerId || ownerLayerId) && (
+                            <SettingSection title="Selection">
+                                <SettingRow tag="label" label="Geometry selection">
+                                    <Switch
+                                        checked={enableGeometrySelection}
+                                        onChange={this.onGeometrySelectionToggle}
+                                        aria-label="Enable geometry selection"
+                                    />
+                                </SettingRow>
+                                {this.descRow('Let users draw areas on the map to filter which features are included.')}
+
+                                {enableGeometrySelection && (
+                                    <>
+                                        {this.stackedRow('Selection layer',
+                                            <Select
+                                                className="ml-control"
+                                                size="sm"
+                                                value={selectionLayerId}
+                                                onChange={this.onSelectionLayerChange}
+                                                aria-label="Selection layer"
+                                            >
+                                                <Option value="">Select a layer</Option>
+                                                {availableLayers.map(layer => (
+                                                    <Option key={layer.id} value={layer.id}>{layer.title}</Option>
+                                                ))}
+                                            </Select>)}
+
+                                        {this.stackedRow('Selection method',
+                                            <Select
+                                                className="ml-control"
+                                                size="sm"
+                                                value={selectionMethod}
+                                                onChange={this.onSelectionMethodChange}
+                                                aria-label="Selection method"
+                                            >
+                                                <Option value="click">Click to select</Option>
+                                                <Option value="draw">Draw selection area</Option>
+                                                <Option value="both">Click and draw</Option>
+                                            </Select>)}
+                                    </>
+                                )}
+
+                                <SettingRow tag="label" label="Accept geometry from Draw widget">
                                     <Switch
                                         checked={this.props.config.enableDrawWidgetIntegration === true}
                                         onChange={() => {
@@ -1084,21 +1024,101 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
                                                 config: (this.props.config as any).set('enableDrawWidgetIntegration', !this.props.config.enableDrawWidgetIntegration)
                                             })
                                         }}
-                                        aria-label="Enable Draw Widget integration"
+                                        aria-label="Accept geometry from Draw widget"
+                                    />
+                                </SettingRow>
+                                {this.descRow(this.props.config.enableDrawWidgetIntegration
+                                    ? 'Shapes drawn in the Draw widget can be used to select parcels. The Draw widget must also have its Mailing Labels integration enabled.'
+                                    : 'Geometry from the Draw widget is ignored.')}
+                            </SettingSection>
+                        )}
+
+                        {/* Map behavior */}
+                        <SettingSection title="Map behavior">
+                            <SettingRow tag="label" label="Suppress map popups while open">
+                                <Switch
+                                    checked={this.props.config.suppressMapPopups !== false}
+                                    onChange={() => {
+                                        this.props.onSettingChange({
+                                            id: this.props.id,
+                                            config: (this.props.config as any).set('suppressMapPopups', this.props.config.suppressMapPopups === false)
+                                        })
+                                    }}
+                                    aria-label="Suppress map popups while widget is open"
+                                />
+                            </SettingRow>
+                            {this.descRow(this.props.config.suppressMapPopups !== false
+                                ? 'Map clicks select features instead of opening popups. Popups are restored when the widget closes.'
+                                : 'Map popups stay enabled and may open when users click the map.')}
+                        </SettingSection>
+
+                        {/* Address search */}
+                        <SettingSection title="Address search">
+                            {this.stackedRow('Geocode service URL',
+                                <TextInput
+                                    className="ml-control"
+                                    size="sm"
+                                    placeholder="https://.../GeocodeServer"
+                                    value={this.props.config.geocodeUrl || ''}
+                                    onChange={(evt: any) => this.onGeocodeUrlChange(evt.target.value)}
+                                    aria-label="Geocode service URL"
+                                />)}
+
+                            <SettingRow flush>
+                                <div className="ml-inline">
+                                    <Button
+                                        size="sm"
+                                        disabled={!this.props.config.geocodeUrl || this.state.geocodeTestStatus === 'testing'}
+                                        onClick={this.testGeocodeUrl}
+                                    >
+                                        {this.state.geocodeTestStatus === 'testing' ? 'Testing...' : 'Test'}
+                                    </Button>
+                                    {this.state.geocodeTestStatus !== 'idle' && (
+                                        <span className={
+                                            this.state.geocodeTestStatus === 'ok' ? 'ml-status ml-status-ok'
+                                                : this.state.geocodeTestStatus === 'error' ? 'ml-status ml-status-error'
+                                                    : 'ml-status'
+                                        }>
+                                            {this.state.geocodeTestMessage}
+                                        </span>
+                                    )}
+                                </div>
+                            </SettingRow>
+                            {this.descRow('Provide an ArcGIS GeocodeServer URL to enable address search inside the widget. Leave blank to hide the search panel.')}
+                        </SettingSection>
+
+                        {/* Settings file */}
+                        <SettingSection title="Settings file">
+                            <SettingRow flush>
+                                <div className="ml-inline">
+                                    <Button size="sm" onClick={this.exportConfigXml}>Export XML</Button>
+                                    <Button size="sm" onClick={this.triggerImportConfigXml}>Import XML</Button>
+                                    <input
+                                        ref={(el) => { this.importFileInput = el }}
+                                        type="file"
+                                        accept=".xml,application/xml,text/xml"
+                                        style={{ display: 'none' }}
+                                        onChange={this.onImportFileSelected}
+                                        aria-hidden="true"
+                                        tabIndex={-1}
                                     />
                                 </div>
                             </SettingRow>
-                            <SettingRow>
-                                <p style={{ margin: 0, fontSize: '12px', color: '#6c757d' }}>
-                                    {this.props.config.enableDrawWidgetIntegration
-                                        ? 'This widget will accept drawing geometries sent from the Draw widget for parcel selection. The Draw widget must also have its Mailing Labels integration enabled.'
-                                        : 'Drawing geometry from the Draw widget will be ignored. Enable this to allow users to select parcels using shapes drawn in the Draw widget.'}
-                                </p>
-                            </SettingRow>
+                            {this.state.importExportStatus && (
+                                <SettingRow flush>
+                                    <Alert
+                                        className="ml-alert"
+                                        type={this.state.importExportStatus.indexOf('failed') > -1 ? 'error' : 'success'}
+                                        withIcon
+                                        text={this.state.importExportStatus}
+                                    />
+                                </SettingRow>
+                            )}
+                            {this.descRow('Export saves the current settings to an XML file; import applies a previously exported file. The map widget binding is not transferred, so imported layer and field settings only resolve when the target app uses a map containing the same layers.')}
                         </SettingSection>
                     </>
                 )}
             </div>
         )
     }
-} 
+}
