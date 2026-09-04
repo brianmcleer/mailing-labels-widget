@@ -25,6 +25,7 @@ https://community.esri.com/t5/experience-builder-custom-widgets/mailing-labels-c
 - Eight Avery formats: 5160, 5161, 5162, 5163, 5164, 5165 (full sheet), 5167 (return address, 80 per sheet), and 5168 (shipping, 4 per sheet)
 - Font sizes from 5pt to 16pt, with the smaller sizes useful for the tiny 5167 return-address label
 - Sort labels by name, city, state, or ZIP. ZIP sort produces the order USPS bulk mail expects
+- The default sort is configurable in the widget settings (Output defaults), so an app can open with Name (A to Z) preselected while users can still change it
 - Filter out empty records (confidential parcels) and duplicate labels, both on by default
 
 ### Partial sheet support
@@ -36,6 +37,7 @@ https://community.esri.com/t5/experience-builder-custom-widgets/mailing-labels-c
 ### Preview and export
 
 - Live label preview that shows what one label will look like at the current format, font, and field mappings, using the first real selected feature
+- Optional Wrap long lines setting (off by default). When on, lines wider than the label, such as lengthy owner names, continue on the next line, and the font steps down (to a 5pt floor) if needed so no line is dropped. When off, each line stays on one line and is trimmed with an ellipsis at the label edge
 - Print labels button that opens the PDF directly in a new tab with the print dialog primed
 - PDF download button
 - CSV export button for mail merge or downstream processing

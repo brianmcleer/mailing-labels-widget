@@ -72,7 +72,28 @@ export interface Config {
      * If empty, the address search panel is hidden.
      */
     geocodeUrl?: string
+
+    /**
+     * Default value for the runtime "Sort" dropdown. Users can still change the
+     * sort at runtime; this only controls what is selected when the widget opens.
+     * Default 'none' (selection order).
+     */
+    defaultSortBy?: SortOption
+
+    /**
+     * When true, lines that are wider than the label (typically long owner
+     * names) wrap onto additional lines, and the font steps down (5pt floor)
+     * if the wrapped block would not fit the label height.
+     * When false (default), each line stays on one line and is truncated with
+     * an ellipsis at the label edge.
+     */
+    wrapLongLines?: boolean
 }
+
+/**
+ * Label sort options offered in the runtime Sort dropdown
+ */
+export type SortOption = 'none' | 'name' | 'city' | 'state' | 'zip'
 
 /**
  * Supported label formats
@@ -287,7 +308,9 @@ export const DEFAULT_CONFIG: Config = {
     removeEmptyRecords: true,
     removeDuplicates: false,
     suppressMapPopups: true,
-    geocodeUrl: ''
+    geocodeUrl: '',
+    defaultSortBy: 'none',
+    wrapLongLines: false
 }
 
 /**

@@ -7,7 +7,7 @@ import { TrashOutlined } from 'jimu-icons/outlined/editor/trash'
 import { ClearOutlined } from 'jimu-icons/outlined/editor/clear'
 
 // Import config types - simplified, no complex owner address config
-import { Config, LabelFormat, FieldMappings, LABEL_FORMATS } from '../config'
+import { Config, LabelFormat, FieldMappings, LABEL_FORMATS, SortOption } from '../config'
 
 // Import ArcGIS modules - simplified to avoid conflicts
 // @ts-ignore -- EB 1.21/Visual Studio misclassifies this ArcGIS 5.x declaration; webpack resolves the runtime module.
@@ -105,11 +105,11 @@ class SimplePDFGenerator {
      * @param mode           'download' triggers a normal PDF save. 'print' opens the PDF
      *                       in a new tab with the print dialog primed.
      */
-    generateLabelsPDF(features: any[], selectedFields: any, labelFormat: string, fontSize: number = 10, startPosition: number = 1, mode: 'download' | 'print' = 'download'): void {
+    generateLabelsPDF(features: any[], selectedFields: any, labelFormat: string, fontSize: number = 10, startPosition: number = 1, mode: 'download' | 'print' = 'download', wrapLongLines: boolean = false): void {
         try {
             const labelSpecs = this.getLabelSpecs(labelFormat);
             const labelContent = features.map(feature => this.formatAddressLines(feature.attributes, selectedFields));
-            this.createPDF(labelContent, labelSpecs, fontSize, startPosition, mode);
+            this.createPDF(labelContent, labelSpecs, fontSize, startPosition, mode, wrapLongLines);
         } catch (error) {
             throw error;
         }
@@ -160,7 +160,7 @@ class SimplePDFGenerator {
         return this.getFieldValue(attributes, fieldMappings.name);
     }
 
-    private createPDF(labelContent: string[][], specs: any, fontSize: number, startPosition: number, mode: 'download' | 'print'): void {
+    private createPDF(labelContent: string[][], specs: any, fontSize: number, startPosition: number, mode: 'download' | 'print', wrapLongLines: boolean = false): void {
         const { pageWidth, pageHeight } = this;
         const { labelWidth, labelHeight, labelsPerRow, labelsPerCol, horizontalSpacing, verticalSpacing } = specs;
         const labelsPerPage = labelsPerRow * labelsPerCol;
@@ -192,27 +192,77 @@ class SimplePDFGenerator {
             const x = leftMargin + col * (labelWidth + horizontalSpacing);
             const yStart = topMargin + row * (labelHeight + verticalSpacing);
 
+            // Horizontal padding so text never touches the label edge (and never
+            // bleeds into the neighbouring label or off the sheet).
+            const sidePadding = 6;
+            const maxWidth = labelWidth - sidePadding * 2;
+            const minFontSize = 5;
+
             let currentFontSize = fontSize;
             let lineHeight = currentFontSize + lineSpacing;
-            pdf.setFontSize(currentFontSize);
+            let maxLines = 1;
+            let linesToRender: string[] = [];
 
-            const maxLines = Math.floor(labelHeight / lineHeight);
-            const linesToRender = lines.slice(0, maxLines);
+            if (wrapLongLines) {
+                // Settings > Output defaults > "Wrap long lines" is ON.
+                // Word-wrap every line to the label width so a long owner name
+                // continues on a second line instead of being clipped. If the
+                // wrapped block is taller than the label, step the font size down
+                // (to a 5pt floor) before dropping any line.
+                let wrappedLines: string[] = [];
+                for (;;) {
+                    pdf.setFontSize(currentFontSize);
+                    lineHeight = currentFontSize + lineSpacing;
+                    maxLines = Math.max(1, Math.floor(labelHeight / lineHeight));
+
+                    wrappedLines = [];
+                    lines.forEach(line => {
+                        const text = (line ?? '').toString();
+                        if (!text.trim()) return; // skip blank lines so they don't eat label height
+                        // splitTextToSize wraps at word boundaries using the current
+                        // font metrics, and hard-breaks a single word wider than maxWidth.
+                        const parts = (pdf as any).splitTextToSize(text, maxWidth) as string[];
+                        if (Array.isArray(parts) && parts.length) {
+                            wrappedLines.push(...parts);
+                        } else {
+                            wrappedLines.push(text);
+                        }
+                    });
+
+                    if (wrappedLines.length <= maxLines || currentFontSize <= minFontSize) break;
+                    currentFontSize = Math.max(minFontSize, currentFontSize - 0.5);
+                }
+                linesToRender = wrappedLines.slice(0, maxLines);
+            } else {
+                // "Wrap long lines" is OFF (default): one line per field, trimmed
+                // with an ellipsis at the label edge. Trim by measuring the actual
+                // string width rather than estimating characters, so the result
+                // really does stay inside the label.
+                pdf.setFontSize(currentFontSize);
+                lineHeight = currentFontSize + lineSpacing;
+                maxLines = Math.max(1, Math.floor(labelHeight / lineHeight));
+
+                const ellipsis = '…';
+                const fits = (s: string) => pdf.getStringUnitWidth(s) * currentFontSize <= maxWidth;
+                linesToRender = lines.slice(0, maxLines).map(line => {
+                    const text = (line ?? '').toString();
+                    if (fits(text)) return text;
+                    let cut = text;
+                    while (cut.length > 0 && !fits(cut.trimEnd() + ellipsis)) {
+                        cut = cut.slice(0, -1);
+                    }
+                    return cut.trimEnd() + ellipsis;
+                });
+            }
 
             const textBlockHeight = linesToRender.length * lineHeight;
             let y = yStart + (labelHeight - textBlockHeight) / 2 + currentFontSize;
 
-            linesToRender.forEach(line => {
-                let textToRender = line;
-                const maxWidth = labelWidth - 10;
-                const textWidth = pdf.getStringUnitWidth(line) * currentFontSize;
-                if (textWidth > maxWidth) {
-                    const estimatedCharCount = Math.floor(maxWidth / (currentFontSize * 0.6));
-                    textToRender = line.substring(0, estimatedCharCount) + '…';
-                }
-
-                const trimmedWidth = pdf.getStringUnitWidth(textToRender) * currentFontSize;
-                const textX = x + (labelWidth - trimmedWidth) / 2;
+            linesToRender.forEach(textToRender => {
+                const textWidth = pdf.getStringUnitWidth(textToRender) * currentFontSize;
+                // Center within the padded area; clamp so a hard-broken word can't
+                // start left of the label edge.
+                const textX = Math.max(x + sidePadding, x + (labelWidth - textWidth) / 2);
                 pdf.text(textToRender, textX, y);
                 y += lineHeight;
             });
@@ -337,6 +387,19 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
     // selection, even though the sender does staggered retries.
     private lastActionPointTimestamp: number = 0;
 
+    /** Valid values for the Sort dropdown; anything else falls back to 'none'. */
+    private static readonly SORT_OPTIONS: SortOption[] = ['none', 'name', 'city', 'state', 'zip'];
+
+    /**
+     * Resolve the configured default sort (Settings > Output defaults) to a valid
+     * SortOption. Guards against a missing or malformed config value, including
+     * values coming from an imported settings XML file.
+     */
+    private static resolveDefaultSort(config: any): SortOption {
+        const raw = config?.defaultSortBy;
+        return MailingLabelWidget.SORT_OPTIONS.indexOf(raw) > -1 ? raw as SortOption : 'none';
+    }
+
     constructor(props: RuntimeWidgetProps) {
         super(props)
 
@@ -394,7 +457,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
             addressSuggestionsOpen: false,
             searchedAddress: null,
             addressSearchError: null,
-            sortBy: 'none',
+            sortBy: MailingLabelWidget.resolveDefaultSort(props.config),
             startPosition: 1,
             // Default collapse state: only Partial sheet starts collapsed.
             collapsedSections: { 'start-position': true },
@@ -467,6 +530,12 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
             this.setState({ labelType: newAddressType });
         }
 
+        // Default sort changed in Settings > Output defaults: apply it to the
+        // runtime Sort dropdown so the builder preview reflects the new default.
+        if (prevProps.config?.defaultSortBy !== this.props.config?.defaultSortBy) {
+            this.setState({ sortBy: MailingLabelWidget.resolveDefaultSort(this.props.config) });
+        }
+
         // Handle draw widget integration toggle changes
         if (prevProps.config?.enableDrawWidgetIntegration !== this.props.config?.enableDrawWidgetIntegration) {
             if (this.props.config?.enableDrawWidgetIntegration) {
@@ -502,7 +571,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
         if (this.state.isDeleteMode && this.state.mapView?.view) {
             this.state.mapView.view.container.style.cursor = 'default';
         }
-        
+
         // Remove delete click handler
         if (this.deleteClickHandler) {
             this.deleteClickHandler.remove();
@@ -528,32 +597,32 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
 
             // Clean up delete mode if active
             if (this.state.isDeleteMode) {
-                
+
                 // Remove delete click handler
                 if (this.deleteClickHandler) {
                     this.deleteClickHandler.remove();
                     this.deleteClickHandler = null;
                 }
-                
+
                 // Reset cursor
                 view.container.style.cursor = 'default';
-                
+
                 // Update state
                 this.setState({ isDeleteMode: false });
             }
 
             // Clean up add mode if active
             if (this.state.isAddMode) {
-                
+
                 // Remove add click handler
                 if (this.addClickHandler) {
                     this.addClickHandler.remove();
                     this.addClickHandler = null;
                 }
-                
+
                 // Reset cursor
                 view.container.style.cursor = 'default';
-                
+
                 // Update state
                 this.setState({ isAddMode: false });
             }
@@ -1030,7 +1099,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                 }
                 if (typeof payloadBufferUnit === 'string' &&
                     (payloadBufferUnit === 'feet' || payloadBufferUnit === 'meters' ||
-                     payloadBufferUnit === 'kilometers' || payloadBufferUnit === 'miles')) {
+                        payloadBufferUnit === 'kilometers' || payloadBufferUnit === 'miles')) {
                     nextBufferUnit = payloadBufferUnit;
                 }
             } else {
@@ -1330,7 +1399,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                     // Generate unique ID for this selection
                     const selectionId = `selection_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
                     (geometry as any).selectionId = selectionId;
-                    
+
                     const styledGraphic = new Graphic({
                         geometry: geometry,
                         symbol: {
@@ -1367,7 +1436,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                     // Create Selection object with geometry and features
                     const selectionId = (bufferedGeometry as any).selectionId;
                     const objectIdField = layer.objectIdField || 'OBJECTID';
-                    
+
                     const selection: Selection = {
                         selectionId: selectionId,
                         geometry: bufferedGeometry,
@@ -1921,11 +1990,11 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
             query.outFields = ['*'];
 
             const result = await layer.queryFeatures(query);
-            
+
             // Generate selection ID
             const selectionId = `selection_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
             (geometry as any).selectionId = selectionId;
-            
+
             const objectIdField = layer.objectIdField || 'OBJECTID';
             const selection: Selection = {
                 selectionId: selectionId,
@@ -1939,7 +2008,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
             const totalCount = newSelections.reduce((sum, s) => sum + s.featureObjectIds.length, 0);
 
             this.addSelectionGraphic(geometry);
-            
+
             if (result.features && result.features.length > 0) {
                 await this.highlightSelectedFeatures(result.features);
             }
@@ -2073,13 +2142,13 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
         if (this.state.isDeleteMode) {
             if (this.state.mapView?.view) {
                 this.state.mapView.view.container.style.cursor = 'default';
-                
+
                 // Re-enable popups
                 if (this.state.mapView.view.popup) {
                     this.state.mapView.view.popup.autoOpenEnabled = true;
                 }
             }
-            
+
             // Remove delete click handler
             if (this.deleteClickHandler) {
                 this.deleteClickHandler.remove();
@@ -2091,13 +2160,13 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
         if (this.state.isAddMode) {
             if (this.state.mapView?.view) {
                 this.state.mapView.view.container.style.cursor = 'default';
-                
+
                 // Re-enable popups
                 if (this.state.mapView.view.popup) {
                     this.state.mapView.view.popup.autoOpenEnabled = true;
                 }
             }
-            
+
             // Remove add click handler
             if (this.addClickHandler) {
                 this.addClickHandler.remove();
@@ -2138,8 +2207,8 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
 
     toggleDeleteMode = () => {
         const newDeleteMode = !this.state.isDeleteMode;
-        
-        
+
+
         // Turn off add mode if delete mode is being turned on
         if (newDeleteMode && this.state.isAddMode) {
             this.setState({ isAddMode: false });
@@ -2148,25 +2217,25 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                 this.addClickHandler = null;
             }
         }
-        
+
         // Cancel any active drawing when entering delete mode
         if (newDeleteMode && this.state.isDrawing) {
             this.cancelDrawing();
         }
-        
+
         if (!this.state.mapView?.view) {
             console.error('No map view available');
             return;
         }
-        
+
         const view = this.state.mapView.view;
-        
+
         if (newDeleteMode) {
             // ENTERING DELETE MODE
-            
+
             // Update cursor
             view.container.style.cursor = 'pointer';
-            
+
             // Disable popups
             if (view.popup) {
                 view.popup.autoOpenEnabled = false;
@@ -2174,55 +2243,55 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                     view.popup.close();
                 }
             }
-            
+
             // Remove any existing delete click handler
             if (this.deleteClickHandler) {
                 this.deleteClickHandler.remove();
             }
-            
+
             // Add dedicated click handler for delete mode with HIGH priority
             this.deleteClickHandler = view.on('click', (event: any) => {
-                
+
                 // Stop propagation immediately
                 event.stopPropagation();
-                
+
                 // Call our handler
                 this.handleGraphicClick(event);
             }, { priority: 100 }); // High priority to run before other handlers
-            
-            
+
+
         } else {
             // EXITING DELETE MODE
-            
+
             // Reset cursor
             view.container.style.cursor = 'default';
-            
+
             // Re-enable popups
             if (view.popup) {
                 view.popup.autoOpenEnabled = true;
             }
-            
+
             // Remove the delete click handler
             if (this.deleteClickHandler) {
                 this.deleteClickHandler.remove();
                 this.deleteClickHandler = null;
             }
         }
-        
-        this.setState({ 
+
+        this.setState({
             isDeleteMode: newDeleteMode,
             currentTool: newDeleteMode ? 'delete' : ''
         });
-        
-        this.showMessage('info', newDeleteMode 
+
+        this.showMessage('info', newDeleteMode
             ? 'Delete mode active - Click on any drawn area to remove it'
             : 'Delete mode disabled');
     }
 
     toggleAddMode = () => {
         const newAddMode = !this.state.isAddMode;
-        
-        
+
+
         // Turn off delete mode if add mode is being turned on
         if (newAddMode && this.state.isDeleteMode) {
             this.setState({ isDeleteMode: false });
@@ -2231,25 +2300,25 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                 this.deleteClickHandler = null;
             }
         }
-        
+
         // Cancel any active drawing when entering add mode
         if (newAddMode && this.state.isDrawing) {
             this.cancelDrawing();
         }
-        
+
         if (!this.state.mapView?.view) {
             console.error('No map view available');
             return;
         }
-        
+
         const view = this.state.mapView.view;
-        
+
         if (newAddMode) {
             // ENTERING ADD MODE
-            
+
             // Update cursor
             view.container.style.cursor = 'crosshair';
-            
+
             // Disable popups
             if (view.popup) {
                 view.popup.autoOpenEnabled = false;
@@ -2257,47 +2326,47 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                     view.popup.close();
                 }
             }
-            
+
             // Remove any existing add click handler
             if (this.addClickHandler) {
                 this.addClickHandler.remove();
             }
-            
+
             // Add dedicated click handler for add mode with HIGH priority
             this.addClickHandler = view.on('click', (event: any) => {
-                
+
                 // Stop propagation immediately
                 event.stopPropagation();
-                
+
                 // Call our handler
                 this.handleAddFeatureClick(event);
             }, { priority: 100 }); // High priority to run before other handlers
-            
-            
+
+
         } else {
             // EXITING ADD MODE
-            
+
             // Reset cursor
             view.container.style.cursor = 'default';
-            
+
             // Re-enable popups
             if (view.popup) {
                 view.popup.autoOpenEnabled = true;
             }
-            
+
             // Remove the add click handler
             if (this.addClickHandler) {
                 this.addClickHandler.remove();
                 this.addClickHandler = null;
             }
         }
-        
-        this.setState({ 
+
+        this.setState({
             isAddMode: newAddMode,
             currentTool: newAddMode ? 'add' : ''
         });
-        
-        this.showMessage('info', newAddMode 
+
+        this.showMessage('info', newAddMode
             ? 'Add mode active - Click on features to add them to your selection'
             : 'Add mode disabled');
     }
@@ -2306,37 +2375,37 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
         if (!this.state.isAddMode || !this.state.mapView?.view) {
             return;
         }
-        
-        
+
+
         if (this.state.selections.length === 0) {
             this.showMessage('warning', 'Please draw a selection area first before adding features');
             return;
         }
-        
+
         try {
             const layer = this.getCurrentActiveLayer();
             if (!layer) {
                 this.showMessage('error', 'No layer available');
                 return;
             }
-            
+
             // Get the map point from the click
             const mapPoint = this.state.mapView.view.toMap({ x: event.x, y: event.y });
             if (!mapPoint) {
                 return;
             }
-            
-            
+
+
             // Create a small buffer around the click point for tolerance
             const clickTolerance = this.state.mapView.view.resolution * 10; // 10 pixels
             let queryGeometry;
-            
+
             try {
                 queryGeometry = geometryEngine.buffer(mapPoint, clickTolerance, 'meters');
             } catch (err) {
                 queryGeometry = mapPoint;
             }
-            
+
             // Query the layer at this location
             const query = layer.createQuery();
             query.geometry = queryGeometry;
@@ -2344,19 +2413,19 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
             query.returnGeometry = true;
             query.outFields = ['*'];
             query.num = 1; // Only need the first feature
-            
+
             const result = await layer.queryFeatures(query);
-            
+
             if (!result.features || result.features.length === 0) {
                 this.showMessage('info', 'No feature found at this location. Try clicking directly on a parcel.');
                 return;
             }
-            
+
             const clickedFeature = result.features[0];
             const objectIdField = layer.objectIdField || 'OBJECTID';
             const clickedObjectId = clickedFeature.attributes[objectIdField];
-            
-            
+
+
             // Check if this feature is already in any selection
             let alreadySelected = false;
             for (const selection of this.state.selections) {
@@ -2365,42 +2434,42 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                     break;
                 }
             }
-            
+
             if (alreadySelected) {
                 this.showMessage('info', 'Feature is already in your selection');
                 return;
             }
-            
+
             // Add to the most recent selection (last one in array)
             const targetSelection = this.state.selections[this.state.selections.length - 1];
-            
-            
+
+
             // Update the selection with the new feature
             const updatedSelection: Selection = {
                 ...targetSelection,
                 featureObjectIds: [...targetSelection.featureObjectIds, clickedObjectId],
                 features: [...targetSelection.features, clickedFeature]
             };
-            
+
             // Update selections array
             const updatedSelections = [...this.state.selections];
             updatedSelections[updatedSelections.length - 1] = updatedSelection;
-            
+
             // Clear and re-highlight all features
             this.clearAllHighlights();
             for (const selection of updatedSelections) {
                 await this.highlightSelectedFeatures(selection.features);
             }
-            
+
             // Calculate total feature count
             const totalCount = updatedSelections.reduce((sum, s) => sum + s.featureObjectIds.length, 0);
-            
+
             // Update state
-            this.setState({ 
+            this.setState({
                 selections: updatedSelections,
                 selectedFeatureCount: totalCount
             });
-            
+
             this.showMessage('success', `Feature added! Total: ${totalCount} features`);
         } catch (error) {
             console.error('Error in handleAddFeatureClick:', error);
@@ -2420,7 +2489,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
         // Calculate total feature count
         const totalCount = updatedSelections.reduce((sum, s) => sum + s.featureObjectIds.length, 0);
 
-        this.setState({ 
+        this.setState({
             selections: updatedSelections,
             selectedFeatureCount: totalCount
         });
@@ -2432,116 +2501,116 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
         if (!this.state.isDeleteMode || !this.state.mapView?.view) {
             return;
         }
-        
-        
+
+
         try {
             // Use hitTest to find what was clicked
             const hitTestResponse = await this.state.mapView.view.hitTest(event);
-            
+
             if (hitTestResponse.results.length === 0) {
                 return;
             }
-            
+
             // Look for a highlighted feature
             for (const result of hitTestResponse.results) {
                 if (result.type === 'graphic') {
                     const graphic = (result as GraphicHit).graphic;
-                    
+
                     // Check if this is a highlighted feature
                     if (graphic.attributes?.isHighlight && graphic.attributes?.originalObjectId) {
                         const clickedObjectId = graphic.attributes.originalObjectId;
-                        
+
                         // Find which selection contains this feature
                         const objectIdField = this.state.selectedLayer?.objectIdField || 'OBJECTID';
-                        
+
                         for (let i = 0; i < this.state.selections.length; i++) {
                             const selection = this.state.selections[i];
-                            
+
                             if (selection.featureObjectIds.includes(clickedObjectId)) {
-                                
+
                                 // Remove this feature from the selection
                                 const updatedFeatureIds = selection.featureObjectIds.filter(id => id !== clickedObjectId);
-                                const updatedFeatures = selection.features.filter(f => 
+                                const updatedFeatures = selection.features.filter(f =>
                                     f.attributes[objectIdField] !== clickedObjectId
                                 );
-                                
-                                
+
+
                                 // If no features left, remove the entire selection
                                 if (updatedFeatureIds.length === 0) {
                                     await this.removeSelectionById(selection.selectionId);
                                     return;
                                 }
-                                
+
                                 // Update the selection
                                 const updatedSelection: Selection = {
                                     ...selection,
                                     featureObjectIds: updatedFeatureIds,
                                     features: updatedFeatures
                                 };
-                                
+
                                 // Update selections array
                                 const updatedSelections = [...this.state.selections];
                                 updatedSelections[i] = updatedSelection;
-                                
+
                                 // Clear and re-highlight
                                 this.clearAllHighlights();
                                 await this.highlightSelectedFeatures(updatedFeatures);
-                                
+
                                 // Calculate total feature count
                                 const totalCount = updatedSelections.reduce((sum, s) => sum + s.featureObjectIds.length, 0);
-                                
+
                                 // Update state
-                                this.setState({ 
+                                this.setState({
                                     selections: updatedSelections,
                                     selectedFeatureCount: totalCount
                                 });
-                                
+
                                 this.showMessage('success', 'Feature removed from selection');
                                 return;
                             }
                         }
-                        
+
                         return;
                     }
                 }
             }
-            
+
         } catch (error) {
             console.error('Error in handleGraphicClick:', error);
         }
     }
-    
+
     removeSelectionById = async (selectionId: string) => {
-        
+
         // Remove ONLY graphics with this specific selectionId
         if (this.state.graphicsLayer) {
-            const graphicsToRemove = this.state.graphicsLayer.graphics.filter((g: Graphic) => 
+            const graphicsToRemove = this.state.graphicsLayer.graphics.filter((g: Graphic) =>
                 g.attributes?.selectionId === selectionId
             );
             graphicsToRemove.forEach((g: Graphic) => {
                 this.state.graphicsLayer.remove(g);
             });
         }
-        
+
         if (this.sketchLayer) {
-            const graphicsToRemove = this.sketchLayer.graphics.filter((g: Graphic) => 
+            const graphicsToRemove = this.sketchLayer.graphics.filter((g: Graphic) =>
                 g.attributes?.selectionId === selectionId
             );
             graphicsToRemove.forEach((g: Graphic) => {
                 this.sketchLayer.remove(g);
             });
         }
-        
+
         // Remove the selection from selections array
         const updatedSelections = this.state.selections.filter(s => s.selectionId !== selectionId);
-        
-        
+
+
         // Clear ALL highlights
         this.clearAllHighlights();
-        
+
         // Update state
         this.setState({ selections: updatedSelections });
-        
+
         // Re-highlight features for remaining selections
         if (updatedSelections.length > 0) {
             try {
@@ -2552,11 +2621,11 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                 console.error('Error re-highlighting:', error);
             }
         }
-        
+
         // Calculate total feature count
         const totalCount = updatedSelections.reduce((sum, s) => sum + s.featureObjectIds.length, 0);
         this.setState({ selectedFeatureCount: totalCount });
-        
+
         this.showMessage('success', 'Selection area removed');
     }
 
@@ -2564,10 +2633,10 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
     areGeometriesEqual = (geom1: any, geom2: any): boolean => {
         if (!geom1 || !geom2) return false;
         if (geom1.type !== geom2.type) return false;
-        
+
         // Same reference = definitely equal
         if (geom1 === geom2) return true;
-        
+
         try {
             // First try using geometryEngine.equals
             return geometryEngine.equals(geom1, geom2);
@@ -2616,45 +2685,45 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                 }
             }
         }
-        
+
         return false;
     }
 
     doesGraphicContainPoint = (graphic: Graphic, point: Point): boolean => {
         if (!graphic.geometry || !point) return false;
-        
+
         try {
             const geomType = graphic.geometry.type;
-            
+
             if (geomType === 'point') {
                 // For point geometries, check if click is within a reasonable distance
                 const distance = geometryEngine.distance(point, graphic.geometry as Point, 'meters');
                 // Use a more generous tolerance - about 20-30 pixels worth at typical scales
                 const pixelTolerance = 25;
-                const tolerance = this.state.mapView?.view?.resolution 
-                    ? this.state.mapView.view.resolution * pixelTolerance 
+                const tolerance = this.state.mapView?.view?.resolution
+                    ? this.state.mapView.view.resolution * pixelTolerance
                     : 50; // fallback tolerance in meters
                 return distance < tolerance;
-            } 
+            }
             else if (geomType === 'polyline') {
                 // For polylines, check if click is near the line
                 const distance = geometryEngine.distance(point, graphic.geometry, 'meters');
                 const pixelTolerance = 25;
-                const tolerance = this.state.mapView?.view?.resolution 
-                    ? this.state.mapView.view.resolution * pixelTolerance 
+                const tolerance = this.state.mapView?.view?.resolution
+                    ? this.state.mapView.view.resolution * pixelTolerance
                     : 50;
                 return distance < tolerance;
-            } 
+            }
             else if (geomType === 'polygon') {
                 // For polygons, check if point is contained within or very close to the polygon
                 const contained = geometryEngine.contains(graphic.geometry as Polygon, point);
                 if (contained) return true;
-                
+
                 // Also check if near the boundary
                 const distance = geometryEngine.distance(point, graphic.geometry, 'meters');
                 const pixelTolerance = 25;
-                const tolerance = this.state.mapView?.view?.resolution 
-                    ? this.state.mapView.view.resolution * pixelTolerance 
+                const tolerance = this.state.mapView?.view?.resolution
+                    ? this.state.mapView.view.resolution * pixelTolerance
                     : 50;
                 return distance < tolerance;
             }
@@ -2727,6 +2796,71 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
         }, 250);
     }
 
+    /**
+     * Low-level GET against the geocoder using XMLHttpRequest.
+     *
+     * We deliberately avoid the global fetch(). The host Experience Builder
+     * deployment overrides window.fetch / self.fetch with a CDN cache shim that
+     * prepends its own path to every requested URL, e.g. it turns
+     *   https://external-gis.gjcity.org/arcgis/.../GeocodeServer/suggest
+     * into
+     *   https://external-gis.gjcity.org/CityMapExternal/cdn/17/9https://external-gis.gjcity.org/arcgis/.../suggest
+     * which the server rejects with HTTP 400 Bad Request. XMLHttpRequest is not
+     * touched by that shim, which is also why the stock JSAPI Search widget works.
+     *
+     * Resolves with the parsed JSON body. Rejects with an Error named
+     * 'AbortError' when the optional signal aborts, so callers can ignore it.
+     */
+    private geocodeGet = (url: string, params: Record<string, string>, signal?: AbortSignal): Promise<any> => {
+        return new Promise((resolve, reject) => {
+            const qs = Object.keys(params)
+                .map(k => `${encodeURIComponent(k)}=${encodeURIComponent(params[k])}`)
+                .join('&');
+
+            const makeAbortError = (): Error => {
+                const e = new Error('Aborted');
+                e.name = 'AbortError';
+                return e;
+            };
+
+            if (signal?.aborted) {
+                reject(makeAbortError());
+                return;
+            }
+
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', `${url}?${qs}`, true);
+            xhr.responseType = 'json';
+
+            const onAbort = () => xhr.abort();
+            if (signal) {
+                signal.addEventListener('abort', onAbort, { once: true });
+            }
+            const cleanup = () => {
+                if (signal) signal.removeEventListener('abort', onAbort);
+            };
+
+            xhr.onload = () => {
+                cleanup();
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    // responseType 'json' yields a parsed object in modern browsers;
+                    // fall back to manual parse if the environment handed back text.
+                    let data: any = xhr.response;
+                    if (typeof data === 'string') {
+                        try { data = JSON.parse(data); } catch (_) { data = null; }
+                    }
+                    resolve(data);
+                } else {
+                    reject(new Error(`HTTP ${xhr.status}`));
+                }
+            };
+            xhr.onerror = () => { cleanup(); reject(new Error('Network error contacting the geocoder.')); };
+            xhr.onabort = () => { cleanup(); reject(makeAbortError()); };
+
+            xhr.send();
+        });
+    }
+
     fetchAddressSuggestions = async (text: string) => {
         const baseUrl = this.getGeocodeBaseUrl();
         if (!baseUrl) return;
@@ -2740,29 +2874,28 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
 
         this.setState({ addressSearchLoading: true, addressSearchError: null });
 
-        // POST to /suggest with form-encoded body. Use the map view center as the
-        // proximity-bias `location` (a single point — simpler/more reliable than a
-        // searchExtent envelope, and the same shape the official Search widget uses).
-        const params = new URLSearchParams({ f: 'json', text, maxSuggestions: '6' });
+        // Build the /suggest query. Use the map view center as the proximity-bias
+        // `location` (a single point, the same shape the official Search widget uses).
+        const params: Record<string, string> = { f: 'json', text, maxSuggestions: '6' };
         const center = this.state.mapView?.view?.center;
-        if (center && typeof center.x === 'number' && typeof center.y === 'number') {
+        // Number.isFinite (not typeof === 'number'): NaN is typeof number, and a
+        // NaN center serializes to {"x":null} which the geocoder rejects.
+        if (center && Number.isFinite(center.x) && Number.isFinite(center.y)) {
             const wkid = center.spatialReference?.wkid;
-            params.set('location', JSON.stringify(wkid
+            params.location = JSON.stringify(wkid
                 ? { x: center.x, y: center.y, spatialReference: { wkid } }
                 : { x: center.x, y: center.y }
-            ));
+            );
         }
 
         try {
-            const resp = await fetch(`${baseUrl}/suggest`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: params.toString(),
-                signal: controller.signal
-            });
-
-            if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-            const data = await resp.json();
+            // NOTE: this uses geocodeGet (XMLHttpRequest), NOT the global fetch().
+            // The host EXB deployment overrides window.fetch/self.fetch with a CDN
+            // cache shim that concatenates its own path onto every URL, e.g.
+            // https://external-gis.gjcity.org/CityMapExternal/cdn/17/9<absolute-url>,
+            // corrupting our absolute geocode URL into a 400 Bad Request. XHR is not
+            // intercepted by that shim, which is why the stock JSAPI Search widget works.
+            const data = await this.geocodeGet(`${baseUrl}/suggest`, params, controller.signal);
             if (data?.error) {
                 throw new Error(data.error.message || `Geocoder error ${data.error.code || ''}`);
             }
@@ -2803,26 +2936,22 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
             addressSearchError: null
         });
 
-        // POST to /findAddressCandidates. Prefer magicKey when the suggest call
-        // returned one (better accuracy / more tightly bound to the suggestion);
-        // fall back to SingleLine otherwise.
-        const params = new URLSearchParams({ f: 'json', maxLocations: '1', outFields: 'Match_addr' });
+        // /findAddressCandidates. Prefer magicKey when the suggest call returned
+        // one (better accuracy / more tightly bound to the suggestion); fall back
+        // to SingleLine otherwise.
+        const params: Record<string, string> = { f: 'json', maxLocations: '1', outFields: 'Match_addr' };
         if (suggestion.magicKey) {
-            params.set('magicKey', suggestion.magicKey);
+            params.magicKey = suggestion.magicKey;
             // Some locators require both magicKey and SingleLine; passing both is harmless.
-            params.set('SingleLine', suggestion.text);
+            params.SingleLine = suggestion.text;
         } else {
-            params.set('SingleLine', suggestion.text);
+            params.SingleLine = suggestion.text;
         }
 
         try {
-            const resp = await fetch(`${baseUrl}/findAddressCandidates`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: params.toString()
-            });
-            if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-            const data = await resp.json();
+            // geocodeGet (XMLHttpRequest), NOT the global fetch() — see the note in
+            // fetchAddressSuggestions: the host app's fetch shim corrupts absolute URLs.
+            const data = await this.geocodeGet(`${baseUrl}/findAddressCandidates`, params);
             if (data?.error) {
                 throw new Error(data.error.message || `Geocoder error ${data.error.code || ''}`);
             }
@@ -3048,7 +3177,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
             if (this.state.selections.length > 0) {
                 // Get all features from all selections (already stored!)
                 features = this.state.selections.flatMap(selection => selection.features);
-                
+
                 // Deduplicate by OBJECTID
                 if (features.length > 0) {
                     const uniqueFeatures = features.filter((feature, index, self) =>
@@ -3134,7 +3263,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
             if (this.state.selections.length > 0) {
                 // Get all features from all selections (already stored!)
                 features = this.state.selections.flatMap(selection => selection.features);
-                
+
                 if (features.length > 0) {
                     const uniqueFeatures = features.filter((feature, index, self) =>
                         index === self.findIndex(f =>
@@ -3308,7 +3437,8 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                 this.state.labelFormat,
                 this.state.fontSize,
                 this.state.startPosition,
-                mode
+                mode,
+                (this.props.config as any)?.wrapLongLines === true
             );
 
             const successMsg = mode === 'print'
@@ -3484,13 +3614,13 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
             this.setState({ isDeleteMode: false });
             if (this.state.mapView?.view) {
                 this.state.mapView.view.container.style.cursor = 'default';
-                
+
                 // Re-enable popups
                 if (this.state.mapView.view.popup) {
                     this.state.mapView.view.popup.autoOpenEnabled = true;
                 }
             }
-            
+
             // Remove delete click handler
             if (this.deleteClickHandler) {
                 this.deleteClickHandler.remove();
@@ -3753,14 +3883,14 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
             // Note: This treats all points as one selection area for simplicity
             const selectionId = `selection_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
             const objectIdField = layer.objectIdField || 'OBJECTID';
-            
+
             // Create a multipolygon that represents all the query geometries
             const combinedGeometry = allGeometries.length === 1 ? allGeometries[0] : {
                 type: 'multipoint',
                 points: points,
                 spatialReference: this.state.mapView.view.spatialReference
             };
-            
+
             const selection: Selection = {
                 selectionId: selectionId,
                 geometry: combinedGeometry,
@@ -5060,9 +5190,13 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                             textAlign: 'center',
                             boxSizing: 'border-box'
                         },
+                        // Mirror the PDF: wrap long lines when the "Wrap long lines"
+                        // setting is on, otherwise keep one line with an ellipsis.
                         children: previewLines.map((line, i) => jsx('div', {
                             key: `pl-${i}`,
-                            style: { whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '100%' },
+                            style: (this.props.config as any)?.wrapLongLines === true
+                                ? { whiteSpace: 'normal', overflowWrap: 'anywhere', wordBreak: 'break-word', maxWidth: '100%' }
+                                : { whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '100%' },
                             children: line
                         }))
                     })

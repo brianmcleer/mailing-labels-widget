@@ -41,6 +41,8 @@ interface Config {
     enableDrawWidgetIntegration?: boolean
     suppressMapPopups?: boolean
     geocodeUrl?: string
+    defaultSortBy?: 'none' | 'name' | 'city' | 'state' | 'zip'
+    wrapLongLines?: boolean
 }
 
 type SettingProps = AllWidgetSettingProps<Config> & {
@@ -1032,6 +1034,46 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
                                     : 'Geometry from the Draw widget is ignored.')}
                             </SettingSection>
                         )}
+
+                        {/* Output defaults */}
+                        <SettingSection title="Output defaults">
+                            {this.stackedRow('Default sort',
+                                <Select
+                                    className="ml-control"
+                                    size="sm"
+                                    value={this.props.config.defaultSortBy || 'none'}
+                                    onChange={(evt: any) => {
+                                        this.props.onSettingChange({
+                                            id: this.props.id,
+                                            config: (this.props.config as any).set('defaultSortBy', evt.target.value)
+                                        })
+                                    }}
+                                    aria-label="Default label sort"
+                                >
+                                    <Option value="none">No sort (selection order)</Option>
+                                    <Option value="name">Name (A to Z)</Option>
+                                    <Option value="city">City (A to Z)</Option>
+                                    <Option value="state">State (A to Z)</Option>
+                                    <Option value="zip">ZIP (USPS bulk mail)</Option>
+                                </Select>)}
+                            {this.descRow('The sort selected when the widget opens. Users can still change it in the widget.')}
+
+                            <SettingRow tag="label" label="Wrap long lines">
+                                <Switch
+                                    checked={this.props.config.wrapLongLines === true}
+                                    onChange={() => {
+                                        this.props.onSettingChange({
+                                            id: this.props.id,
+                                            config: (this.props.config as any).set('wrapLongLines', !this.props.config.wrapLongLines)
+                                        })
+                                    }}
+                                    aria-label="Wrap long lines onto additional lines"
+                                />
+                            </SettingRow>
+                            {this.descRow(this.props.config.wrapLongLines
+                                ? 'Text wider than the label (such as a long owner name) continues on the next line. If the label runs out of room, the font shrinks (down to 5pt) so no line is dropped.'
+                                : 'Each line stays on one line and is trimmed with an ellipsis at the label edge.')}
+                        </SettingSection>
 
                         {/* Map behavior */}
                         <SettingSection title="Map behavior">
