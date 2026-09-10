@@ -1,6 +1,6 @@
 {
   "name": "mailing-labels",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Generate mailing labels from web map layer data with address search, partial sheet support, Avery label formats, and CSV or PDF output.",
   "keywords": [
     "exb-widget",

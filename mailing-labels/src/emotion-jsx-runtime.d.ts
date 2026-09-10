@@ -1,4 +1,3 @@
-// Type-only shim for pnpm/Visual Studio module resolution. No runtime output.
-declare module '@emotion/react/jsx-runtime' {
-  export * from 'react/jsx-runtime'
-}
+// Superseded by exb-editor-shims.d.ts. Left empty (this session cannot delete
+// files on the device). Safe to delete this file.
+export {}

@@ -4,13 +4,8 @@
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "moduleResolution": "Node",
-    "jsx": "react-jsx",
-    "jsxImportSource": "@emotion/react",
-    "baseUrl": "../../..",
-    "paths": {
-      "jimu-*": ["jimu-*"],
-      "esri/*": ["node_modules/@arcgis/core/*"]
-    },
+    "jsx": "react",
+    "types": [],
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
@@ -19,5 +14,5 @@
     "strict": false,
     "noEmit": true
   },
-  "include": ["src"]
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.d.ts"]
 }

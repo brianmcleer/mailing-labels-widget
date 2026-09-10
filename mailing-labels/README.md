@@ -43,6 +43,11 @@ https://community.esri.com/t5/experience-builder-custom-widgets/mailing-labels-c
 - CSV export button for mail merge or downstream processing
 - Clear button to drop all selections
 
+### Help
+
+- In-widget Help guide behind a Help button in the header: a short, searchable, plain-language guide that adapts to the features the app has turned on
+- First-run hint that points new users to the guide, dismissed per browser
+
 ### Polish
 
 - Collapsible sections so the widget fits a normal sidebar without scrolling

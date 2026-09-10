@@ -106,7 +106,7 @@ export default {
 
     // Label format information
     labelFormatInfo: 'Label Format: {format}',
-    labelDimensions: 'Dimensions: {width}" × {height}"',
+    labelDimensions: 'Dimensions: {width}" ï¿½ {height}"',
     labelsPerPage: '{count} labels per page',
 
     // Accessibility labels
@@ -198,4 +198,65 @@ export default {
     // Browser compatibility
     browserWarning: 'Some features may not work in older browsers',
     modernBrowserRecommended: 'For the best experience, use a modern web browser',
+
+    // ---- In-widget help guide (shared keys; see WIDGETHANDOFF Section 10) ----
+    helpTitle: 'Help',
+    helpIntro: 'This widget turns records on your map into printable mailing labels or a spreadsheet.',
+    helpSearchPlaceholder: 'Search the guide (try "PDF" or "buffer")',
+    helpNoMatches: 'Nothing in the guide matches that word. Try another, or open the sections above.',
+    helpAnd: 'and',
+    firstRunTitle: 'New here?',
+    firstRunBody: 'Select records on the map, pick your label sheet, then click PDF or CSV.',
+    firstRunHelpLink: 'Open the guide.',
+    firstRunDismiss: 'Dismiss',
+
+    // Start here
+    helpStartTitle: 'Start here: three steps',
+    helpStart1: 'Choose the records you want by selecting features on the map.',
+    helpStart2: 'Pick your label sheet and set any options, like sort order or a partial-sheet start.',
+    helpStart3: 'Click PDF to download a printable sheet, or CSV for a spreadsheet.',
+
+    // Selecting on the map
+    helpSelectTitle: 'Selecting records on the map',
+    helpSelectIntro: 'This is how you tell the widget which records to turn into labels.',
+    helpSelect1: 'Pick a draw tool (Point, Line, Polygon, Rectangle, or Circle), then draw on the map. Everything inside is selected.',
+    helpSelect2: 'Turn on Buffer to also catch records within a set distance of what you drew. Set the distance and unit next to it.',
+    helpSelect3: 'The count at the top shows how many records are selected. Click Clear to start over.',
+
+    // Address search
+    helpSearchTitle: 'Finding an address',
+    helpSearch1: 'Type an address in the box at the top and pick a match. The map moves to that spot.',
+    helpSearch2: 'Click Select features here to grab the records at that address, using the current buffer if one is set.',
+
+    // Physical vs owner
+    helpAddressTypeTitle: 'Physical or owner address',
+    helpAddressType1: 'Use the Physical and Owner buttons to choose which address goes on the labels.',
+    helpAddressType2: 'Physical is the property location. Owner is the mailing address on file, which is often somewhere else.',
+
+    // Label sheet and options
+    helpFormatTitle: 'Label sheet and options',
+    helpFormatIntro: 'Set these before you export so the sheet prints the way you need.',
+    helpFormat1: 'Pick your Avery sheet from the format list. The size and label count show next to it.',
+    helpFormat2: 'Set Start to skip labels already used on a partial sheet. Start at 5 leaves the first four slots blank.',
+    helpFormat3: 'Use Sort labels to order the sheet. Choose ZIP (USPS bulk mail) if you are claiming a bulk-mail discount.',
+    helpFormat4: 'Turn on No empty to drop blank records, and No duplicates to remove repeats.',
+
+    // Export
+    helpExportTitle: 'Getting your labels out',
+    helpExport1: 'Click PDF to download a printable sheet sized to your Avery format.',
+    helpExport2: 'Click Print to open the sheet in a new tab with the print dialog ready.',
+    helpExport3: 'Click CSV to download the addresses as a spreadsheet instead of a label sheet.',
+
+    // Troubleshooting
+    helpTroubleTitle: 'If something looks wrong',
+    helpTroubleNoMap: 'You cannot select anything on the map: no map is connected to this widget. Ask whoever set up the app to add one in the settings.',
+    helpTrouble1: 'The PDF is empty or labels are blank: the address fields are not mapped, or the selected records have no address. Check your selection and the field setup.',
+    helpTrouble2: 'Labels land in the wrong slots: the Start number is skipping slots on purpose. Set Start back to 1 for a full sheet.',
+    helpTroubleSearch: 'Address search shows an error or no results: the address service did not answer. Try a simpler address, or reload the page and try again.',
+    helpTroubleContact: 'Still stuck? Contact the GIS Division and mention the Mailing Labels name and this app.',
+
+    // Tips
+    helpTipsTitle: 'Good to know',
+    helpTips1: 'Run one test sheet on plain paper before printing a full box of labels.',
+    helpTips2: 'ZIP sort is required for USPS bulk-mail discounts, so set Sort labels to ZIP if you are mailing in bulk.',
 }

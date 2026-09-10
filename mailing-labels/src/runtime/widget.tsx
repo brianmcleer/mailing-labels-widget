@@ -9,6 +9,12 @@ import { ClearOutlined } from 'jimu-icons/outlined/editor/clear'
 // Import config types - simplified, no complex owner address config
 import { Config, LabelFormat, FieldMappings, LABEL_FORMATS, SortOption } from '../config'
 
+// In-widget help guide (shared pattern; see WIDGETHANDOFF Section 10)
+import HelpPopup from './components/HelpPopup'
+import { buildHelpSections, HelpFeatures } from './helpSections'
+import { CalciteIcon } from 'calcite-components'
+import defaultMessages from './translations/default'
+
 // Import ArcGIS modules - simplified to avoid conflicts
 // @ts-ignore -- EB 1.21/Visual Studio misclassifies this ArcGIS 5.x declaration; webpack resolves the runtime module.
 import Graphic from 'esri/Graphic'
@@ -339,6 +345,9 @@ interface State {
     // Custom Format dropdown open/closed state (HTML select can't show short text
     // closed and long text open, so we render our own).
     formatDropdownOpen: boolean
+    // In-widget help guide
+    helpOpen: boolean
+    helpHintDismissed: boolean
 }
 
 // Generate unique IDs for form elements (WCAG accessibility)
@@ -422,6 +431,16 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
             initialAddressType = 'physical';
         }
 
+        // First-run help hint: dismissed state is stored per browser and namespaced
+        // by widget id so two copies of the widget do not share a dismissal.
+        let hintDismissed = false;
+        try {
+            hintDismissed = typeof localStorage !== 'undefined' &&
+                localStorage.getItem(`mailingLabels.helpHintDismissed.${props.id}`) === '1';
+        } catch (e) {
+            hintDismissed = false;
+        }
+
         this.state = {
             mapView: null,
             selectedLayer: null,
@@ -461,8 +480,40 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
             startPosition: 1,
             // Default collapse state: only Partial sheet starts collapsed.
             collapsedSections: { 'start-position': true },
-            formatDropdownOpen: false
+            formatDropdownOpen: false,
+            helpOpen: false,
+            helpHintDismissed: hintDismissed
         }
+    }
+
+    // -- In-widget help guide --------------------------------------------------------
+    /** Translate a key from the widget's messages, with {token} interpolation. */
+    private t = (id: string, values?: Record<string, string>): string => {
+        const msgs: any = defaultMessages;
+        let s: string = (msgs && msgs[id] != null) ? String(msgs[id]) : id;
+        if (values) {
+            for (const k of Object.keys(values)) {
+                s = s.replace(new RegExp('\\{' + k + '\\}', 'g'), values[k]);
+            }
+        }
+        return s;
+    }
+
+    private hintStorageKey = (): string => `mailingLabels.helpHintDismissed.${this.props.id}`;
+
+    /** Opening the guide also answers the first-run hint. */
+    private openHelp = (): void => {
+        this.dismissHint();
+        this.setState({ helpOpen: true });
+    }
+
+    private closeHelp = (): void => {
+        this.setState({ helpOpen: false });
+    }
+
+    private dismissHint = (): void => {
+        try { localStorage.setItem(this.hintStorageKey(), '1'); } catch (e) { /* private browsing */ }
+        this.setState({ helpHintDismissed: true });
     }
 
     componentDidMount() {
@@ -4159,6 +4210,10 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                         })
                     ]
                 }),
+                jsx('div', {
+                    key: 'header-right',
+                    style: { display: 'flex', alignItems: 'center', gap: '6px', flexShrink: 0 },
+                    children: [
                 hasSelection ? jsx('div', {
                     key: 'count-badge',
                     role: 'status',
@@ -4201,9 +4256,100 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                         flexShrink: 0
                     },
                     children: 'No selection'
+                }),
+                jsx(Button, {
+                    key: 'help-btn',
+                    size: 'sm',
+                    type: 'tertiary',
+                    icon: true,
+                    onClick: this.openHelp,
+                    title: this.t('helpTitle'),
+                    'aria-label': this.t('helpTitle'),
+                    style: { flexShrink: 0 },
+                    children: jsx(CalciteIcon, { icon: 'question', scale: 's' })
+                })
+                    ]
                 })
             ]
         }));
+
+        // First-run help hint: a tinted banner pointing at the guide, until dismissed once.
+        if (!this.state.helpHintDismissed) {
+            children.push(jsx('div', {
+                key: 'first-run-hint',
+                role: 'note',
+                style: {
+                    margin: '0 0 8px 0',
+                    padding: '10px 12px',
+                    display: 'flex',
+                    alignItems: 'flex-start',
+                    gap: '10px',
+                    background: tokens.infoBg,
+                    color: tokens.text,
+                    border: `1px solid ${tokens.border}`,
+                    borderLeft: `3px solid ${tokens.primary}`,
+                    borderRadius: tokens.radius,
+                    fontSize: '12px',
+                    lineHeight: 1.5
+                },
+                children: [
+                    jsx('span', {
+                        key: 'hint-icon',
+                        'aria-hidden': 'true',
+                        style: { color: tokens.primary, marginTop: '1px', display: 'flex' },
+                        children: jsx(CalciteIcon, { icon: 'lightbulb', scale: 's' })
+                    }),
+                    jsx('span', {
+                        key: 'hint-text',
+                        style: { flex: 1, minWidth: 0 },
+                        children: [
+                            jsx('strong', { key: 'lead', style: { display: 'block', marginBottom: '2px' }, children: this.t('firstRunTitle') }),
+                            this.t('firstRunBody'),
+                            ' ',
+                            jsx('button', {
+                                key: 'hint-link',
+                                type: 'button',
+                                onClick: this.openHelp,
+                                style: { border: 'none', background: 'transparent', padding: 0, color: tokens.primary, cursor: 'pointer', textDecoration: 'underline', font: 'inherit' },
+                                children: this.t('firstRunHelpLink')
+                            })
+                        ]
+                    }),
+                    jsx(Button, {
+                        key: 'hint-dismiss',
+                        size: 'sm',
+                        type: 'tertiary',
+                        icon: true,
+                        onClick: this.dismissHint,
+                        title: this.t('firstRunDismiss'),
+                        'aria-label': this.t('firstRunDismiss'),
+                        children: jsx(CalciteIcon, { icon: 'x', scale: 's' })
+                    })
+                ]
+            }));
+        }
+
+        // Help guide modal (renders null until opened). Flags are computed from the
+        // same checks the UI uses so the guide never describes a hidden control.
+        {
+            const helpFeatures: HelpFeatures = {
+                mapConnected: !!mapWidgetId,
+                geometrySelection: (enableGeometrySelection !== false) && !!mapWidgetId,
+                addressSearch: !!(this.props.config?.geocodeUrl && String(this.props.config.geocodeUrl).trim()),
+                ownerAddresses: showAddressTypeSelection
+            };
+            children.push(jsx(HelpPopup, {
+                key: 'help-popup',
+                open: this.state.helpOpen,
+                onClose: this.closeHelp,
+                sections: buildHelpSections(this.t, helpFeatures),
+                title: this.t('helpTitle'),
+                intro: this.t('helpIntro'),
+                searchPlaceholder: this.t('helpSearchPlaceholder'),
+                noMatches: this.t('helpNoMatches'),
+                closeLabel: this.t('close')
+            }));
+        }
 
         // Map component (invisible — for data binding only)
         if (mapWidgetId) {
