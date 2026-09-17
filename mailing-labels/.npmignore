@@ -23,3 +23,7 @@ desktop.ini
 __tests__/
 .eslintrc*
 .prettierrc*
+
+# Cowork working folder and release zips never ship
+Claude outputs/
+*.zip

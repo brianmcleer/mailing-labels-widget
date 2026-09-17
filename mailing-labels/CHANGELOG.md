@@ -2,6 +2,11 @@
 
 All notable changes to the Mailing Labels widget are recorded here, newest first.
 
+## 1.1.1 (2026-09-17)
+
+- Packaging: the Visual Studio editor shims are no longer in the release zip. `publish.ps1` strips them from a staging copy (`$ReleaseOnlyExclude`) and refuses to zip if any ambient `declare module` of react, jimu or esri survives. The shims stay in the GitHub repo; clone users delete them before building.
+- Fixed: Maps SDK 5.x (Experience Builder 1.21) compatibility. The selection highlight is now hidden and restored through view.highlights on 5.x (MapView.highlightOptions was removed), the original highlight style is saved and put back rather than reset to cyan, and reopening the widget no longer throws when view.popup is undefined (closePopup() is used when present).
+
 ## 1.1.0 - 2026-09-10
 
 ### Added

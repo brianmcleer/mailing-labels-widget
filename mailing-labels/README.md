@@ -87,6 +87,30 @@ Open the widget settings in the Builder and configure:
    Experience Builder's bootstrap installs the widget dependency declared in `package.json`; no per-widget install is needed.
 4. Restart Experience Builder. If Visual Studio was already open, close it and remove the widget's `.vs` cache before reopening the folder.
 
+### The release zip and the editor shims
+
+The zip is the widget only. The Visual Studio type shims in the repo (`mailing-labels/src/exb-editor-shims.d.ts`) are left out on purpose: their ambient `declare module` blocks are not file-scoped and would rewrite the react, jimu and esri types for every other widget in your `your-extensions` folder.
+
+If you clone the repository instead of using the zip, delete `mailing-labels/src/exb-editor-shims.d.ts` before building; nothing else depends on it.
+
+## Troubleshooting: `mailing-labels is duplicated`
+
+If `npm start` (or `pnpm start`) stops with `mailing-labels is duplicated`, Experience Builder found two copies of the
+widget registered under the same name. A single, correctly placed copy cannot duplicate itself,
+so a second copy is present somewhere. Check, in this order:
+
+1. A nested folder: `widgets\mailing-labels\mailing-labels\`. The `manifest.json` must sit directly
+   inside `widgets\mailing-labels\`, not a level deeper. This is the usual cause when a zip is
+   extracted into a folder that already has the widget's name.
+2. A leftover folder from an earlier build or version, including any `-copy` folder or a folder
+   under a previous name if the widget was renamed.
+3. A stale compiled build in `client\dist\widgets\mailing-labels`. Stop the client server, delete
+   that folder (or run a clean build), then start again.
+
+Tell for the nesting case: if removing one copy makes the widget vanish from the build entirely,
+the copy that remains is nested too deep. Move it so `manifest.json` is directly inside the
+widget folder.
+
 ## Feedback
 
 Bug reports and feature requests are welcome on the GitHub repo:

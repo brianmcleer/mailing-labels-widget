@@ -690,11 +690,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
 
             this.clearAllHighlights();
 
-            view.highlightOptions = {
-                color: [0, 255, 255, 1],
-                fillOpacity: 0.0,
-                haloOpacity: 0.8
-            };
+            this.setMapHighlightsHidden(view, false);
 
             view.map.layers.forEach(layer => {
                 view.whenLayerView(layer).then((layerView: LayerView) => {
@@ -720,6 +716,66 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
         });
     };
 
+    /** Saved copy of the map's default highlight so it can be put back exactly. Maps SDK 4.x stores
+     *  it on MapView.highlightOptions; 5.x stores it as the "default" entry of view.highlights. */
+    private originalHighlight: any = null;
+
+    /**
+     * Hide the map's selection highlight while the widget works, or restore it.
+     * Maps SDK 5.x (Experience Builder 1.21) removed MapView.highlightOptions in favour of the
+     * view.highlights collection, whose "default" entry styles every highlight() call that does
+     * not name its own group. Both APIs are handled; the original values are saved on first hide
+     * and restored verbatim rather than reset to a hard-coded cyan. Copied from Draw Advanced
+     * (WIDGETHANDOFF Section 12, item 13).
+     */
+    private setMapHighlightsHidden = (view: any, hidden: boolean): void => {
+        if (!view) return;
+        const hiddenOpts = { color: [0, 0, 0, 0], haloColor: [0, 0, 0, 0], fillOpacity: 0, haloOpacity: 0 };
+        const fallbackOpts = { color: [0, 255, 255, 1], fillOpacity: 0.0, haloOpacity: 0.8 };
+        const pick = (src: any) => ({
+            color: src?.color?.clone ? src.color.clone() : src?.color,
+            haloColor: src?.haloColor?.clone ? src.haloColor.clone() : src?.haloColor,
+            fillOpacity: src?.fillOpacity,
+            haloOpacity: src?.haloOpacity
+        });
+        const apply = (target: any, opts: any) => {
+            if (!target) return;
+            if (opts.color !== undefined) target.color = opts.color;
+            if (opts.haloColor !== undefined) target.haloColor = opts.haloColor;
+            if (opts.fillOpacity !== undefined) target.fillOpacity = opts.fillOpacity;
+            if (opts.haloOpacity !== undefined) target.haloOpacity = opts.haloOpacity;
+        };
+        try {
+            const highlights: any = view.highlights;
+            if (highlights && typeof highlights.find === 'function') {
+                // Maps SDK 5.x
+                const def = highlights.find((h: any) => h?.name === 'default') ?? highlights.getItemAt?.(0);
+                if (!def) return;
+                if (hidden) {
+                    if (!this.originalHighlight) this.originalHighlight = pick(def);
+                    apply(def, hiddenOpts);
+                } else if (this.originalHighlight) {
+                    apply(def, this.originalHighlight);
+                    this.originalHighlight = null;
+                }
+                return;
+            }
+            if ('highlightOptions' in view) {
+                // Maps SDK 4.x
+                if (hidden) {
+                    if (!this.originalHighlight) this.originalHighlight = pick(view.highlightOptions) ?? fallbackOpts;
+                    view.highlightOptions = { color: hiddenOpts.color, fillOpacity: 0, haloOpacity: 0 };
+                } else {
+                    const o = this.originalHighlight ?? fallbackOpts;
+                    view.highlightOptions = { color: o.color ?? fallbackOpts.color, fillOpacity: o.fillOpacity ?? fallbackOpts.fillOpacity, haloOpacity: o.haloOpacity ?? fallbackOpts.haloOpacity };
+                    this.originalHighlight = null;
+                }
+            }
+        } catch (e) {
+            console.warn('mailing-labels: could not update map highlight style', e);
+        }
+    };
+
     /**
      * Whether map popups should be suppressed while the widget is open.
      * Controlled by the suppressMapPopups setting (default: true).
@@ -741,12 +797,18 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                     view.popup.autoCloseEnabled = false;
                 }
 
-                view.popup.visible = false;
+                // Maps SDK 5.x: view.popup is undefined until a popup has opened, so prefer closePopup().
+                try {
+                    if (typeof (view as any).closePopup === 'function') (view as any).closePopup();
+                    else if (view.popup && 'visible' in view.popup) view.popup.visible = false;
+                } catch (err) {
+                    // popup not available on this view
+                }
 
                 try {
-                    if (view.popup.viewModel?.clear) {
+                    if (view.popup?.viewModel?.clear) {
                         view.popup.viewModel.clear();
-                    } else if (view.popup.viewModel?.features?.length) {
+                    } else if (view.popup?.viewModel?.features?.length) {
                         view.popup.viewModel.features.splice(0);
                     }
                 } catch (err) {
@@ -754,11 +816,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                 }
             }
 
-            view.highlightOptions = {
-                color: [0, 0, 0, 0],
-                fillOpacity: 0,
-                haloOpacity: 0
-            };
+            this.setMapHighlightsHidden(view, true);
 
             view.map.layers.forEach(layer => {
                 view.whenLayerView(layer).then((layerView: LayerView) => {
@@ -993,11 +1051,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                 }
             }
 
-            view.highlightOptions = {
-                color: [0, 0, 0, 0],
-                fillOpacity: 0,
-                haloOpacity: 0
-            };
+            this.setMapHighlightsHidden(view, true);
 
             view.map.layers.forEach(layer => {
                 view.whenLayerView(layer).then((layerView: LayerView) => {
@@ -1352,11 +1406,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
             if (this.shouldSuppressPopups()) {
                 view.popupEnabled = false;
             }
-            view.highlightOptions = {
-                color: [0, 0, 0, 0],
-                fillOpacity: 0,
-                haloOpacity: 0
-            };
+            this.setMapHighlightsHidden(view, true);
 
             this.sketchLayer = new GraphicsLayer({ title: 'Sketch Layer', listMode: 'hide' });
             view.map.add(this.sketchLayer);

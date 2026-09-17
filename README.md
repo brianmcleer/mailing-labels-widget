@@ -56,6 +56,12 @@ See the Esri Community thread for the full changelog going back to the original 
 3. From the `client` folder, run `npm install`. Experience Builder picks up the widget's dependencies automatically.
 4. Restart Experience Builder.
 
+### The release zip and the editor shims
+
+The zip is the widget only. The Visual Studio type shims in the repo (`mailing-labels/src/exb-editor-shims.d.ts`) are left out on purpose: their ambient `declare module` blocks are not file-scoped and would rewrite the react, jimu and esri types for every other widget in your `your-extensions` folder.
+
+If you clone the repository instead of using the zip, delete `mailing-labels/src/exb-editor-shims.d.ts` before building; nothing else depends on it.
+
 ## Configure
 
 Open the widget settings in the Builder:

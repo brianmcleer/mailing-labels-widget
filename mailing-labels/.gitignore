@@ -20,3 +20,7 @@ npm-debug.log*
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Cowork working folder and release zips never ship
+Claude outputs/
+*.zip
