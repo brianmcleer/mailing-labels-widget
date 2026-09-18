@@ -5,6 +5,9 @@
  * Simplified configuration for the Mailing Labels widget
  */
 export interface Config {
+  /** Show the question-mark button that opens the help guide. Undefined means on,
+   *  so apps configured before this setting existed keep their help button. */
+  showHelp?: boolean
     /** Array of map widget IDs that this widget can connect to */
     useMapWidgetIds?: string[]
 

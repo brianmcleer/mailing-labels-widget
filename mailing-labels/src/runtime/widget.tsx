@@ -4322,7 +4322,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                     },
                     children: 'No selection'
                 }),
-                jsx(Button, {
+                this.props.config?.showHelp !== false && jsx(Button, {
                     key: 'help-btn',
                     size: 'sm',
                     type: 'tertiary',
@@ -4339,7 +4339,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
         }));
 
         // First-run help hint: a tinted banner pointing at the guide, until dismissed once.
-        if (!this.state.helpHintDismissed) {
+        if (!this.state.helpHintDismissed && this.props.config?.showHelp !== false) {
             children.push(jsx('div', {
                 key: 'first-run-hint',
                 role: 'note',

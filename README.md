@@ -1,5 +1,7 @@
 # Mailing Labels Widget
 
+[![License](https://img.shields.io/github/license/brianmcleer/mailing-labels-widget)](LICENSE) [![Release](https://img.shields.io/github/v/release/brianmcleer/=tag)](https://github.com/brianmcleer/mailing-labels-widget/releases) [![Issues](https://img.shields.io/github/issues/brianmcleer/mailing-labels-widget)](https://github.com/brianmcleer/mailing-labels-widget/issues)
+
 An ArcGIS Experience Builder custom widget that generates print-ready mailing labels from web map layer data. Find features by address search, drawing, or click, then export to PDF or CSV in a standard Avery layout.
 
 Built and tested on Experience Builder Developer Edition 1.19 and 1.20 (React 19). The 1.18 line is no longer maintained.

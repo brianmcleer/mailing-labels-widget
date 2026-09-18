@@ -1158,6 +1158,15 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
                             )}
                             {this.descRow('Export saves the current settings to an XML file; import applies a previously exported file. The map widget binding is not transferred, so imported layer and field settings only resolve when the target app uses a map containing the same layers.')}
                         </SettingSection>
+                        <SettingSection title='Help'>
+                          <SettingRow tag='label' label='Show help guide'>
+                            <Switch
+                              checked={this.props.config?.showHelp !== false}
+                              onChange={(evt) => { this.props.onSettingChange({ id: this.props.id, config: (this.props.config as any).set('showHelp', evt.target.checked) }) }}
+                              aria-label='Show the question-mark button that opens the widget help guide'
+                            />
+                          </SettingRow>
+                        </SettingSection>
                     </>
                 )}
             </div>
