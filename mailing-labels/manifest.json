@@ -2,7 +2,7 @@
   "name": "mailing-labels",
   "label": "Mailing Labels",
   "type": "widget",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "exbVersion": "1.21.0",
   "author": "Brian McLeer",
   "description": "Generate mailing labels from web map layer data with address search, partial sheet support, Avery formats, and CSV or PDF output.",

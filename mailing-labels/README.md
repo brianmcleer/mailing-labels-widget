@@ -93,6 +93,10 @@ The zip is the widget only. The Visual Studio type shims in the repo (`mailing-l
 
 If you clone the repository instead of using the zip, delete `mailing-labels/src/exb-editor-shims.d.ts` before building; nothing else depends on it.
 
+## Usage telemetry
+
+This widget records anonymous usage counts and errors so the GIS Division can see which widgets and versions are in use and which errors users hit. It records the app id and title, widget name and version, the action name, a truncated error message, the site host name and browser family. It never records usernames, coordinates, addresses, attribute values or URLs with query strings. Where the data goes: on page load the widget asks the app's portal for a public item tagged `exb-beacon-sink` and posts to that table. If your portal has no such item, nothing is sent anywhere. To turn it off for an app, set `"telemetry": false` in the widget's config, or users can enable Do Not Track in their browser. The shared module is `src/shared/beacon.ts`.
+
 ## Troubleshooting: `mailing-labels is duplicated`
 
 If `npm start` (or `pnpm start`) stops with `mailing-labels is duplicated`, Experience Builder found two copies of the

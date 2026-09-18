@@ -14,6 +14,8 @@ import HelpPopup from './components/HelpPopup'
 import { buildHelpSections, HelpFeatures } from './helpSections'
 import { CalciteIcon } from 'calcite-components'
 import defaultMessages from './translations/default'
+import { beacon } from '../shared/beacon'
+import type { BeaconHandle } from '../shared/beacon'
 
 // Import ArcGIS modules - simplified to avoid conflicts
 // @ts-ignore -- EB 1.21/Visual Studio misclassifies this ArcGIS 5.x declaration; webpack resolves the runtime module.
@@ -367,6 +369,8 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
         callback?: () => void
     ) => void
 
+    private beacon: BeaconHandle | null = null
+
     private drawingHandlers: any[] = []
     private sketchLayer: GraphicsLayer | null = null;
     private sketchVM: SketchViewModel | null = null;
@@ -517,6 +521,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
     }
 
     componentDidMount() {
+        this.beacon = beacon.init(this.props);
         document.addEventListener('keydown', this.handleKeyDown);
 
         // Listen for external geometry from draw widget (only if enabled in config)
@@ -3118,6 +3123,8 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
             return;
         }
 
+        this.beacon?.action('search');
+
         const { bufferDistance, bufferUnit } = this.state;
 
         // Only buffer when the user has explicitly set a distance. A "be safe"
@@ -3202,6 +3209,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                 this.showMessage('success', `${features.length} feature(s) selected at ${searched.label}.`);
             }
         } catch (err: any) {
+            this.beacon?.error(err, 'search');
             this.showMessage('error', 'Failed to query features at that address.');
         }
     }
@@ -3526,6 +3534,8 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
             return;
         }
 
+        this.beacon?.action(mode === 'print' ? 'print' : 'export-pdf');
+
         try {
             const verb = mode === 'print' ? 'printing' : 'downloading';
             this.showMessage('info', `PDF Generation: Processing ${features.length} features for ${verb}`);
@@ -3548,6 +3558,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
             this.showMessage('success', successMsg);
 
         } catch (error: any) {
+            this.beacon?.error(error, 'export-pdf');
             this.showMessage('error', `PDF generation failed: ${error.message}`);
         }
     };
@@ -3669,6 +3680,8 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
             return;
         }
 
+        this.beacon?.action('export-csv');
+
         const headers = ['Name', 'Address1', 'Address2', 'City', 'State', 'Zip'];
         const csvContent = [headers.join(',')];
 
@@ -3709,6 +3722,8 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
         if (!this.sketchVM || !this.state.mapView) {
             return;
         }
+
+        this.beacon?.action('draw', tool);
 
         // Turn off delete mode if active and re-enable popups
         if (this.state.isDeleteMode) {
