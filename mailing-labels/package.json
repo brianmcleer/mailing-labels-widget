@@ -31,10 +31,5 @@
   },
   "allowScripts": {
     "core-js": false
-  },
-  "pnpm": {
-    "overrides": {
-      "dompurify": ">=3.4.16"
-    }
   }
 }
