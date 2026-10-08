@@ -11,7 +11,48 @@
     "supportRepeat": false,
     "canCrossFilter": false
   },
-  "translatedLocales": [ "en" ],
+  "translatedLocales": [
+    "en",
+    "ar",
+    "bg",
+    "bs",
+    "ca",
+    "cs",
+    "da",
+    "de",
+    "el",
+    "es",
+    "et",
+    "fi",
+    "fr",
+    "he",
+    "hr",
+    "hu",
+    "id",
+    "it",
+    "ja",
+    "ko",
+    "lt",
+    "lv",
+    "no",
+    "nl",
+    "pl",
+    "pt-br",
+    "pt-pt",
+    "ro",
+    "ru",
+    "sk",
+    "sl",
+    "sr",
+    "sv",
+    "th",
+    "tr",
+    "zh-cn",
+    "uk",
+    "vi",
+    "zh-hk",
+    "zh-tw"
+  ],
   "defaultLocale": "en",
   "dependencies": [
     "jimu-core",
@@ -25,7 +66,9 @@
   "supportDataSource": true,
   "useDataSources": [
     {
-      "types": [ "WebMap" ]
+      "types": [
+        "WebMap"
+      ]
     }
   ]
 }
