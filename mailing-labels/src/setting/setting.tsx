@@ -3,6 +3,18 @@ import { MapWidgetSelector, SettingSection, SettingRow } from 'jimu-ui/advanced/
 import { TextInput, Label, Switch, Select, Option, Button, Checkbox, Alert } from 'jimu-ui'
 import { React, Immutable, DataSourceManager, getAppStore } from 'jimu-core'
 import { MapViewManager } from 'jimu-arcgis'
+import __i18nDefaults from './translations/default'
+import { __setIntl, __tc } from './i18n-t'
+let __i18nIntl: any = null
+/** Module translator: app language via the widget intl, English from default.ts, {name} values filled. */
+const __t = (id: string, values?: { [key: string]: any }): string => {
+  const msg: string = (__i18nDefaults as any)[id] ?? id
+  if (__i18nIntl && typeof __i18nIntl.formatMessage === 'function') {
+    try { return __i18nIntl.formatMessage({ id, defaultMessage: msg }, values) } catch (e) { }
+  }
+  return msg.replace(/\{(\w+)\}/g, (m: string, k: string) => (values && values[k] != null ? String(values[k]) : m))
+}
+
 
 interface Config {
     useMapWidgetIds?: string[] | any // Allow both regular array and ImmutableArray
@@ -346,7 +358,7 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
                 })
                 .map((layer: any) => ({
                     id: layer.id,
-                    title: layer.title || layer.name || `Layer ${layer.id}`,
+                    title: layer.title || layer.name || __t("layerId", { id: layer.id }),
                     layer: layer
                 }))
 
@@ -378,7 +390,7 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
             console.error('Error loading layers from map:', error)
             this.setState({
                 isLoadingLayers: false,
-                layerLoadError: `Error: ${error.message || 'Unknown error occurred while loading layers'}`,
+                layerLoadError: `Error: ${__tc(error.message, "unknownErrorOccurredWhileLoadingLayers")}`,
                 availableLayers: []
             })
         }
@@ -565,7 +577,7 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
             const data = await resp.json()
             // ArcGIS error responses come back as 200s with an `error` payload, so check explicitly
             if (data?.error) {
-                const detail = data.error.message || 'Service returned an error.'
+                const detail = __tc(data.error.message, "serviceReturnedAnError")
                 this.setState({ geocodeTestStatus: 'error', geocodeTestMessage: detail })
                 return
             }
@@ -577,7 +589,7 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
             }
             this.setState({ geocodeTestStatus: 'ok', geocodeTestMessage: 'Geocoder reachable.' })
         } catch (err: any) {
-            this.setState({ geocodeTestStatus: 'error', geocodeTestMessage: err?.message || 'Request failed.' })
+            this.setState({ geocodeTestStatus: 'error', geocodeTestMessage: __tc(err?.message, "requestFailed") })
         }
     }
 
@@ -659,7 +671,7 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
             URL.revokeObjectURL(url)
             this.setState({ importExportStatus: 'Settings exported to mailing-labels-settings.xml.' })
         } catch (err: any) {
-            this.setState({ importExportStatus: 'Export failed: ' + (err?.message || 'unknown error') })
+            this.setState({ importExportStatus: 'Export failed: ' + (__tc(err?.message, "unknownError")) })
         }
     }
 
@@ -700,7 +712,7 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
                     config: merged
                 })
             } catch (err: any) {
-                this.setState({ importExportStatus: 'Import failed: ' + (err?.message || 'unknown error') })
+                this.setState({ importExportStatus: 'Import failed: ' + (__tc(err?.message, "unknownError")) })
             }
         }
         reader.onerror = () => {
@@ -755,7 +767,7 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
             onChange={(evt: any) => onChange(evt.target.value)}
             aria-label={ariaLabel}
         >
-            <Option value="">None</Option>
+            <Option value="">{__t("uiNone")}</Option>
             {fields.map((field: any) => (
                 <Option key={field.name} value={field.name}>
                     {field.alias || field.name}
@@ -778,11 +790,11 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
                     ? 'Map each label line to a field in the physical address layer.'
                     : 'Map each label line to a field in the owner address layer.')}
 
-                <SettingRow tag="label" label="Use custom text for name">
+                <SettingRow tag="label" label={__t("uiUseCustomTextForName")}>
                     <Checkbox
                         checked={useCustom}
                         onChange={(evt: any, checked?: boolean) => onMap('useCustomName', checked ?? evt?.target?.checked)}
-                        aria-label="Use custom text for name"
+                        aria-label={__t("uiUseCustomTextForName")}
                     />
                 </SettingRow>
 
@@ -791,10 +803,10 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
                         <TextInput
                             className="ml-control"
                             size="sm"
-                            placeholder={kind === 'physical' ? 'e.g., Current Resident' : 'e.g., Property Owner'}
+                            placeholder={kind === 'physical' ? __t("eGCurrentResident") : __t("eGPropertyOwner")}
                             value={mappings.nameCustomText || ''}
                             onChange={(evt: any) => onMap('nameCustomText', evt.target.value)}
-                            aria-label="Custom name text"
+                            aria-label={__t("uiCustomNameText")}
                         />)
                     : this.stackedRow('Name',
                         this.fieldSelect(mappings.name, fields, (v) => onMap('name', v), 'Name field'))}
@@ -811,6 +823,8 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
     }
 
     render() {
+    __setIntl((this.props as any).intl)
+    __i18nIntl = (this.props as any).intl
         const { config, availableLayers, availableFields, ownerAvailableFields, isLoadingLayers, layerLoadError } = this.state
         const {
             useMapWidgetIds = [],
@@ -834,12 +848,12 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
         return (
             <div className="widget-setting-mailing-labels">
                 {/* Map source */}
-                <SettingSection title="Source">
+                <SettingSection title={__t("uiSource")}>
                     {this.stackedRow('Map widget',
                         <MapWidgetSelector
                             onSelect={this.onMapWidgetSelected}
                             useMapWidgetIds={mapWidgetIdsArray}
-                            aria-label="Select map widget"
+                            aria-label={__t("uiSelectMapWidget")}
                         />)}
 
                     {mapWidgetIdsArray.length > 0 && isLoadingLayers && (
@@ -848,7 +862,7 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
                                 className="ml-alert"
                                 type="info"
                                 withIcon
-                                text="Connecting to map widget. Maps with many layers can take up to 30 seconds."
+                                text={__t("uiConnectingToMapWidgetMapsWith")}
                             />
                         </SettingRow>
                     )}
@@ -873,7 +887,7 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
                                         this.loadLayersFromMap()
                                     }}
                                 >
-                                    Retry connection
+                                    {__t("uiRetryConnection")}
                                 </Button>
                             </SettingRow>
                         </>
@@ -883,22 +897,22 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
                 {mapWidgetIdsArray.length > 0 && !isLoadingLayers && (
                     <>
                         {/* Address types */}
-                        <SettingSection title="Address types">
+                        <SettingSection title={__t("uiAddressTypes")}>
                             {this.descRow('Choose which address types end users can generate labels for.')}
 
-                            <SettingRow tag="label" label="Physical mailing address">
+                            <SettingRow tag="label" label={__t("uiPhysicalMailingAddress")}>
                                 <Switch
                                     checked={physicalEnabled}
                                     onChange={(evt: any, checked: boolean) => this.onAddressTypeToggle('physical', checked)}
-                                    aria-label="Enable physical mailing address"
+                                    aria-label={__t("uiEnablePhysicalMailingAddress")}
                                 />
                             </SettingRow>
 
-                            <SettingRow tag="label" label="Owner address">
+                            <SettingRow tag="label" label={__t("uiOwnerAddress")}>
                                 <Switch
                                     checked={ownerEnabled}
                                     onChange={(evt: any, checked: boolean) => this.onAddressTypeToggle('owner', checked)}
-                                    aria-label="Enable owner address"
+                                    aria-label={__t("uiEnableOwnerAddress")}
                                 />
                             </SettingRow>
 
@@ -908,16 +922,16 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
                                     size="sm"
                                     value={config.defaultAddressType || 'physical'}
                                     onChange={this.onDefaultAddressTypeChange}
-                                    aria-label="Default address type"
+                                    aria-label={__t("uiDefaultAddressType")}
                                 >
-                                    <Option value="physical">Physical mailing address</Option>
-                                    <Option value="owner">Owner address</Option>
+                                    <Option value="physical">{__t("uiPhysicalMailingAddress")}</Option>
+                                    <Option value="owner">{__t("uiOwnerAddress")}</Option>
                                 </Select>)}
                         </SettingSection>
 
                         {/* Physical address layer */}
                         {physicalEnabled && (
-                            <SettingSection title="Physical address">
+                            <SettingSection title={__t("uiPhysicalAddress")}>
                                 {this.descRow('Layer containing physical mailing address data (where mail is delivered).')}
 
                                 {this.stackedRow('Layer',
@@ -926,9 +940,9 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
                                         size="sm"
                                         value={selectedLayerId}
                                         onChange={this.onLayerChange}
-                                        aria-label="Physical address layer"
+                                        aria-label={__t("uiPhysicalAddressLayer")}
                                     >
-                                        <Option value="">Select a layer</Option>
+                                        <Option value="">{__t("uiSelectALayer")}</Option>
                                         {availableLayers.map(layer => (
                                             <Option key={layer.id} value={layer.id}>{layer.title}</Option>
                                         ))}
@@ -939,7 +953,7 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
                                         {this.descRow('No layers loaded yet.')}
                                         <SettingRow flush>
                                             <Button className="ml-control" size="sm" type="primary" onClick={() => this.loadLayersFromMap()}>
-                                                Load layers
+                                                {__t("uiLoadLayers")}
                                             </Button>
                                         </SettingRow>
                                     </>
@@ -952,7 +966,7 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
 
                         {/* Owner address layer */}
                         {ownerEnabled && (
-                            <SettingSection title="Owner address">
+                            <SettingSection title={__t("uiOwnerAddress")}>
                                 {this.descRow('Layer containing property owner address data (who owns the property).')}
 
                                 {this.stackedRow('Layer',
@@ -961,9 +975,9 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
                                         size="sm"
                                         value={ownerLayerId}
                                         onChange={this.onOwnerLayerChange}
-                                        aria-label="Owner address layer"
+                                        aria-label={__t("uiOwnerAddressLayer")}
                                     >
-                                        <Option value="">Select a layer</Option>
+                                        <Option value="">{__t("uiSelectALayer")}</Option>
                                         {availableLayers.map(layer => (
                                             <Option key={layer.id} value={layer.id}>{layer.title}</Option>
                                         ))}
@@ -976,12 +990,12 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
 
                         {/* Selection */}
                         {(selectedLayerId || ownerLayerId) && (
-                            <SettingSection title="Selection">
-                                <SettingRow tag="label" label="Geometry selection">
+                            <SettingSection title={__t("uiSelection")}>
+                                <SettingRow tag="label" label={__t("uiGeometrySelection")}>
                                     <Switch
                                         checked={enableGeometrySelection}
                                         onChange={this.onGeometrySelectionToggle}
-                                        aria-label="Enable geometry selection"
+                                        aria-label={__t("uiEnableGeometrySelection")}
                                     />
                                 </SettingRow>
                                 {this.descRow('Let users draw areas on the map to filter which features are included.')}
@@ -994,9 +1008,9 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
                                                 size="sm"
                                                 value={selectionLayerId}
                                                 onChange={this.onSelectionLayerChange}
-                                                aria-label="Selection layer"
+                                                aria-label={__t("uiSelectionLayer")}
                                             >
-                                                <Option value="">Select a layer</Option>
+                                                <Option value="">{__t("uiSelectALayer")}</Option>
                                                 {availableLayers.map(layer => (
                                                     <Option key={layer.id} value={layer.id}>{layer.title}</Option>
                                                 ))}
@@ -1008,16 +1022,16 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
                                                 size="sm"
                                                 value={selectionMethod}
                                                 onChange={this.onSelectionMethodChange}
-                                                aria-label="Selection method"
+                                                aria-label={__t("uiSelectionMethod")}
                                             >
-                                                <Option value="click">Click to select</Option>
-                                                <Option value="draw">Draw selection area</Option>
-                                                <Option value="both">Click and draw</Option>
+                                                <Option value="click">{__t("uiClickToSelect")}</Option>
+                                                <Option value="draw">{__t("uiDrawSelectionArea")}</Option>
+                                                <Option value="both">{__t("uiClickAndDraw")}</Option>
                                             </Select>)}
                                     </>
                                 )}
 
-                                <SettingRow tag="label" label="Accept geometry from Draw widget">
+                                <SettingRow tag="label" label={__t("uiAcceptGeometryFromDrawWidget")}>
                                     <Switch
                                         checked={this.props.config.enableDrawWidgetIntegration === true}
                                         onChange={() => {
@@ -1026,7 +1040,7 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
                                                 config: (this.props.config as any).set('enableDrawWidgetIntegration', !this.props.config.enableDrawWidgetIntegration)
                                             })
                                         }}
-                                        aria-label="Accept geometry from Draw widget"
+                                        aria-label={__t("uiAcceptGeometryFromDrawWidget")}
                                     />
                                 </SettingRow>
                                 {this.descRow(this.props.config.enableDrawWidgetIntegration
@@ -1036,7 +1050,7 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
                         )}
 
                         {/* Output defaults */}
-                        <SettingSection title="Output defaults">
+                        <SettingSection title={__t("uiOutputDefaults")}>
                             {this.stackedRow('Default sort',
                                 <Select
                                     className="ml-control"
@@ -1048,17 +1062,17 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
                                             config: (this.props.config as any).set('defaultSortBy', evt.target.value)
                                         })
                                     }}
-                                    aria-label="Default label sort"
+                                    aria-label={__t("uiDefaultLabelSort")}
                                 >
-                                    <Option value="none">No sort (selection order)</Option>
-                                    <Option value="name">Name (A to Z)</Option>
-                                    <Option value="city">City (A to Z)</Option>
-                                    <Option value="state">State (A to Z)</Option>
-                                    <Option value="zip">ZIP (USPS bulk mail)</Option>
+                                    <Option value="none">{__t("uiNoSortSelectionOrder")}</Option>
+                                    <Option value="name">{__t("uiNameAToZ")}</Option>
+                                    <Option value="city">{__t("uiCityAToZ")}</Option>
+                                    <Option value="state">{__t("uiStateAToZ")}</Option>
+                                    <Option value="zip">{__t("uiZipUspsBulkMail")}</Option>
                                 </Select>)}
                             {this.descRow('The sort selected when the widget opens. Users can still change it in the widget.')}
 
-                            <SettingRow tag="label" label="Wrap long lines">
+                            <SettingRow tag="label" label={__t("uiWrapLongLines")}>
                                 <Switch
                                     checked={this.props.config.wrapLongLines === true}
                                     onChange={() => {
@@ -1067,7 +1081,7 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
                                             config: (this.props.config as any).set('wrapLongLines', !this.props.config.wrapLongLines)
                                         })
                                     }}
-                                    aria-label="Wrap long lines onto additional lines"
+                                    aria-label={__t("uiWrapLongLinesOntoAdditionalLines")}
                                 />
                             </SettingRow>
                             {this.descRow(this.props.config.wrapLongLines
@@ -1076,8 +1090,8 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
                         </SettingSection>
 
                         {/* Map behavior */}
-                        <SettingSection title="Map behavior">
-                            <SettingRow tag="label" label="Suppress map popups while open">
+                        <SettingSection title={__t("uiMapBehavior")}>
+                            <SettingRow tag="label" label={__t("uiSuppressMapPopupsWhileOpen")}>
                                 <Switch
                                     checked={this.props.config.suppressMapPopups !== false}
                                     onChange={() => {
@@ -1086,7 +1100,7 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
                                             config: (this.props.config as any).set('suppressMapPopups', this.props.config.suppressMapPopups === false)
                                         })
                                     }}
-                                    aria-label="Suppress map popups while widget is open"
+                                    aria-label={__t("uiSuppressMapPopupsWhileWidgetIs")}
                                 />
                             </SettingRow>
                             {this.descRow(this.props.config.suppressMapPopups !== false
@@ -1095,7 +1109,7 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
                         </SettingSection>
 
                         {/* Address search */}
-                        <SettingSection title="Address search">
+                        <SettingSection title={__t("uiAddressSearch")}>
                             {this.stackedRow('Geocode service URL',
                                 <TextInput
                                     className="ml-control"
@@ -1103,7 +1117,7 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
                                     placeholder="https://.../GeocodeServer"
                                     value={this.props.config.geocodeUrl || ''}
                                     onChange={(evt: any) => this.onGeocodeUrlChange(evt.target.value)}
-                                    aria-label="Geocode service URL"
+                                    aria-label={__t("uiGeocodeServiceUrl")}
                                 />)}
 
                             <SettingRow flush>
@@ -1113,7 +1127,7 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
                                         disabled={!this.props.config.geocodeUrl || this.state.geocodeTestStatus === 'testing'}
                                         onClick={this.testGeocodeUrl}
                                     >
-                                        {this.state.geocodeTestStatus === 'testing' ? 'Testing...' : 'Test'}
+                                        {this.state.geocodeTestStatus === 'testing' ? 'Testing...' : __t("test")}
                                     </Button>
                                     {this.state.geocodeTestStatus !== 'idle' && (
                                         <span className={
@@ -1130,11 +1144,11 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
                         </SettingSection>
 
                         {/* Settings file */}
-                        <SettingSection title="Settings file">
+                        <SettingSection title={__t("uiSettingsFile")}>
                             <SettingRow flush>
                                 <div className="ml-inline">
-                                    <Button size="sm" onClick={this.exportConfigXml}>Export XML</Button>
-                                    <Button size="sm" onClick={this.triggerImportConfigXml}>Import XML</Button>
+                                    <Button size="sm" onClick={this.exportConfigXml}>{__t("uiExportXml")}</Button>
+                                    <Button size="sm" onClick={this.triggerImportConfigXml}>{__t("uiImportXml")}</Button>
                                     <input
                                         ref={(el) => { this.importFileInput = el }}
                                         type="file"
@@ -1158,12 +1172,12 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
                             )}
                             {this.descRow('Export saves the current settings to an XML file; import applies a previously exported file. The map widget binding is not transferred, so imported layer and field settings only resolve when the target app uses a map containing the same layers.')}
                         </SettingSection>
-                        <SettingSection title='Help'>
-                          <SettingRow tag='label' label='Show help guide'>
+                        <SettingSection title={__t("help")}>
+                          <SettingRow tag='label' label={__t("uiShowHelpGuide")}>
                             <Switch
                               checked={this.props.config?.showHelp !== false}
                               onChange={(evt) => { this.props.onSettingChange({ id: this.props.id, config: (this.props.config as any).set('showHelp', evt.target.checked) }) }}
-                              aria-label='Show the question-mark button that opens the widget help guide'
+                              aria-label={__t("uiShowTheQuestionMarkButtonThat")}
                             />
                           </SettingRow>
                         </SettingSection>

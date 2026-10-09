@@ -56,6 +56,7 @@ import TrashIcon from './assets/trash.svg';
 
 // jsPDF is declared in package.json; EB 1.21 installs widget dependencies during the client-level 'pnpm ci'.
 import jsPDF from 'jspdf';
+import { __setIntl, __t, __tc } from './i18n-t'
 
 // PDF Generation
 declare global {
@@ -1570,7 +1571,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
         } catch (error) {
             this.setState({
                 mapConnectionStatus: 'error',
-                errorMessage: 'Failed to initialize map features'
+                errorMessage: __t("failedToInitializeMapFeatures")
             });
         }
     }
@@ -3025,7 +3026,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
             this.setState({
                 addressSuggestions: [],
                 addressSearchLoading: false,
-                addressSearchError: err?.message || 'Address lookup failed.'
+                addressSearchError: __tc(err?.message, "addressLookupFailed")
             });
         }
     }
@@ -3109,7 +3110,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
             console.error('[mailing-labels] /findAddressCandidates failed:', err);
             this.setState({
                 addressSearchLoading: false,
-                addressSearchError: err?.message || 'Could not resolve that address.'
+                addressSearchError: __tc(err?.message, "couldNotResolveThatAddress")
             });
         }
     }
@@ -4052,6 +4053,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
     }
 
     render() {
+    __setIntl((this.props as any).intl)
         const { useMapWidgetIds, selectedFields, ownerFields, enableGeometrySelection, enabledAddressTypes } = this.props.config || {};
         const mapWidgetId = useMapWidgetIds?.[0] || null;
 
@@ -4081,12 +4083,12 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
         const currentFormatLong = labelFormatOptions.find(o => o.value === this.state.labelFormat)?.long || '';
 
         const drawTools = [
-            { tool: 'point', icon: PinIcon, label: 'Point' },
-            { tool: 'multipoint', icon: MultipointIcon, label: 'Multipoint' },
-            { tool: 'polyline', icon: LineIcon, label: 'Line' },
-            { tool: 'polygon', icon: PolygonIcon, label: 'Polygon' },
-            { tool: 'rectangle', icon: RectangleIcon, label: 'Rectangle' },
-            { tool: 'circle', icon: CircleIcon, label: 'Circle' }
+            { tool: 'point', icon: PinIcon, label: __t("point") },
+            { tool: 'multipoint', icon: MultipointIcon, label: __t("multipoint") },
+            { tool: 'polyline', icon: LineIcon, label: __t("line") },
+            { tool: 'polygon', icon: PolygonIcon, label: __t("polygon") },
+            { tool: 'rectangle', icon: RectangleIcon, label: __t("rectangle") },
+            { tool: 'circle', icon: CircleIcon, label: __t("circle") }
         ];
 
         // -- Design system --------------------------------------------------------------
@@ -4265,14 +4267,14 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                         jsx('div', {
                             key: 'title',
                             style: { fontSize: '13px', fontWeight: 700, color: tokens.text, lineHeight: 1.1 },
-                            children: 'Mailing Labels'
+                            children: __t("_widgetLabel")
                         }),
                         jsx('div', {
                             key: 'subtitle',
                             style: { fontSize: '10.5px', color: tokens.textMuted, lineHeight: 1.2, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' },
                             children: hasSelection
-                                ? `${selCount} feature${selCount === 1 ? '' : 's'} ready to export`
-                                : 'Select features on the map, then export.'
+                                ? __t("selCountFeatureValueReadyToExport", { selCount: selCount, value: selCount === 1 ? '' : 's' })
+                                : __t("selectFeaturesOnTheMapThen")
                         })
                     ]
                 }),
@@ -4285,7 +4287,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                     role: 'status',
                     'aria-live': 'polite',
                     'aria-atomic': 'true',
-                    title: `${selCount} feature${selCount === 1 ? '' : 's'} across ${selAreas} selection area${selAreas === 1 ? '' : 's'}`,
+                    title: __t("selCountFeatureValueAcrossSelAreasSelection", { selCount: selCount, value: selCount === 1 ? '' : 's', selAreas: selAreas, value2: selAreas === 1 ? '' : 's' }),
                     style: {
                         display: 'inline-flex',
                         alignItems: 'center',
@@ -4321,7 +4323,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                         whiteSpace: 'nowrap',
                         flexShrink: 0
                     },
-                    children: 'No selection'
+                    children: __t("noSelection")
                 }),
                 this.props.config?.showHelp !== false && jsx(Button, {
                     key: 'help-btn',
@@ -4464,12 +4466,12 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                 outputRows.push(formRow('row-type', 'Type', jsx('div', {
                     key: 'type-group',
                     role: 'radiogroup',
-                    'aria-label': 'Label type',
+                    'aria-label': __t("labelType"),
                     style: { display: 'flex', gap: '12px', fontSize: '12px', color: tokens.text },
                     children: [
                         jsx('label', {
                             key: 'opt-owner',
-                            title: 'Use property owner mailing addresses',
+                            title: __t("usePropertyOwnerMailingAddresses"),
                             style: { display: 'flex', alignItems: 'center', gap: '4px', cursor: 'pointer' },
                             children: [
                                 jsx('input', {
@@ -4481,12 +4483,12 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                                         }
                                     }
                                 }),
-                                jsx('span', { key: 't', children: 'Owner' })
+                                jsx('span', { key: 't', children: __t("owner") })
                             ]
                         }),
                         jsx('label', {
                             key: 'opt-physical',
-                            title: 'Use physical property addresses',
+                            title: __t("usePhysicalPropertyAddresses"),
                             style: { display: 'flex', alignItems: 'center', gap: '4px', cursor: 'pointer' },
                             children: [
                                 jsx('input', {
@@ -4498,7 +4500,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                                         }
                                     }
                                 }),
-                                jsx('span', { key: 't', children: 'Physical' })
+                                jsx('span', { key: 't', children: __t("physical") })
                             ]
                         })
                     ]
@@ -4527,8 +4529,8 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                                         id: this.labelFormatId,
                                         'aria-haspopup': 'listbox',
                                         'aria-expanded': this.state.formatDropdownOpen ? 'true' : 'false',
-                                        'aria-label': `Label format, currently ${labelFormatOptions.find(o => o.value === this.state.labelFormat)?.short || this.state.labelFormat}`,
-                                        title: currentFormatLong || 'Label format',
+                                        'aria-label': __t("labelFormatCurrentlyValue", { value: labelFormatOptions.find(o => o.value === this.state.labelFormat)?.short || this.state.labelFormat }),
+                                        title: currentFormatLong || __t("labelFormat"),
                                         onClick: () => this.setState({ formatDropdownOpen: !this.state.formatDropdownOpen }),
                                         onBlur: () => {
                                             // Defer so a click inside the panel registers before close
@@ -4645,10 +4647,10 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                             jsx('select', {
                                 key: 'font',
                                 id: this.fontSizeId,
-                                'aria-label': 'Font size',
+                                'aria-label': __t("fontSize"),
                                 value: this.state.fontSize.toString(),
                                 onChange: (e: any) => this.setState({ fontSize: parseInt(e.target.value) }),
-                                title: 'Font size',
+                                title: __t("fontSize"),
                                 style: { ...selectStyle, width: '64px', flexShrink: 0 },
                                 children: [5, 6, 7, 8, 9, 10, 11, 12, 14, 16].map(size => jsx('option', { key: size, value: size.toString(), children: `${size}pt` }))
                             })
@@ -4674,17 +4676,17 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
             outputRows.push(formRow('row-sort', 'Sort', jsx('select', {
                 key: 'sort',
                 id: this.sortById,
-                'aria-label': 'Sort labels',
+                'aria-label': __t("sortLabels"),
                 value: this.state.sortBy,
                 onChange: (e: any) => this.setState({ sortBy: e.target.value as State['sortBy'] }),
-                title: 'Sort labels (zip-sort is required for USPS bulk-mail discounts)',
+                title: __t("sortLabelsZipSortIsRequired"),
                 style: { ...selectStyle, flex: 1, minWidth: 0 },
                 children: [
-                    jsx('option', { key: 'none', value: 'none', children: 'No sort (selection order)' }),
-                    jsx('option', { key: 'name', value: 'name', children: 'Name (A → Z)' }),
-                    jsx('option', { key: 'city', value: 'city', children: 'City (A → Z)' }),
-                    jsx('option', { key: 'state', value: 'state', children: 'State (A → Z)' }),
-                    jsx('option', { key: 'zip', value: 'zip', children: 'ZIP (USPS bulk mail)' })
+                    jsx('option', { key: 'none', value: 'none', children: __t("noSortSelectionOrder") }),
+                    jsx('option', { key: 'name', value: 'name', children: __t("nameAZ") }),
+                    jsx('option', { key: 'city', value: 'city', children: __t("cityAZ") }),
+                    jsx('option', { key: 'state', value: 'state', children: __t("stateAZ") }),
+                    jsx('option', { key: 'zip', value: 'zip', children: __t("zipUspsBulkMail") })
                 ]
             })));
 
@@ -4695,7 +4697,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                 children: [
                     jsx('label', {
                         key: 'no-empty',
-                        title: 'Exclude records with no address data',
+                        title: __t("excludeRecordsWithNoAddressData"),
                         style: { display: 'flex', alignItems: 'center', gap: '5px', cursor: 'pointer' },
                         children: [
                             jsx('input', {
@@ -4704,12 +4706,12 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                                 onChange: (e: any) => this.setState({ removeEmptyRecords: e.target.checked }),
                                 style: { width: '14px', height: '14px', accentColor: tokens.primary }
                             }),
-                            jsx('span', { key: 't', children: 'No empty' })
+                            jsx('span', { key: 't', children: __t("noEmpty") })
                         ]
                     }),
                     jsx('label', {
                         key: 'no-dupes',
-                        title: 'Exclude labels where all address fields are identical',
+                        title: __t("excludeLabelsWhereAllAddressFields"),
                         style: { display: 'flex', alignItems: 'center', gap: '5px', cursor: 'pointer' },
                         children: [
                             jsx('input', {
@@ -4718,7 +4720,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                                 onChange: (e: any) => this.setState({ removeDuplicates: e.target.checked }),
                                 style: { width: '14px', height: '14px', accentColor: tokens.primary }
                             }),
-                            jsx('span', { key: 't', children: 'No duplicates' })
+                            jsx('span', { key: 't', children: __t("noDuplicates") })
                         ]
                     })
                 ]
@@ -4750,8 +4752,8 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                     key: `cell-${i}`,
                     type: 'button',
                     onClick: () => this.setState({ startPosition: i }),
-                    title: `Start at label ${i}`,
-                    'aria-label': `Start at label ${i}`,
+                    title: __t("startAtLabelI", { i: i }),
+                    'aria-label': __t("startAtLabelI", { i: i }),
                     'aria-pressed': isStart ? 'true' : 'false',
                     style: {
                         width: `${cellW}px`,
@@ -4778,7 +4780,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                                     key: 'sp-input-label',
                                     htmlFor: this.startPositionId,
                                     style: { fontSize: '11px', color: tokens.textMuted },
-                                    children: 'Start'
+                                    children: __t("start")
                                 }),
                                 jsx('input', {
                                     key: 'sp-input',
@@ -4807,10 +4809,10 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                         jsx('div', {
                             key: 'sp-grid',
                             role: 'group',
-                            'aria-label': 'Click a slot to choose where to start',
+                            'aria-label': __t("clickASlotToChooseWhere"),
                             title: start === 1
-                                ? 'Click a cell to start mid-sheet'
-                                : `Skipping the first ${start - 1} label${start - 1 === 1 ? '' : 's'}`,
+                                ? __t("clickACellToStartMid")
+                                : __t("skippingTheFirstValueLabelValue2", { value: start - 1, value2: start - 1 === 1 ? '' : 's' }),
                             style: {
                                 display: 'grid',
                                 gridTemplateColumns: `repeat(${cols}, ${cellW}px)`,
@@ -4847,7 +4849,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                 'aria-expanded': hasSuggestions ? 'true' : 'false',
                 'aria-controls': suggestionsListId,
                 'aria-autocomplete': 'list',
-                placeholder: 'Search by address…',
+                placeholder: __t("searchByAddress"),
                 value: this.state.addressSearchText,
                 onChange: this.handleAddressSearchChange,
                 onFocus: () => this.setState({ addressSuggestionsOpen: true }),
@@ -4889,8 +4891,8 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                 ? jsx('button', {
                     key: 'addr-clear-x',
                     type: 'button',
-                    'aria-label': 'Clear address',
-                    title: 'Clear address',
+                    'aria-label': __t("clearAddress"),
+                    title: __t("clearAddress"),
                     onMouseDown: (e: any) => { e.preventDefault(); this.clearAddressSearch(); },
                     style: {
                         position: 'absolute',
@@ -4992,9 +4994,9 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                             gap: '4px'
                         },
                         children: [
-                            jsx('div', { key: 'h', style: { fontWeight: 600 }, children: 'Geocoder error' }),
+                            jsx('div', { key: 'h', style: { fontWeight: 600 }, children: __t("geocoderError") }),
                             jsx('div', { key: 'd', style: { fontFamily: 'ui-monospace, Menlo, Consolas, monospace', fontSize: '11px', wordBreak: 'break-word' }, children: this.state.addressSearchError }),
-                            jsx('div', { key: 't', style: { fontSize: '11px', color: tokens.textMuted }, children: 'Open the browser console for full details.' })
+                            jsx('div', { key: 't', style: { fontSize: '11px', color: tokens.textMuted }, children: __t("openTheBrowserConsoleForFull") })
                         ]
                     })
                     : this.state.addressSearchLoading
@@ -5014,7 +5016,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                                         display: 'inline-block'
                                     }
                                 }),
-                                jsx('span', { key: 't', children: 'Searching…' })
+                                jsx('span', { key: 't', children: __t("searching") })
                             ]
                         })
                         : (this.state.searchedAddress
@@ -5044,7 +5046,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                                 ? jsx('div', {
                                     key: 'addr-hint',
                                     style: { fontSize: '11.5px', color: tokens.textFaint },
-                                    children: 'Type at least 2 characters.'
+                                    children: __t("typeAtLeast2Characters")
                                 })
                                 : null))
             });
@@ -5082,21 +5084,21 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                         key: 'addr-select',
                         type: 'button',
                         disabled: !this.state.searchedAddress,
-                        title: 'Select features at the searched address using the current buffer',
-                        'aria-label': 'Select features at the searched address',
+                        title: __t("selectFeaturesAtTheSearchedAddress"),
+                        'aria-label': __t("selectFeaturesAtTheSearchedAddress2"),
                         onClick: this.selectFeaturesAtSearchedAddress,
                         style: localPrimary(!this.state.searchedAddress),
-                        children: 'Select features here'
+                        children: __t("selectFeaturesHere")
                     }),
                     jsx('button', {
                         key: 'addr-clear',
                         type: 'button',
                         disabled: !this.state.searchedAddress && !this.state.addressSearchText,
-                        title: 'Clear the searched address',
-                        'aria-label': 'Clear the searched address',
+                        title: __t("clearTheSearchedAddress"),
+                        'aria-label': __t("clearTheSearchedAddress"),
                         onClick: this.clearAddressSearch,
                         style: localSecondary(!this.state.searchedAddress && !this.state.addressSearchText),
-                        children: 'Clear'
+                        children: __t("clear")
                     })
                 ]
             });
@@ -5128,8 +5130,8 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                                 key: tool,
                                 onClick: () => this.activateDrawTool(tool as "polygon" | "point" | "rectangle" | "circle" | "polyline" | "multipoint"),
                                 disabled: this.state.isDrawing && this.state.currentTool !== tool,
-                                title: `Draw ${label.toLowerCase()} selection`,
-                                'aria-label': `Draw ${label.toLowerCase()} selection`,
+                                title: __t("drawToLowerCaseSelection", { toLowerCase: label.toLowerCase() }),
+                                'aria-label': __t("drawToLowerCaseSelection", { toLowerCase: label.toLowerCase() }),
                                 'aria-pressed': this.state.currentTool === tool ? 'true' : 'false',
                                 style: {
                                     background: this.state.currentTool === tool ? '#0079c1' : '#fff',
@@ -5158,8 +5160,8 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                             key: 'add-mode',
                             onClick: this.toggleAddMode,
                             disabled: this.state.isDrawing,
-                            title: this.state.isAddMode ? 'Exit add mode' : 'Add features to selection',
-                            'aria-label': this.state.isAddMode ? 'Exit add mode' : 'Add features to selection',
+                            title: this.state.isAddMode ? __t("exitAddMode") : __t("addFeaturesToSelection"),
+                            'aria-label': this.state.isAddMode ? __t("exitAddMode") : __t("addFeaturesToSelection"),
                             'aria-pressed': this.state.isAddMode ? 'true' : 'false',
                             style: {
                                 background: this.state.isAddMode ? '#0079c1' : '#fff',
@@ -5191,8 +5193,8 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                             key: 'delete-mode',
                             onClick: this.toggleDeleteMode,
                             disabled: this.state.isDrawing,
-                            title: this.state.isDeleteMode ? 'Exit delete mode' : 'Remove individual selection areas',
-                            'aria-label': this.state.isDeleteMode ? 'Exit delete mode' : 'Remove individual selection areas',
+                            title: this.state.isDeleteMode ? __t("exitDeleteMode") : __t("removeIndividualSelectionAreas"),
+                            'aria-label': this.state.isDeleteMode ? __t("exitDeleteMode") : __t("removeIndividualSelectionAreas"),
                             'aria-pressed': this.state.isDeleteMode ? 'true' : 'false',
                             style: {
                                 background: this.state.isDeleteMode ? '#c9252d' : '#fff',
@@ -5223,7 +5225,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                             key: 'buffer-label-inline',
                             htmlFor: this.bufferInputId,
                             style: { fontSize: '11px', color: tokens.textMuted, fontWeight: 600, letterSpacing: '0.04em', textTransform: 'uppercase' },
-                            children: 'Buffer'
+                            children: __t("buffer")
                         }),
                         jsx('input', {
                             key: 'buffer-input',
@@ -5232,22 +5234,22 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                             min: 0,
                             value: this.state.bufferDistance.toString(),
                             onChange: e => this.setState({ bufferDistance: Number(e.target.value) }),
-                            title: 'Buffer distance',
+                            title: __t("bufferDistance"),
                             style: { ...selectStyle, width: '4.5em', padding: '4px 6px' }
                         }),
                         jsx('label', {
                             key: 'buffer-unit-label',
                             htmlFor: this.bufferUnitId,
                             style: { position: 'absolute', width: '1px', height: '1px', padding: 0, margin: '-1px', overflow: 'hidden', clip: 'rect(0,0,0,0)', border: 0 },
-                            children: 'Buffer unit'
+                            children: __t("bufferUnit")
                         }),
                         jsx('select', {
                             key: 'buffer-unit',
                             id: this.bufferUnitId,
                             value: this.state.bufferUnit,
                             onChange: e => this.setState({ bufferUnit: e.target.value }),
-                            title: 'Buffer distance unit',
-                            'aria-label': 'Buffer distance unit',
+                            title: __t("bufferDistanceUnit"),
+                            'aria-label': __t("bufferDistanceUnit"),
                             style: { ...selectStyle, padding: '4px 6px', flex: 1, minWidth: 0 },
                             children: ['feet', 'meters', 'kilometers', 'miles'].map(u => jsx('option', { key: u, value: u, children: u }))
                         })
@@ -5263,8 +5265,8 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                     jsx('span', {
                         key: 'alert-text',
                         children: isMultipoint
-                            ? `Multipoint: ${multipointCount} point(s) placed. Click to add more. Double-click or press Finish when done.`
-                            : `Drawing ${this.state.currentTool}. Press ESC to cancel.`
+                            ? __t("multipointMultipointCountPointSPlacedClick", { multipointCount: multipointCount })
+                            : __t("drawingCurrentToolPressEscToCancel", { currentTool: this.state.currentTool })
                     })
                 ];
 
@@ -5280,24 +5282,24 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                                     size: 'sm',
                                     disabled: multipointCount === 0,
                                     onClick: this.finishMultipointDrawing,
-                                    title: 'Finish multipoint selection',
-                                    'aria-label': `Finish multipoint selection with ${multipointCount} points`,
+                                    title: __t("finishMultipointSelection"),
+                                    'aria-label': __t("finishMultipointSelectionWithMultipointCountPoints", { multipointCount: multipointCount }),
                                     style: {
                                         fontSize: '11px',
                                         padding: '4px 12px',
                                         opacity: multipointCount === 0 ? 0.5 : 1
                                     },
-                                    children: `Finish (${multipointCount})`
+                                    children: __t("finishMultipointCount", { multipointCount: multipointCount })
                                 }),
                                 jsx(Button, {
                                     key: 'cancel-multipoint',
                                     type: 'default',
                                     size: 'sm',
                                     onClick: () => this.cancelDrawing(),
-                                    title: 'Cancel multipoint selection',
-                                    'aria-label': 'Cancel multipoint selection',
+                                    title: __t("cancelMultipointSelection"),
+                                    'aria-label': __t("cancelMultipointSelection"),
                                     style: { fontSize: '11px', padding: '4px 12px' },
-                                    children: 'Cancel'
+                                    children: __t("cancel")
                                 })
                             ]
                         })
@@ -5368,7 +5370,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                 jsx('div', {
                     key: 'preview-meta',
                     style: { fontSize: '11px', color: tokens.textMuted, marginBottom: '8px' },
-                    children: `${this.state.labelFormat.toUpperCase()} · ${this.state.fontSize}pt${usingSample ? ' · sample data' : ''}`
+                    children: __t("toUpperCaseFontSizePtValue", { toUpperCase: this.state.labelFormat.toUpperCase(), fontSize: this.state.fontSize, value: usingSample ? ' · sample data' : '' })
                 }),
                 jsx('div', {
                     key: 'preview-stage',
@@ -5382,7 +5384,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                     },
                     children: jsx('div', {
                         key: 'preview-label',
-                        'aria-label': 'Single label preview',
+                        'aria-label': __t("singleLabelPreview"),
                         style: {
                             width: `${boxW}px`,
                             height: `${boxH}px`,
@@ -5504,7 +5506,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
         children.push(jsx('div', {
             key: 'action-buttons',
             role: 'toolbar',
-            'aria-label': 'Export, print, and clear actions',
+            'aria-label': __t("exportPrintAndClearActions"),
             style: {
                 display: 'flex',
                 flexWrap: 'wrap',
@@ -5518,19 +5520,19 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                     type: 'button',
                     onClick: this.executePrintPDFLabels,
                     disabled: isBusy,
-                    title: 'Open the PDF and print directly',
-                    'aria-label': 'Print labels',
+                    title: __t("openThePdfAndPrintDirectly"),
+                    'aria-label': __t("printLabels"),
                     'aria-busy': isBusy,
                     style: { ...actionPrimary(isBusy), flex: '1 1 130px' },
-                    children: [printerIcon, jsx('span', { key: 'lbl', children: isBusy ? 'Working…' : 'Print labels' })]
+                    children: [printerIcon, jsx('span', { key: 'lbl', children: isBusy ? __t("working") : __t("printLabels") })]
                 }),
                 jsx('button', {
                     key: 'pdf-button',
                     type: 'button',
                     onClick: () => this.executeGeneratePDFLabels('download'),
                     disabled: isBusy,
-                    title: 'Download a PDF of the labels',
-                    'aria-label': 'Download PDF',
+                    title: __t("downloadAPdfOfTheLabels"),
+                    'aria-label': __t("downloadPdf"),
                     'aria-busy': isBusy,
                     style: actionSecondary(isBusy),
                     children: [downloadIcon, jsx('span', { key: 'lbl', children: 'PDF' })]
@@ -5540,8 +5542,8 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                     type: 'button',
                     onClick: this.generateLabels,
                     disabled: isBusy,
-                    title: 'Export labels as CSV',
-                    'aria-label': 'Export CSV',
+                    title: __t("exportLabelsAsCsv"),
+                    'aria-label': __t("exportCsv"),
                     'aria-busy': isBusy,
                     style: actionSecondary(isBusy),
                     children: [csvIconSm, jsx('span', { key: 'lbl', children: 'CSV' })]
@@ -5551,10 +5553,10 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                     type: 'button',
                     onClick: this.clearSelection,
                     disabled: noSelection,
-                    title: 'Clear all selections',
-                    'aria-label': 'Clear selection',
+                    title: __t("clearAllSelections"),
+                    'aria-label': __t("clearSelection"),
                     style: actionDanger(noSelection),
-                    children: [trashIconSm, jsx('span', { key: 'lbl', children: 'Clear' })]
+                    children: [trashIconSm, jsx('span', { key: 'lbl', children: __t("clear") })]
                 })
             ]
         }));
@@ -5606,7 +5608,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                         key: 'confirm-title',
                         id: 'confirm-dialog-title',
                         style: { position: 'absolute', width: '1px', height: '1px', padding: 0, margin: '-1px', overflow: 'hidden', clip: 'rect(0,0,0,0)', border: 0 },
-                        children: 'Confirmation required'
+                        children: __t("confirmationRequired")
                     }),
                     jsx('div', {
                         key: 'confirm-message',
@@ -5623,18 +5625,18 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                                 type: 'primary',
                                 size: 'sm',
                                 onClick: this.confirmAndExecute,
-                                title: 'Confirm and proceed',
-                                'aria-label': 'Confirm and proceed',
-                                children: 'Yes'
+                                title: __t("confirmAndProceed"),
+                                'aria-label': __t("confirmAndProceed"),
+                                children: __t("yes")
                             }),
                             jsx(Button, {
                                 key: 'cancel',
                                 type: 'default',
                                 size: 'sm',
                                 onClick: this.hideConfirmDialog,
-                                title: 'Cancel this action',
-                                'aria-label': 'Cancel this action',
-                                children: 'Cancel'
+                                title: __t("cancelThisAction"),
+                                'aria-label': __t("cancelThisAction"),
+                                children: __t("cancel")
                             })
                         ]
                     })
@@ -5691,7 +5693,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
             },
             className: 'jimu-widget widget-mailing-labels',
             role: 'region',
-            'aria-label': 'Mailing Labels Widget',
+            'aria-label': __t("mailingLabelsWidget"),
             children: ordered
         });
     }

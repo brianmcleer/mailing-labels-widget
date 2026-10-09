@@ -3,8 +3,8 @@
   "generator": "exb-i18n-kit",
   "parts": {
     "runtime": {
-      "en": "99133dfc06f5",
-      "keys": 179,
+      "en": "d8832258bd72",
+      "keys": 267,
       "hashes": {
         "_widgetLabel": "a1be6f23b258",
         "_widgetDescription": "edf352e1f38d",
@@ -184,20 +184,108 @@
         "helpTroubleContact": "b333ef862ba2",
         "helpTipsTitle": "79fc372dc790",
         "helpTips1": "fca3e2530b59",
-        "helpTips2": "2a206b356569"
+        "helpTips2": "2a206b356569",
+        "avery516030Labels21": "1adfacee59a9",
+        "avery516120Labels41": "a561b7bdb1a2",
+        "avery516214Labels41": "624dbda040d5",
+        "avery516310Labels42": "ec35f8cf401b",
+        "avery51646Labels34": "11e47c546da6",
+        "avery51651FullSheetLabel": "f95e7e2cb2a4",
+        "avery516780ReturnAddressLabels": "394f75898c4d",
+        "avery51684ShippingLabels3": "02035e036b7a",
+        "failedToInitializeMapFeatures": "2c856d18a85c",
+        "addressLookupFailed": "73b75ae3827a",
+        "couldNotResolveThatAddress": "07c593b55574",
+        "point": "f79a28423ed1",
+        "multipoint": "0534d09a5b9e",
+        "line": "ea9676003762",
+        "polygon": "85066b2ca9c0",
+        "rectangle": "c158695a64ad",
+        "circle": "1cc7820a08e2",
+        "selCountFeatureValueReadyToExport": "8fd1298a883c",
+        "selectFeaturesOnTheMapThen": "b0e602faefe1",
+        "selCountFeatureValueAcrossSelAreasSelection": "122d80e9caea",
+        "noSelection": "915cf89a0bee",
+        "labelType": "21e91ad1c38c",
+        "usePropertyOwnerMailingAddresses": "8ad08f037135",
+        "owner": "89ff31225c5f",
+        "usePhysicalPropertyAddresses": "f2deae8803cf",
+        "physical": "919b82a0b4b5",
+        "labelFormatCurrentlyValue": "65faf35d7f9e",
+        "labelFormat": "9396f26a377e",
+        "fontSize": "83ca9e48c37c",
+        "sortLabels": "9deb867b780b",
+        "sortLabelsZipSortIsRequired": "89f741255971",
+        "noSortSelectionOrder": "b97f96bae3fe",
+        "nameAZ": "dd37bd1b6a6a",
+        "cityAZ": "2425c0818ad4",
+        "stateAZ": "8929f69d2fc7",
+        "zipUspsBulkMail": "3f0b1c698dbd",
+        "excludeRecordsWithNoAddressData": "0d8d3e21cd21",
+        "noEmpty": "f5197e03be26",
+        "excludeLabelsWhereAllAddressFields": "15d1eaab0635",
+        "noDuplicates": "ae74c50e67b3",
+        "startAtLabelI": "188e90f3c2d2",
+        "start": "952f375412e8",
+        "clickASlotToChooseWhere": "3ed63d18e891",
+        "clickACellToStartMid": "4ff88a722be0",
+        "skippingTheFirstValueLabelValue2": "1609b9864f37",
+        "searchByAddress": "58ba99c152ad",
+        "clearAddress": "1496e9ce9103",
+        "geocoderError": "a389df5fee4f",
+        "openTheBrowserConsoleForFull": "f41c7dbc0189",
+        "searching": "1a6a5ba8c23d",
+        "typeAtLeast2Characters": "e9c395f80fa5",
+        "selectFeaturesAtTheSearchedAddress": "94d6df8016b2",
+        "selectFeaturesAtTheSearchedAddress2": "d7c329530bfa",
+        "selectFeaturesHere": "036c1affa0df",
+        "clearTheSearchedAddress": "8577f17667e4",
+        "drawToLowerCaseSelection": "250a9c4da5a4",
+        "exitAddMode": "12fbee0be207",
+        "addFeaturesToSelection": "9ff670a5702a",
+        "exitDeleteMode": "2e8fa4004690",
+        "removeIndividualSelectionAreas": "686ecd45a8c2",
+        "buffer": "2be5f64b3623",
+        "bufferDistance": "c17f8fb2b0cd",
+        "bufferUnit": "545aa90376f1",
+        "bufferDistanceUnit": "fa7f1d7e9de0",
+        "multipointMultipointCountPointSPlacedClick": "ae7fa80dccba",
+        "drawingCurrentToolPressEscToCancel": "40da285c6347",
+        "finishMultipointSelection": "dc7923582e5b",
+        "finishMultipointSelectionWithMultipointCountPoints": "912f84189aa6",
+        "finishMultipointCount": "4ced97589187",
+        "cancelMultipointSelection": "247c05bec734",
+        "toUpperCaseFontSizePtValue": "15ef0c3300fb",
+        "singleLabelPreview": "246de852547d",
+        "exportPrintAndClearActions": "f5c3f92cf138",
+        "openThePdfAndPrintDirectly": "0c971e591fac",
+        "printLabels": "e9f4c149626c",
+        "working": "13b7bfcac438",
+        "downloadAPdfOfTheLabels": "1d4ac6cfb049",
+        "downloadPdf": "98e5ef062b2a",
+        "exportLabelsAsCsv": "8fb2ade5891c",
+        "exportCsv": "5755f9ac0aa1",
+        "clearAllSelections": "7d49842f4d50",
+        "clearSelection": "247fd63183c7",
+        "confirmationRequired": "9f088da791b4",
+        "confirmAndProceed": "4324c73437b7",
+        "cancelThisAction": "8531e40cdbb4",
+        "mailingLabelsWidget": "de6d54a05850",
+        "unknownError": "af6321ca7a8b",
+        "unserializableError": "76e73551597a"
       },
       "locales": {
         "ar": {
-          "file": "3f1272a56b5d",
+          "file": "45b0eb48b5ec",
           "counts": {
-            "esri": 33,
+            "esri": 53,
             "esri-check": 0,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 146,
+            "machine": 142,
             "stale": 0,
-            "missing": 0
+            "missing": 72
           },
           "entries": {
             "_widgetLabel": {
@@ -745,25 +833,10 @@
               "src": "machine",
               "h": "0d9adda150cd"
             },
-            "helpNoMatches": {
-              "t": "لا شيء في الدليل يطابق تلك الكلمة جرّبْ آخر، أَو يَفْتحُ الأقسامَ أعلاه.",
-              "src": "machine",
-              "h": "3fe179f75330"
-            },
             "firstRunBody": {
               "t": "سجلاّت مختارة على الخريطة، إختر ورقة سموك، ثم نقرّ PDF أو CSV.",
               "src": "machine",
               "h": "3415af27d8f4"
-            },
-            "firstRunHelpLink": {
-              "t": "افتح الدليل",
-              "src": "machine",
-              "h": "2447dd6134ea"
-            },
-            "helpStartTitle": {
-              "t": "ابدأ هنا: ثلاث خطوات",
-              "src": "machine",
-              "h": "789320b4831d"
             },
             "helpStart1": {
               "t": "اختر السجلات التي تريدها باختيار الملامح على الخريطة",
@@ -885,11 +958,6 @@
               "src": "machine",
               "h": "05b11e1acf39"
             },
-            "helpTroubleTitle": {
-              "t": "إذا كان هناك شيء ما يبدو خاطئا",
-              "src": "machine",
-              "h": "6f7fec3ff1e0"
-            },
             "helpTroubleNoMap": {
               "t": "لا يمكنك اختيار أي شيء على الخريطة لا توجد خريطة مرتبطة بهذا المستعار إسأل من وضع التطبيق ليضيف واحداً في الأماكن",
               "src": "machine",
@@ -915,11 +983,6 @@
               "src": "machine",
               "h": "b333ef862ba2"
             },
-            "helpTipsTitle": {
-              "t": "من الجيد معرفة",
-              "src": "machine",
-              "h": "79fc372dc790"
-            },
             "helpTips1": {
               "t": "تشغيل ورقة اختبار واحدة على ورق سهل قبل طباعة صندوق كامل من العلامات.",
               "src": "machine",
@@ -929,20 +992,25 @@
               "t": "(زى بى) مطلوبة من أجل خصمات البريد السائب من (الولايات المتحدة الأمريكية) لذا ضعي بطاقات (سورت) على (زى بى) إذا كنتِ تراسلين بالجملة",
               "src": "machine",
               "h": "2a206b356569"
+            },
+            "confirmAndProceed": {
+              "t": "التأكيد والشروع",
+              "src": "machine",
+              "h": "4324c73437b7"
             }
           }
         },
         "bg": {
-          "file": "6a4aac3a3162",
+          "file": "f1aac89f4b07",
           "counts": {
-            "esri": 31,
+            "esri": 51,
             "esri-check": 2,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 146,
+            "machine": 142,
             "stale": 0,
-            "missing": 0
+            "missing": 72
           },
           "entries": {
             "_widgetLabel": {
@@ -1490,25 +1558,10 @@
               "src": "machine",
               "h": "0d9adda150cd"
             },
-            "helpNoMatches": {
-              "t": "Нищо в ръководството не съвпада с тази дума. Опитайте друг, или отвори секциите по-горе.",
-              "src": "machine",
-              "h": "3fe179f75330"
-            },
             "firstRunBody": {
               "t": "Изберете записи на картата, изберете вашия етикет лист, след това кликнете PDF или CSV.",
               "src": "machine",
               "h": "3415af27d8f4"
-            },
-            "firstRunHelpLink": {
-              "t": "Отвори гидът.",
-              "src": "machine",
-              "h": "2447dd6134ea"
-            },
-            "helpStartTitle": {
-              "t": "Започнете от тук: три стъпки",
-              "src": "machine",
-              "h": "789320b4831d"
             },
             "helpStart1": {
               "t": "Изберете записите, които искате, като изберете функции на картата.",
@@ -1630,11 +1683,6 @@
               "src": "machine",
               "h": "05b11e1acf39"
             },
-            "helpTroubleTitle": {
-              "t": "Ако нещо не е наред",
-              "src": "machine",
-              "h": "6f7fec3ff1e0"
-            },
             "helpTroubleNoMap": {
               "t": "Не можете да изберете нищо на картата: няма карта, свързана с тази джаджа. Попитайте този, който е настроил приложението, за да добавите един в настройките.",
               "src": "machine",
@@ -1660,11 +1708,6 @@
               "src": "machine",
               "h": "b333ef862ba2"
             },
-            "helpTipsTitle": {
-              "t": "Добре е да го знам.",
-              "src": "machine",
-              "h": "79fc372dc790"
-            },
             "helpTips1": {
               "t": "Направете един тестов лист на обикновена хартия, преди да отпечатате цяла кутия етикети.",
               "src": "machine",
@@ -1674,34 +1717,39 @@
               "t": "ZIP сортът е необходим за отстъпки USPS обемни имейли, така че настройте етикети към ZIP, ако изпращате поща в насипно състояние.",
               "src": "machine",
               "h": "2a206b356569"
+            },
+            "confirmAndProceed": {
+              "t": "Потвърдете и продължете.",
+              "src": "machine",
+              "h": "4324c73437b7"
             }
           }
         },
         "bs": {
-          "file": "2b09ad007579",
+          "file": "9120892c0494",
           "counts": {
-            "esri": 33,
+            "esri": 46,
             "esri-check": 0,
             "community": 0,
             "manual": 0,
             "existing": 0,
             "machine": 0,
             "stale": 0,
-            "missing": 146
+            "missing": 221
           },
           "entries": {}
         },
         "ca": {
-          "file": "08f71763272c",
+          "file": "9fb164792f61",
           "counts": {
-            "esri": 31,
+            "esri": 49,
             "esri-check": 2,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 146,
+            "machine": 144,
             "stale": 0,
-            "missing": 0
+            "missing": 72
           },
           "entries": {
             "_widgetLabel": {
@@ -2144,6 +2192,11 @@
               "src": "machine",
               "h": "20c7c5522fc2"
             },
+            "error": {
+              "t": "Error",
+              "src": "machine",
+              "h": "7f2f6a15cf8d"
+            },
             "cancelled": {
               "t": "Cancel· lat",
               "src": "machine",
@@ -2249,25 +2302,10 @@
               "src": "machine",
               "h": "0d9adda150cd"
             },
-            "helpNoMatches": {
-              "t": "Res en la guia coincideix amb aquesta paraula. Proveu-ne una altra, o obriu les seccions de dalt.",
-              "src": "machine",
-              "h": "3fe179f75330"
-            },
             "firstRunBody": {
               "t": "Seleccioneu els registres al mapa, escolliu el full d' etiquetes, llavors cliqueu PDF o CSV.",
               "src": "machine",
               "h": "3415af27d8f4"
-            },
-            "firstRunHelpLink": {
-              "t": "Obre la guia.",
-              "src": "machine",
-              "h": "2447dd6134ea"
-            },
-            "helpStartTitle": {
-              "t": "Comença aquí: tres passes",
-              "src": "machine",
-              "h": "789320b4831d"
             },
             "helpStart1": {
               "t": "Seleccioneu els registres que voleu seleccionant característiques en el mapa.",
@@ -2389,11 +2427,6 @@
               "src": "machine",
               "h": "05b11e1acf39"
             },
-            "helpTroubleTitle": {
-              "t": "Si alguna cosa sembla malament",
-              "src": "machine",
-              "h": "6f7fec3ff1e0"
-            },
             "helpTroubleNoMap": {
               "t": "No podeu seleccionar res en el mapa: no hi ha mapa connectat a aquest estri. Pregunta a qui hagi configurat l' aplicació per afegir- ne un a l' arranjament.",
               "src": "machine",
@@ -2419,11 +2452,6 @@
               "src": "machine",
               "h": "b333ef862ba2"
             },
-            "helpTipsTitle": {
-              "t": "Bo saber-ho",
-              "src": "machine",
-              "h": "79fc372dc790"
-            },
             "helpTips1": {
               "t": "Executa un full de prova en paper senzill abans d' imprimir una caixa completa d' etiquetes.",
               "src": "machine",
@@ -2433,20 +2461,30 @@
               "t": "Es requereix una classe ZIP per als descomptes de correu en massa dels EUA, així que establiu les etiquetes Ordena a ZIP si sou correu en massa.",
               "src": "machine",
               "h": "2a206b356569"
+            },
+            "rectangle": {
+              "t": "Rectangle",
+              "src": "machine",
+              "h": "c158695a64ad"
+            },
+            "confirmAndProceed": {
+              "t": "Confirma i continua",
+              "src": "machine",
+              "h": "4324c73437b7"
             }
           }
         },
         "cs": {
-          "file": "4d62ff9d7d73",
+          "file": "635d6458a752",
           "counts": {
-            "esri": 33,
+            "esri": 52,
             "esri-check": 0,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 146,
+            "machine": 143,
             "stale": 0,
-            "missing": 0
+            "missing": 72
           },
           "entries": {
             "_widgetLabel": {
@@ -2994,25 +3032,10 @@
               "src": "machine",
               "h": "0d9adda150cd"
             },
-            "helpNoMatches": {
-              "t": "Nic v průvodci neodpovídá tomu slovu. Zkuste jiný, nebo otevřete sekce výše.",
-              "src": "machine",
-              "h": "3fe179f75330"
-            },
             "firstRunBody": {
               "t": "Vyberte záznamy na mapě, vyberte si štítek, pak klikněte na PDF nebo CSV.",
               "src": "machine",
               "h": "3415af27d8f4"
-            },
-            "firstRunHelpLink": {
-              "t": "Otevři průvodce.",
-              "src": "machine",
-              "h": "2447dd6134ea"
-            },
-            "helpStartTitle": {
-              "t": "Začněte zde: tři kroky",
-              "src": "machine",
-              "h": "789320b4831d"
             },
             "helpStart1": {
               "t": "Vyberte si záznamy, které chcete výběrem funkcí na mapě.",
@@ -3134,11 +3157,6 @@
               "src": "machine",
               "h": "05b11e1acf39"
             },
-            "helpTroubleTitle": {
-              "t": "Pokud něco vypadá špatně",
-              "src": "machine",
-              "h": "6f7fec3ff1e0"
-            },
             "helpTroubleNoMap": {
               "t": "Nemůžete si vybrat nic na mapě: k tomuto widgetu není připojena žádná mapa. Zeptejte se, kdo nastavit aplikaci přidat jeden v nastavení.",
               "src": "machine",
@@ -3164,11 +3182,6 @@
               "src": "machine",
               "h": "b333ef862ba2"
             },
-            "helpTipsTitle": {
-              "t": "Dobré vědět.",
-              "src": "machine",
-              "h": "79fc372dc790"
-            },
             "helpTips1": {
               "t": "Před vytištěním celé krabice etiket spusťte jeden zkušební list na obyčejný papír.",
               "src": "machine",
@@ -3178,20 +3191,30 @@
               "t": "ZIP sort je vyžadován pro slevy USPS bulk-mail, takže nastavit Třídit štítky na ZIP, pokud posíláte hromadné.",
               "src": "machine",
               "h": "2a206b356569"
+            },
+            "polygon": {
+              "t": "Polygon",
+              "src": "machine",
+              "h": "85066b2ca9c0"
+            },
+            "confirmAndProceed": {
+              "t": "Potvrdit a pokračovat",
+              "src": "machine",
+              "h": "4324c73437b7"
             }
           }
         },
         "da": {
-          "file": "08faa1215a29",
+          "file": "bec25ba178cc",
           "counts": {
-            "esri": 31,
+            "esri": 48,
             "esri-check": 2,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 146,
+            "machine": 145,
             "stale": 0,
-            "missing": 0
+            "missing": 72
           },
           "entries": {
             "_widgetLabel": {
@@ -3739,25 +3762,10 @@
               "src": "machine",
               "h": "0d9adda150cd"
             },
-            "helpNoMatches": {
-              "t": "Intet i guiden matcher det ord. Prøv en anden, eller åbn afsnittene ovenfor.",
-              "src": "machine",
-              "h": "3fe179f75330"
-            },
             "firstRunBody": {
               "t": "Vælg poster på kortet, vælg din etiket ark, og klik derefter på PDF eller CSV.",
               "src": "machine",
               "h": "3415af27d8f4"
-            },
-            "firstRunHelpLink": {
-              "t": "Åbn guiden.",
-              "src": "machine",
-              "h": "2447dd6134ea"
-            },
-            "helpStartTitle": {
-              "t": "Start her: tre trin",
-              "src": "machine",
-              "h": "789320b4831d"
             },
             "helpStart1": {
               "t": "Vælg de poster du ønsker ved at vælge funktioner på kortet.",
@@ -3879,11 +3887,6 @@
               "src": "machine",
               "h": "05b11e1acf39"
             },
-            "helpTroubleTitle": {
-              "t": "Hvis noget ser forkert ud",
-              "src": "machine",
-              "h": "6f7fec3ff1e0"
-            },
             "helpTroubleNoMap": {
               "t": "Du kan ikke vælge noget på kortet: intet kort er forbundet til denne kontrol. Spørg, hvem der har oprettet appen for at tilføje en i indstillingerne.",
               "src": "machine",
@@ -3909,11 +3912,6 @@
               "src": "machine",
               "h": "b333ef862ba2"
             },
-            "helpTipsTitle": {
-              "t": "Godt at vide",
-              "src": "machine",
-              "h": "79fc372dc790"
-            },
             "helpTips1": {
               "t": "Der køres et prøveark på almindeligt papir, før der udskrives en fuld kasse etiketter.",
               "src": "machine",
@@ -3923,20 +3921,40 @@
               "t": "ZIP type er nødvendig for USPS bulk- mail rabatter, så sæt Sortér etiketter til ZIP, hvis du sender i bulk.",
               "src": "machine",
               "h": "2a206b356569"
+            },
+            "polygon": {
+              "t": "Polygon",
+              "src": "machine",
+              "h": "85066b2ca9c0"
+            },
+            "start": {
+              "t": "Start",
+              "src": "machine",
+              "h": "952f375412e8"
+            },
+            "buffer": {
+              "t": "Buffer Formand",
+              "src": "machine",
+              "h": "2be5f64b3623"
+            },
+            "confirmAndProceed": {
+              "t": "Bekræft og fortsæt",
+              "src": "machine",
+              "h": "4324c73437b7"
             }
           }
         },
         "de": {
-          "file": "2403e7e19934",
+          "file": "0ec5b6ec2428",
           "counts": {
-            "esri": 31,
-            "esri-check": 2,
+            "esri": 47,
+            "esri-check": 3,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 146,
+            "machine": 144,
             "stale": 0,
-            "missing": 0
+            "missing": 73
           },
           "entries": {
             "_widgetLabel": {
@@ -4484,25 +4502,10 @@
               "src": "machine",
               "h": "0d9adda150cd"
             },
-            "helpNoMatches": {
-              "t": "Nichts im Guide passt zu diesem Wort. Versuchen Sie es mit einem anderen oder öffnen Sie die obigen Abschnitte.",
-              "src": "machine",
-              "h": "3fe179f75330"
-            },
             "firstRunBody": {
               "t": "Wählen Sie Datensätze auf der Karte aus, wählen Sie Ihr Etikettenblatt aus und klicken Sie dann auf PDF oder CSV.",
               "src": "machine",
               "h": "3415af27d8f4"
-            },
-            "firstRunHelpLink": {
-              "t": "Öffne den Guide.",
-              "src": "machine",
-              "h": "2447dd6134ea"
-            },
-            "helpStartTitle": {
-              "t": "Beginnen Sie hier: drei Schritte",
-              "src": "machine",
-              "h": "789320b4831d"
             },
             "helpStart1": {
               "t": "Wählen Sie die gewünschten Datensätze aus, indem Sie Features auf der Karte auswählen.",
@@ -4624,11 +4627,6 @@
               "src": "machine",
               "h": "05b11e1acf39"
             },
-            "helpTroubleTitle": {
-              "t": "Wenn etwas falsch aussieht",
-              "src": "machine",
-              "h": "6f7fec3ff1e0"
-            },
             "helpTroubleNoMap": {
               "t": "Sie können nichts auf der Karte auswählen: keine Karte ist mit diesem Widget verbunden. Fragen Sie, wer die App eingerichtet hat, um eine in den Einstellungen hinzuzufügen.",
               "src": "machine",
@@ -4654,11 +4652,6 @@
               "src": "machine",
               "h": "b333ef862ba2"
             },
-            "helpTipsTitle": {
-              "t": "Gut zu wissen",
-              "src": "machine",
-              "h": "79fc372dc790"
-            },
             "helpTips1": {
               "t": "Führen Sie ein Testblatt auf reinem Papier aus, bevor Sie eine vollständige Schachtel mit Etiketten drucken.",
               "src": "machine",
@@ -4668,20 +4661,35 @@
               "t": "ZIP-Sortierung ist für USPS-Bulk-Mail-Rabatte erforderlich, also legen Sie Sortieretiketten auf ZIP, wenn Sie in großen Mengen versenden.",
               "src": "machine",
               "h": "2a206b356569"
+            },
+            "polygon": {
+              "t": "Polygon",
+              "src": "machine",
+              "h": "85066b2ca9c0"
+            },
+            "start": {
+              "t": "Beginn",
+              "src": "machine",
+              "h": "952f375412e8"
+            },
+            "confirmAndProceed": {
+              "t": "Bestätigen und fortfahren",
+              "src": "machine",
+              "h": "4324c73437b7"
             }
           }
         },
         "el": {
-          "file": "81644d6d1efd",
+          "file": "f342dd2a856f",
           "counts": {
-            "esri": 33,
+            "esri": 53,
             "esri-check": 0,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 146,
+            "machine": 142,
             "stale": 0,
-            "missing": 0
+            "missing": 72
           },
           "entries": {
             "_widgetLabel": {
@@ -5229,25 +5237,10 @@
               "src": "machine",
               "h": "0d9adda150cd"
             },
-            "helpNoMatches": {
-              "t": "Τίποτα στον οδηγό δεν ταιριάζει με αυτή τη λέξη. Δοκιμάστε ένα άλλο, ή ανοίξτε τα τμήματα παραπάνω.",
-              "src": "machine",
-              "h": "3fe179f75330"
-            },
             "firstRunBody": {
               "t": "Επιλέξτε εγγραφές στο χάρτη, επιλέξτε φύλλο ετικέτας σας, στη συνέχεια, κάντε κλικ στο PDF ή CSV.",
               "src": "machine",
               "h": "3415af27d8f4"
-            },
-            "firstRunHelpLink": {
-              "t": "Άνοιξε τον οδηγό.",
-              "src": "machine",
-              "h": "2447dd6134ea"
-            },
-            "helpStartTitle": {
-              "t": "Εκκίνηση εδώ: τρία βήματα",
-              "src": "machine",
-              "h": "789320b4831d"
             },
             "helpStart1": {
               "t": "Επιλέξτε τις εγγραφές που θέλετε επιλέγοντας χαρακτηριστικά στο χάρτη.",
@@ -5369,11 +5362,6 @@
               "src": "machine",
               "h": "05b11e1acf39"
             },
-            "helpTroubleTitle": {
-              "t": "Αν κάτι φαίνεται λάθος",
-              "src": "machine",
-              "h": "6f7fec3ff1e0"
-            },
             "helpTroubleNoMap": {
               "t": "Δεν μπορείτε να επιλέξετε τίποτα στο χάρτη: κανένας χάρτης δεν είναι συνδεδεμένος με αυτό το γραφικό συστατικό. Ρωτήστε όποιον έφτιαξε την εφαρμογή για να προσθέσει ένα στις ρυθμίσεις.",
               "src": "machine",
@@ -5399,11 +5387,6 @@
               "src": "machine",
               "h": "b333ef862ba2"
             },
-            "helpTipsTitle": {
-              "t": "Χαίρομαι που το μαθαίνω.",
-              "src": "machine",
-              "h": "79fc372dc790"
-            },
             "helpTips1": {
               "t": "Εκτελέστε ένα φύλλο δοκιμής σε απλό χαρτί πριν εκτυπώσετε ένα πλήρες κουτί με ετικέτες.",
               "src": "machine",
@@ -5413,20 +5396,25 @@
               "t": "ZIP ταξινόμηση απαιτείται για USPS εκπτώσεις χύμα-mail, έτσι ρυθμίστε Ταξινόμηση ετικέτες σε ZIP αν είστε αποστολή χύμα.",
               "src": "machine",
               "h": "2a206b356569"
+            },
+            "confirmAndProceed": {
+              "t": "Επιβεβαίωση και συνέχιση",
+              "src": "machine",
+              "h": "4324c73437b7"
             }
           }
         },
         "es": {
-          "file": "4d2f4edd4af8",
+          "file": "7d2cd80eac40",
           "counts": {
-            "esri": 33,
+            "esri": 52,
             "esri-check": 0,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 146,
+            "machine": 143,
             "stale": 0,
-            "missing": 0
+            "missing": 72
           },
           "entries": {
             "_widgetLabel": {
@@ -5869,6 +5857,11 @@
               "src": "machine",
               "h": "20c7c5522fc2"
             },
+            "error": {
+              "t": "Error",
+              "src": "machine",
+              "h": "7f2f6a15cf8d"
+            },
             "cancelled": {
               "t": "Cancelada",
               "src": "machine",
@@ -5974,25 +5967,10 @@
               "src": "machine",
               "h": "0d9adda150cd"
             },
-            "helpNoMatches": {
-              "t": "Nada en la guía coincide con esa palabra. Pruebe otro, o abra las secciones anteriores.",
-              "src": "machine",
-              "h": "3fe179f75330"
-            },
             "firstRunBody": {
               "t": "Seleccione los registros en el mapa, seleccione su hoja de etiquetas y haga clic en PDF o CSV.",
               "src": "machine",
               "h": "3415af27d8f4"
-            },
-            "firstRunHelpLink": {
-              "t": "Abre el guía.",
-              "src": "machine",
-              "h": "2447dd6134ea"
-            },
-            "helpStartTitle": {
-              "t": "Empieza aquí: tres pasos",
-              "src": "machine",
-              "h": "789320b4831d"
             },
             "helpStart1": {
               "t": "Elija los registros que desee seleccionando características en el mapa.",
@@ -6114,11 +6092,6 @@
               "src": "machine",
               "h": "05b11e1acf39"
             },
-            "helpTroubleTitle": {
-              "t": "Si algo se ve mal",
-              "src": "machine",
-              "h": "6f7fec3ff1e0"
-            },
             "helpTroubleNoMap": {
               "t": "Usted no puede seleccionar nada en el mapa: ningún mapa está conectado con este widget. Pregúntele a quien establezca la aplicación para añadir una en los ajustes.",
               "src": "machine",
@@ -6144,11 +6117,6 @@
               "src": "machine",
               "h": "b333ef862ba2"
             },
-            "helpTipsTitle": {
-              "t": "Es bueno saberlo.",
-              "src": "machine",
-              "h": "79fc372dc790"
-            },
             "helpTips1": {
               "t": "Ejecute una hoja de prueba en papel liso antes de imprimir una caja completa de etiquetas.",
               "src": "machine",
@@ -6158,20 +6126,25 @@
               "t": "El tipo ZIP es necesario para descuentos de correo masivo de USPS, así que establece etiquetas Clasificar a ZIP si usted está enviando a granel.",
               "src": "machine",
               "h": "2a206b356569"
+            },
+            "confirmAndProceed": {
+              "t": "Confirmar y proceder",
+              "src": "machine",
+              "h": "4324c73437b7"
             }
           }
         },
         "et": {
-          "file": "2809c40f709d",
+          "file": "8cf923558af2",
           "counts": {
-            "esri": 30,
+            "esri": 50,
             "esri-check": 3,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 146,
+            "machine": 142,
             "stale": 0,
-            "missing": 0
+            "missing": 72
           },
           "entries": {
             "_widgetLabel": {
@@ -6719,25 +6692,10 @@
               "src": "machine",
               "h": "0d9adda150cd"
             },
-            "helpNoMatches": {
-              "t": "Mitte miski juhendis ei klapi selle sõnaga. Proovige teist või avage ülaltoodud lõigud.",
-              "src": "machine",
-              "h": "3fe179f75330"
-            },
             "firstRunBody": {
               "t": "Vali kirjed kaardil, vali oma sildileht, seejärel klõpsa PDF või CSV.",
               "src": "machine",
               "h": "3415af27d8f4"
-            },
-            "firstRunHelpLink": {
-              "t": "Tee teejuht lahti.",
-              "src": "machine",
-              "h": "2447dd6134ea"
-            },
-            "helpStartTitle": {
-              "t": "Alusta siit: kolm sammu",
-              "src": "machine",
-              "h": "789320b4831d"
             },
             "helpStart1": {
               "t": "Valige soovitud kirjed, valides kaardil funktsioonid.",
@@ -6859,11 +6817,6 @@
               "src": "machine",
               "h": "05b11e1acf39"
             },
-            "helpTroubleTitle": {
-              "t": "Kui midagi on valesti",
-              "src": "machine",
-              "h": "6f7fec3ff1e0"
-            },
             "helpTroubleNoMap": {
               "t": "Kaardil ei saa midagi valida: ühtegi kaarti ei ole selle vidinaga ühendatud. Küsige, kes on rakenduse seadistanud, et lisada see seadetesse.",
               "src": "machine",
@@ -6889,11 +6842,6 @@
               "src": "machine",
               "h": "b333ef862ba2"
             },
-            "helpTipsTitle": {
-              "t": "Hea teada",
-              "src": "machine",
-              "h": "79fc372dc790"
-            },
             "helpTips1": {
               "t": "Käivitage üks katseleht tavalisel paberil, enne kui printige täielik etikettide karp.",
               "src": "machine",
@@ -6903,20 +6851,25 @@
               "t": "ZIP sortimine on vajalik USPS hulgiposti allahindluste jaoks, nii et seadke Sort etiketid ZIP-ile, kui postitate lahtiselt.",
               "src": "machine",
               "h": "2a206b356569"
+            },
+            "confirmAndProceed": {
+              "t": "Kinnitamine ja jätkamine",
+              "src": "machine",
+              "h": "4324c73437b7"
             }
           }
         },
         "fi": {
-          "file": "430d40e096f4",
+          "file": "6fab72080ccd",
           "counts": {
-            "esri": 32,
+            "esri": 52,
             "esri-check": 1,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 146,
+            "machine": 142,
             "stale": 0,
-            "missing": 0
+            "missing": 72
           },
           "entries": {
             "_widgetLabel": {
@@ -7464,25 +7417,10 @@
               "src": "machine",
               "h": "0d9adda150cd"
             },
-            "helpNoMatches": {
-              "t": "Mikään oppaassa ei vastaa tuota sanaa. Kokeile toista, tai avaa kohdat yllä.",
-              "src": "machine",
-              "h": "3fe179f75330"
-            },
             "firstRunBody": {
               "t": "Valitse kartalta tietueet, valitse nimilappu ja napsauta sitten PDF:ää tai CSV:ää.",
               "src": "machine",
               "h": "3415af27d8f4"
-            },
-            "firstRunHelpLink": {
-              "t": "Avaa opas.",
-              "src": "machine",
-              "h": "2447dd6134ea"
-            },
-            "helpStartTitle": {
-              "t": "Aloita tästä: kolme vaihetta",
-              "src": "machine",
-              "h": "789320b4831d"
             },
             "helpStart1": {
               "t": "Valitse haluamasi tiedot valitsemalla ominaisuudet kartalta.",
@@ -7604,11 +7542,6 @@
               "src": "machine",
               "h": "05b11e1acf39"
             },
-            "helpTroubleTitle": {
-              "t": "Jos jokin näyttää väärältä.",
-              "src": "machine",
-              "h": "6f7fec3ff1e0"
-            },
             "helpTroubleNoMap": {
               "t": "Et voi valita mitään kartalta: mitään karttaa ei ole liitetty tähän vekotin. Pyydä sovelluksen asentajaa lisäämään se asetuksiin.",
               "src": "machine",
@@ -7634,11 +7567,6 @@
               "src": "machine",
               "h": "b333ef862ba2"
             },
-            "helpTipsTitle": {
-              "t": "Hyvä tietää",
-              "src": "machine",
-              "h": "79fc372dc790"
-            },
             "helpTips1": {
               "t": "Tehkää yksi testiarkki tavalliselle paperille ennen kuin tulostatte koko laatikon tarroja.",
               "src": "machine",
@@ -7648,20 +7576,25 @@
               "t": "ZIP lajitelma vaaditaan USPS irtoposti alennuksia, joten asettaa lajitella tarrat ZIP jos postitat irtotavarana.",
               "src": "machine",
               "h": "2a206b356569"
+            },
+            "confirmAndProceed": {
+              "t": "Vahvista ja jatka",
+              "src": "machine",
+              "h": "4324c73437b7"
             }
           }
         },
         "fr": {
-          "file": "85b2947ee9d8",
+          "file": "1b237a0f035c",
           "counts": {
-            "esri": 33,
+            "esri": 51,
             "esri-check": 0,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 146,
+            "machine": 144,
             "stale": 0,
-            "missing": 0
+            "missing": 72
           },
           "entries": {
             "_widgetLabel": {
@@ -8209,25 +8142,10 @@
               "src": "machine",
               "h": "0d9adda150cd"
             },
-            "helpNoMatches": {
-              "t": "Rien dans le guide ne correspond à ce mot. Essayez un autre, ou ouvrez les sections ci-dessus.",
-              "src": "machine",
-              "h": "3fe179f75330"
-            },
             "firstRunBody": {
               "t": "Sélectionnez les enregistrements sur la carte, choisissez votre feuille d'étiquette, puis cliquez sur PDF ou CSV.",
               "src": "machine",
               "h": "3415af27d8f4"
-            },
-            "firstRunHelpLink": {
-              "t": "Ouvrez le guide.",
-              "src": "machine",
-              "h": "2447dd6134ea"
-            },
-            "helpStartTitle": {
-              "t": "Commencez ici: trois étapes",
-              "src": "machine",
-              "h": "789320b4831d"
             },
             "helpStart1": {
               "t": "Choisissez les enregistrements que vous voulez en sélectionnant des fonctionnalités sur la carte.",
@@ -8349,11 +8267,6 @@
               "src": "machine",
               "h": "05b11e1acf39"
             },
-            "helpTroubleTitle": {
-              "t": "Si quelque chose ne va pas",
-              "src": "machine",
-              "h": "6f7fec3ff1e0"
-            },
             "helpTroubleNoMap": {
               "t": "Vous ne pouvez rien sélectionner sur la carte : aucune carte n'est connectée à ce widget. Demandez à celui qui a configuré l'application d'en ajouter une dans les paramètres.",
               "src": "machine",
@@ -8379,11 +8292,6 @@
               "src": "machine",
               "h": "b333ef862ba2"
             },
-            "helpTipsTitle": {
-              "t": "Bon à savoir",
-              "src": "machine",
-              "h": "79fc372dc790"
-            },
             "helpTips1": {
               "t": "Exécutez une feuille d'essai sur du papier ordinaire avant d'imprimer une boîte complète d'étiquettes.",
               "src": "machine",
@@ -8393,20 +8301,35 @@
               "t": "Le tri ZIP est requis pour les rabais USPS pour les envois en vrac, alors définissez Trier les étiquettes à ZIP si vous envoyez en vrac.",
               "src": "machine",
               "h": "2a206b356569"
+            },
+            "point": {
+              "t": "Remarque",
+              "src": "machine",
+              "h": "f79a28423ed1"
+            },
+            "rectangle": {
+              "t": "Rectangle",
+              "src": "machine",
+              "h": "c158695a64ad"
+            },
+            "confirmAndProceed": {
+              "t": "Confirmer et procéder",
+              "src": "machine",
+              "h": "4324c73437b7"
             }
           }
         },
         "he": {
-          "file": "00164ff52bc2",
+          "file": "60f86da1fda2",
           "counts": {
-            "esri": 32,
+            "esri": 52,
             "esri-check": 1,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 146,
+            "machine": 142,
             "stale": 0,
-            "missing": 0
+            "missing": 72
           },
           "entries": {
             "_widgetLabel": {
@@ -8954,25 +8877,10 @@
               "src": "machine",
               "h": "0d9adda150cd"
             },
-            "helpNoMatches": {
-              "t": "שום דבר במדריך לא מתאים למילה הזאת. נסה עוד, או לפתוח את החלקים לעיל.",
-              "src": "machine",
-              "h": "3fe179f75330"
-            },
             "firstRunBody": {
               "t": "בחר רשומות על המפה, בחר את גיליון התווית שלך, ולאחר מכן לחץ על PDF או CSV.",
               "src": "machine",
               "h": "3415af27d8f4"
-            },
-            "firstRunHelpLink": {
-              "t": "פתח את המדריך",
-              "src": "machine",
-              "h": "2447dd6134ea"
-            },
-            "helpStartTitle": {
-              "t": "התחל כאן: שלושה צעדים",
-              "src": "machine",
-              "h": "789320b4831d"
             },
             "helpStart1": {
               "t": "בחר את הרשומות שאתה רוצה על ידי בחירת תכונות על המפה.",
@@ -9094,11 +9002,6 @@
               "src": "machine",
               "h": "05b11e1acf39"
             },
-            "helpTroubleTitle": {
-              "t": "אם משהו נראה לא בסדר",
-              "src": "machine",
-              "h": "6f7fec3ff1e0"
-            },
             "helpTroubleNoMap": {
               "t": "אתה לא יכול לבחור שום דבר על המפה: שום מפה אינה קשורה לשרביט הזה. שאל מי להגדיר את האפליקציה כדי להוסיף אחד בהגדרות.",
               "src": "machine",
@@ -9124,11 +9027,6 @@
               "src": "machine",
               "h": "b333ef862ba2"
             },
-            "helpTipsTitle": {
-              "t": "טוב לדעת",
-              "src": "machine",
-              "h": "79fc372dc790"
-            },
             "helpTips1": {
               "t": "הפעל גיליון מבחן אחד על נייר רגיל לפני הדפסה של קופסה מלאה של תוויות.",
               "src": "machine",
@@ -9138,34 +9036,39 @@
               "t": "סוג ZIP נדרש להנחות דואר זבל של USPS, כך להגדיר תוויות מסוג ZIP אם אתה דיוור בכמויות גדולות.",
               "src": "machine",
               "h": "2a206b356569"
+            },
+            "confirmAndProceed": {
+              "t": "אישור והמשך",
+              "src": "machine",
+              "h": "4324c73437b7"
             }
           }
         },
         "hr": {
-          "file": "2b09ad007579",
+          "file": "9120892c0494",
           "counts": {
-            "esri": 33,
+            "esri": 46,
             "esri-check": 0,
             "community": 0,
             "manual": 0,
             "existing": 0,
             "machine": 0,
             "stale": 0,
-            "missing": 146
+            "missing": 221
           },
           "entries": {}
         },
         "hu": {
-          "file": "9c65c456872e",
+          "file": "76cc84c1e317",
           "counts": {
-            "esri": 31,
+            "esri": 50,
             "esri-check": 2,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 146,
+            "machine": 143,
             "stale": 0,
-            "missing": 0
+            "missing": 72
           },
           "entries": {
             "_widgetLabel": {
@@ -9713,25 +9616,10 @@
               "src": "machine",
               "h": "0d9adda150cd"
             },
-            "helpNoMatches": {
-              "t": "A kalauzban semmi sem egyezik ezzel a szóval. Próbálja meg egy másik, vagy nyissa ki a fenti szakaszok.",
-              "src": "machine",
-              "h": "3fe179f75330"
-            },
             "firstRunBody": {
               "t": "Válassza ki a térképen lévő rekordokat, válassza ki a címkelapot, majd kattintson a PDF vagy CSV gombra.",
               "src": "machine",
               "h": "3415af27d8f4"
-            },
-            "firstRunHelpLink": {
-              "t": "Nyisd ki az útmutatót.",
-              "src": "machine",
-              "h": "2447dd6134ea"
-            },
-            "helpStartTitle": {
-              "t": "Kezdjük itt: három lépés",
-              "src": "machine",
-              "h": "789320b4831d"
             },
             "helpStart1": {
               "t": "Válassza ki a kívánt rekordokat kiválasztásával funkciók a térképen.",
@@ -9853,11 +9741,6 @@
               "src": "machine",
               "h": "05b11e1acf39"
             },
-            "helpTroubleTitle": {
-              "t": "Ha valami nem stimmel",
-              "src": "machine",
-              "h": "6f7fec3ff1e0"
-            },
             "helpTroubleNoMap": {
               "t": "Nem lehet kiválasztani semmit a térképen: nincs térkép csatlakozik ehhez a widget. Kérd meg, aki beállította az alkalmazást, adjon hozzá egyet a beállításokhoz.",
               "src": "machine",
@@ -9883,11 +9766,6 @@
               "src": "machine",
               "h": "b333ef862ba2"
             },
-            "helpTipsTitle": {
-              "t": "Jó tudni.",
-              "src": "machine",
-              "h": "79fc372dc790"
-            },
             "helpTips1": {
               "t": "Futtasson le egy tesztlapot egyszerű papíron, mielőtt kinyomtat egy teljes doboz címkét.",
               "src": "machine",
@@ -9897,20 +9775,30 @@
               "t": "ZIP típus szükséges USPS bulk- mail kedvezmények, így állítsa be Rendezés címkék ZIP, ha a levelezés ömlesztett.",
               "src": "machine",
               "h": "2a206b356569"
+            },
+            "buffer": {
+              "t": "PufferName",
+              "src": "machine",
+              "h": "2be5f64b3623"
+            },
+            "confirmAndProceed": {
+              "t": "Megerősítem és folytatom.",
+              "src": "machine",
+              "h": "4324c73437b7"
             }
           }
         },
         "id": {
-          "file": "fabbac904b69",
+          "file": "f27339152d4b",
           "counts": {
-            "esri": 29,
-            "esri-check": 4,
+            "esri": 49,
+            "esri-check": 3,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 146,
+            "machine": 143,
             "stale": 0,
-            "missing": 0
+            "missing": 72
           },
           "entries": {
             "_widgetLabel": {
@@ -10458,25 +10346,10 @@
               "src": "machine",
               "h": "0d9adda150cd"
             },
-            "helpNoMatches": {
-              "t": "Tidak ada dalam panduan cocok kata itu. Coba yang lain, atau buka bagian di atas.",
-              "src": "machine",
-              "h": "3fe179f75330"
-            },
             "firstRunBody": {
               "t": "Pilih catatan di peta, pilih lembar label, lalu klik PDF atau CSV.",
               "src": "machine",
               "h": "3415af27d8f4"
-            },
-            "firstRunHelpLink": {
-              "t": "Buka panduannya.",
-              "src": "machine",
-              "h": "2447dd6134ea"
-            },
-            "helpStartTitle": {
-              "t": "Mulai dari sini: tiga langkah",
-              "src": "machine",
-              "h": "789320b4831d"
             },
             "helpStart1": {
               "t": "Pilih catatan yang Anda inginkan dengan memilih fitur pada peta.",
@@ -10598,11 +10471,6 @@
               "src": "machine",
               "h": "05b11e1acf39"
             },
-            "helpTroubleTitle": {
-              "t": "Jika ada sesuatu yang salah",
-              "src": "machine",
-              "h": "6f7fec3ff1e0"
-            },
             "helpTroubleNoMap": {
               "t": "Anda tidak dapat memilih apapun di peta: tidak ada peta yang terhubung ke widget ini. Tanyakan siapa pun yang membuat aplikasi untuk menambahkan satu di pengaturan.",
               "src": "machine",
@@ -10628,11 +10496,6 @@
               "src": "machine",
               "h": "b333ef862ba2"
             },
-            "helpTipsTitle": {
-              "t": "Baik untuk mengetahui",
-              "src": "machine",
-              "h": "79fc372dc790"
-            },
             "helpTips1": {
               "t": "Jalankan satu lembar tes pada kertas polos sebelum mencetak sebuah kotak penuh label.",
               "src": "machine",
@@ -10642,20 +10505,30 @@
               "t": "pengurutan ZIP diperlukan untuk USPS discounts bulk- mail, jadi set Urutkan label ke ZIP jika anda mengirimkan dalam jumlah besar.",
               "src": "machine",
               "h": "2a206b356569"
+            },
+            "buffer": {
+              "t": "Penyangga",
+              "src": "machine",
+              "h": "2be5f64b3623"
+            },
+            "confirmAndProceed": {
+              "t": "Konfirmasi dan lanjutkan",
+              "src": "machine",
+              "h": "4324c73437b7"
             }
           }
         },
         "it": {
-          "file": "8fe9a4e9f780",
+          "file": "fe81db79b472",
           "counts": {
-            "esri": 33,
+            "esri": 52,
             "esri-check": 0,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 146,
+            "machine": 142,
             "stale": 0,
-            "missing": 0
+            "missing": 73
           },
           "entries": {
             "_widgetLabel": {
@@ -11203,25 +11076,10 @@
               "src": "machine",
               "h": "0d9adda150cd"
             },
-            "helpNoMatches": {
-              "t": "Niente nella guida corrisponde a quella parola. Prova un altro, o apri le sezioni sopra.",
-              "src": "machine",
-              "h": "3fe179f75330"
-            },
             "firstRunBody": {
               "t": "Selezionare i record sulla mappa, selezionare il foglio di etichetta, quindi fare clic su PDF o CSV.",
               "src": "machine",
               "h": "3415af27d8f4"
-            },
-            "firstRunHelpLink": {
-              "t": "Apri la guida.",
-              "src": "machine",
-              "h": "2447dd6134ea"
-            },
-            "helpStartTitle": {
-              "t": "Inizia qui: tre passi",
-              "src": "machine",
-              "h": "789320b4831d"
             },
             "helpStart1": {
               "t": "Scegliere i record che si desidera selezionando le caratteristiche sulla mappa.",
@@ -11343,11 +11201,6 @@
               "src": "machine",
               "h": "05b11e1acf39"
             },
-            "helpTroubleTitle": {
-              "t": "Se qualcosa sembra sbagliato",
-              "src": "machine",
-              "h": "6f7fec3ff1e0"
-            },
             "helpTroubleNoMap": {
               "t": "Non è possibile selezionare nulla sulla mappa: nessuna mappa è collegata a questo widget. Chiedi a chi ha impostato l'app di aggiungerne uno nelle impostazioni.",
               "src": "machine",
@@ -11373,11 +11226,6 @@
               "src": "machine",
               "h": "b333ef862ba2"
             },
-            "helpTipsTitle": {
-              "t": "Buono a sapersi",
-              "src": "machine",
-              "h": "79fc372dc790"
-            },
             "helpTips1": {
               "t": "Eseguire un foglio di prova su carta normale prima di stampare una scatola completa di etichette.",
               "src": "machine",
@@ -11387,20 +11235,25 @@
               "t": "ZIP sorta è richiesto per USPS bulk-mail sconti, quindi impostare Ordina etichette per ZIP se si sta inviando in massa.",
               "src": "machine",
               "h": "2a206b356569"
+            },
+            "confirmAndProceed": {
+              "t": "Confermare e procedere",
+              "src": "machine",
+              "h": "4324c73437b7"
             }
           }
         },
         "ja": {
-          "file": "c969d98f49f0",
+          "file": "8f11fe82ef9e",
           "counts": {
-            "esri": 33,
+            "esri": 53,
             "esri-check": 0,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 146,
+            "machine": 142,
             "stale": 0,
-            "missing": 0
+            "missing": 72
           },
           "entries": {
             "_widgetLabel": {
@@ -11948,25 +11801,10 @@
               "src": "machine",
               "h": "0d9adda150cd"
             },
-            "helpNoMatches": {
-              "t": "ガイドがその単語と一致するわけではありません。 別のセクションを試し、または上記のセクションを開きます。",
-              "src": "machine",
-              "h": "3fe179f75330"
-            },
             "firstRunBody": {
               "t": "地図上のレコードを選択し、ラベルシートを選択し、PDFまたはCSVをクリックします。",
               "src": "machine",
               "h": "3415af27d8f4"
-            },
-            "firstRunHelpLink": {
-              "t": "ガイドを開きます。",
-              "src": "machine",
-              "h": "2447dd6134ea"
-            },
-            "helpStartTitle": {
-              "t": "ここから: 3 つのステップ",
-              "src": "machine",
-              "h": "789320b4831d"
             },
             "helpStart1": {
               "t": "地図上の機能を選択すると、必要なレコードを選択します。",
@@ -12088,11 +11926,6 @@
               "src": "machine",
               "h": "05b11e1acf39"
             },
-            "helpTroubleTitle": {
-              "t": "何かが間違っている",
-              "src": "machine",
-              "h": "6f7fec3ff1e0"
-            },
             "helpTroubleNoMap": {
               "t": "地図上で何も選択できません。マップがこのウィジェットに接続されていません。 アプリをセットアップして設定に追加するかどうかを尋ねます。",
               "src": "machine",
@@ -12118,11 +11951,6 @@
               "src": "machine",
               "h": "b333ef862ba2"
             },
-            "helpTipsTitle": {
-              "t": "よく知る",
-              "src": "machine",
-              "h": "79fc372dc790"
-            },
             "helpTips1": {
               "t": "ラベルの完全な箱を印刷する前に明白なペーパーの1つのテスト シートを動かして下さい。",
               "src": "machine",
@@ -12132,20 +11960,25 @@
               "t": "ZIPのソートはUSPSのバルクメールの割引のために必要です、従ってあなたが大量に郵送しているならZIPに分類ラベルを置いて下さい。",
               "src": "machine",
               "h": "2a206b356569"
+            },
+            "confirmAndProceed": {
+              "t": "確認し、進む",
+              "src": "machine",
+              "h": "4324c73437b7"
             }
           }
         },
         "ko": {
-          "file": "15e54f8581f4",
+          "file": "e23b56de93dd",
           "counts": {
-            "esri": 32,
+            "esri": 52,
             "esri-check": 1,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 146,
+            "machine": 142,
             "stale": 0,
-            "missing": 0
+            "missing": 72
           },
           "entries": {
             "_widgetLabel": {
@@ -12693,25 +12526,10 @@
               "src": "machine",
               "h": "0d9adda150cd"
             },
-            "helpNoMatches": {
-              "t": "가이드의 아무것도 그 단어 일치. 다른 시도, 또는 위의 섹션을 엽니 다.",
-              "src": "machine",
-              "h": "3fe179f75330"
-            },
             "firstRunBody": {
               "t": "지도에서 레코드를 선택하면 라벨 시트를 선택하고 PDF 또는 CSV를 클릭하십시오.",
               "src": "machine",
               "h": "3415af27d8f4"
-            },
-            "firstRunHelpLink": {
-              "t": "자주 묻는 질문",
-              "src": "machine",
-              "h": "2447dd6134ea"
-            },
-            "helpStartTitle": {
-              "t": "여기에 시작: 세 단계",
-              "src": "machine",
-              "h": "789320b4831d"
             },
             "helpStart1": {
               "t": "지도에서 원하는 레코드를 선택합니다.",
@@ -12833,11 +12651,6 @@
               "src": "machine",
               "h": "05b11e1acf39"
             },
-            "helpTroubleTitle": {
-              "t": "뭔가 잘못되었는지",
-              "src": "machine",
-              "h": "6f7fec3ff1e0"
-            },
             "helpTroubleNoMap": {
               "t": "지도에 아무것도 선택 할 수 없습니다 :지도가이 위젯에 연결되지 않습니다. 앱을 설정하면 설정에서 하나를 추가합니다.",
               "src": "machine",
@@ -12863,11 +12676,6 @@
               "src": "machine",
               "h": "b333ef862ba2"
             },
-            "helpTipsTitle": {
-              "t": "잘 알고",
-              "src": "machine",
-              "h": "79fc372dc790"
-            },
             "helpTips1": {
               "t": "라벨의 전체 상자를 인쇄하기 전에 일반 종이에 하나의 테스트 시트를 실행합니다.",
               "src": "machine",
@@ -12877,20 +12685,25 @@
               "t": "ZIP 정렬은 USPS 벌크 메일 할인에 필요합니다. 대량으로 메일을 보내면 정렬 라벨을 ZIP으로 설정하십시오.",
               "src": "machine",
               "h": "2a206b356569"
+            },
+            "confirmAndProceed": {
+              "t": "확인 및 진행",
+              "src": "machine",
+              "h": "4324c73437b7"
             }
           }
         },
         "lt": {
-          "file": "0f2d08a743e0",
+          "file": "d0c52a2a427d",
           "counts": {
-            "esri": 32,
+            "esri": 52,
             "esri-check": 1,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 146,
+            "machine": 142,
             "stale": 0,
-            "missing": 0
+            "missing": 72
           },
           "entries": {
             "_widgetLabel": {
@@ -13438,25 +13251,10 @@
               "src": "machine",
               "h": "0d9adda150cd"
             },
-            "helpNoMatches": {
-              "t": "Vadove nėra nieko, kas atitiktų šį žodį. Pabandykite kitą, arba atidaryti skyrių aukščiau.",
-              "src": "machine",
-              "h": "3fe179f75330"
-            },
             "firstRunBody": {
               "t": "Pasirinkite įrašus žemėlapyje, pasirinkite savo etiketės lapą, tada spustelėkite PDF arba CSV.",
               "src": "machine",
               "h": "3415af27d8f4"
-            },
-            "firstRunHelpLink": {
-              "t": "Atidaryk gidą.",
-              "src": "machine",
-              "h": "2447dd6134ea"
-            },
-            "helpStartTitle": {
-              "t": "Pradėti čia: trys žingsniai",
-              "src": "machine",
-              "h": "789320b4831d"
             },
             "helpStart1": {
               "t": "Pasirinkite norimus įrašus pasirinkdami funkcijas žemėlapyje.",
@@ -13578,11 +13376,6 @@
               "src": "machine",
               "h": "05b11e1acf39"
             },
-            "helpTroubleTitle": {
-              "t": "Jei kas nors atrodo blogai",
-              "src": "machine",
-              "h": "6f7fec3ff1e0"
-            },
             "helpTroubleNoMap": {
               "t": "Jūs negalite nieko pasirinkti žemėlapyje: nėra žemėlapio yra prijungtas prie šio valdikliui. Paprašykite to, kas sukūrė programą, kad pridėtumėte vieną į nustatymus.",
               "src": "machine",
@@ -13608,11 +13401,6 @@
               "src": "machine",
               "h": "b333ef862ba2"
             },
-            "helpTipsTitle": {
-              "t": "Gera žinoti",
-              "src": "machine",
-              "h": "79fc372dc790"
-            },
             "helpTips1": {
               "t": "Prieš spausdinant visą etikečių dėžutę, ant plono popieriaus reikia padaryti vieną bandymo lapą.",
               "src": "machine",
@@ -13622,20 +13410,25 @@
               "t": "ZIP rūšiuoti reikia USPS pertvarų pašto nuolaidas, todėl nustatyti Rūšiuoti etiketes į ZIP, jei esate paštas urmu.",
               "src": "machine",
               "h": "2a206b356569"
+            },
+            "confirmAndProceed": {
+              "t": "Patvirtinti ir tęsti",
+              "src": "machine",
+              "h": "4324c73437b7"
             }
           }
         },
         "lv": {
-          "file": "ee5fe93ef1bf",
+          "file": "711b8bc4fded",
           "counts": {
-            "esri": 31,
-            "esri-check": 2,
+            "esri": 50,
+            "esri-check": 3,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 146,
+            "machine": 142,
             "stale": 0,
-            "missing": 0
+            "missing": 72
           },
           "entries": {
             "_widgetLabel": {
@@ -14183,25 +13976,10 @@
               "src": "machine",
               "h": "0d9adda150cd"
             },
-            "helpNoMatches": {
-              "t": "Nekas ceļvedī neatbilst šim vārdam. Mēģiniet citu, vai atvērt sadaļas iepriekš.",
-              "src": "machine",
-              "h": "3fe179f75330"
-            },
             "firstRunBody": {
               "t": "Izvēlieties ierakstus kartē, izvēlieties savu etiķeti lapu, pēc tam noklikšķiniet PDF vai CSV.",
               "src": "machine",
               "h": "3415af27d8f4"
-            },
-            "firstRunHelpLink": {
-              "t": "Atveriet ceļvedi.",
-              "src": "machine",
-              "h": "2447dd6134ea"
-            },
-            "helpStartTitle": {
-              "t": "Sākt šeit: trīs soļi",
-              "src": "machine",
-              "h": "789320b4831d"
             },
             "helpStart1": {
               "t": "Izvēlieties ierakstus, kurus vēlaties, izvēloties funkcijas kartē.",
@@ -14323,11 +14101,6 @@
               "src": "machine",
               "h": "05b11e1acf39"
             },
-            "helpTroubleTitle": {
-              "t": "Ja kaut kas izskatās nepareizi",
-              "src": "machine",
-              "h": "6f7fec3ff1e0"
-            },
             "helpTroubleNoMap": {
               "t": "Jūs nevarat neko izvēlēties kartē: neviena karte nav savienota ar šo sīkrīku. Pajautājiet, kurš izveido lietotni, lai pievienotu to iestatījumos.",
               "src": "machine",
@@ -14353,11 +14126,6 @@
               "src": "machine",
               "h": "b333ef862ba2"
             },
-            "helpTipsTitle": {
-              "t": "Labi zināt",
-              "src": "machine",
-              "h": "79fc372dc790"
-            },
             "helpTips1": {
               "t": "Pirms etiķešu pilnas kastes iespiešanas uz vienkārša papīra izlaiž vienu testa lapu.",
               "src": "machine",
@@ -14367,20 +14135,25 @@
               "t": "ZIP šķirošana ir nepieciešama USPS beztaras pasta atlaidēm, tāpēc noteikti Kārtošanas etiķetes ZIP, ja jums ir pasta beramkravu.",
               "src": "machine",
               "h": "2a206b356569"
+            },
+            "confirmAndProceed": {
+              "t": "Apstiprināt un turpināt",
+              "src": "machine",
+              "h": "4324c73437b7"
             }
           }
         },
         "no": {
-          "file": "f059d2664d39",
+          "file": "3e17a42f6302",
           "counts": {
-            "esri": 30,
+            "esri": 47,
             "esri-check": 3,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 146,
+            "machine": 145,
             "stale": 0,
-            "missing": 0
+            "missing": 72
           },
           "entries": {
             "_widgetLabel": {
@@ -14928,25 +14701,10 @@
               "src": "machine",
               "h": "0d9adda150cd"
             },
-            "helpNoMatches": {
-              "t": "Ingenting i guiden stemmer med det ordet. Prøv en annen, eller åpne seksjonene ovenfor.",
-              "src": "machine",
-              "h": "3fe179f75330"
-            },
             "firstRunBody": {
               "t": "Velg poster på kartet, velg etikettark og klikk deretter PDF eller CSV.",
               "src": "machine",
               "h": "3415af27d8f4"
-            },
-            "firstRunHelpLink": {
-              "t": "Åpne guiden.",
-              "src": "machine",
-              "h": "2447dd6134ea"
-            },
-            "helpStartTitle": {
-              "t": "Start her: 3 trinn",
-              "src": "machine",
-              "h": "789320b4831d"
             },
             "helpStart1": {
               "t": "Velg poster du vil ha ved å velge funksjoner på kartet.",
@@ -15068,11 +14826,6 @@
               "src": "machine",
               "h": "05b11e1acf39"
             },
-            "helpTroubleTitle": {
-              "t": "Hvis noe ser galt ut",
-              "src": "machine",
-              "h": "6f7fec3ff1e0"
-            },
             "helpTroubleNoMap": {
               "t": "Du kan ikke velge noe på kartet: Ingen kart er koblet til denne widgeten. Spør hvem som satte opp appen for å legge til en i innstillingene.",
               "src": "machine",
@@ -15098,11 +14851,6 @@
               "src": "machine",
               "h": "b333ef862ba2"
             },
-            "helpTipsTitle": {
-              "t": "Godt å vite",
-              "src": "machine",
-              "h": "79fc372dc790"
-            },
             "helpTips1": {
               "t": "Kjør ett testark på vanlig papir før du skriver ut en full boks med etiketter.",
               "src": "machine",
@@ -15112,20 +14860,40 @@
               "t": "ZIP-sort er nødvendig for USPS bulk-post rabatter, så sett Sorter etiketter til ZIP hvis du sender i bulk.",
               "src": "machine",
               "h": "2a206b356569"
+            },
+            "polygon": {
+              "t": "Polygon",
+              "src": "machine",
+              "h": "85066b2ca9c0"
+            },
+            "start": {
+              "t": "Start",
+              "src": "machine",
+              "h": "952f375412e8"
+            },
+            "buffer": {
+              "t": "Buffer",
+              "src": "machine",
+              "h": "2be5f64b3623"
+            },
+            "confirmAndProceed": {
+              "t": "Bekreft og fortsett",
+              "src": "machine",
+              "h": "4324c73437b7"
             }
           }
         },
         "nl": {
-          "file": "357b281331fa",
+          "file": "738584addaac",
           "counts": {
-            "esri": 30,
-            "esri-check": 3,
+            "esri": 47,
+            "esri-check": 4,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 146,
+            "machine": 144,
             "stale": 0,
-            "missing": 0
+            "missing": 72
           },
           "entries": {
             "_widgetLabel": {
@@ -15673,25 +15441,10 @@
               "src": "machine",
               "h": "0d9adda150cd"
             },
-            "helpNoMatches": {
-              "t": "Niets in de gids komt overeen met dat woord. Probeer een andere, of open de bovenstaande secties.",
-              "src": "machine",
-              "h": "3fe179f75330"
-            },
             "firstRunBody": {
               "t": "Selecteer records op de kaart, kies uw labelblad en klik vervolgens op PDF of CSV.",
               "src": "machine",
               "h": "3415af27d8f4"
-            },
-            "firstRunHelpLink": {
-              "t": "Open de gids.",
-              "src": "machine",
-              "h": "2447dd6134ea"
-            },
-            "helpStartTitle": {
-              "t": "Begin hier: drie stappen",
-              "src": "machine",
-              "h": "789320b4831d"
             },
             "helpStart1": {
               "t": "Kies de records die u wilt door functies op de kaart te selecteren.",
@@ -15813,11 +15566,6 @@
               "src": "machine",
               "h": "05b11e1acf39"
             },
-            "helpTroubleTitle": {
-              "t": "Als er iets mis lijkt.",
-              "src": "machine",
-              "h": "6f7fec3ff1e0"
-            },
             "helpTroubleNoMap": {
               "t": "U kunt niets op de kaart selecteren: er is geen kaart verbonden met dit widget. Vraag wie de app heeft ingesteld om er een toe te voegen in de instellingen.",
               "src": "machine",
@@ -15843,11 +15591,6 @@
               "src": "machine",
               "h": "b333ef862ba2"
             },
-            "helpTipsTitle": {
-              "t": "Goed om te weten",
-              "src": "machine",
-              "h": "79fc372dc790"
-            },
             "helpTips1": {
               "t": "Voer één testblad uit op gewoon papier voordat u een volledige doos etiketten afdrukt.",
               "src": "machine",
@@ -15857,20 +15600,35 @@
               "t": "ZIP sorteren is vereist voor USPS bulk-mail kortingen, dus stel Sorteer labels naar ZIP als u mailt in bulk.",
               "src": "machine",
               "h": "2a206b356569"
+            },
+            "start": {
+              "t": "Begin",
+              "src": "machine",
+              "h": "952f375412e8"
+            },
+            "buffer": {
+              "t": "Buffer",
+              "src": "machine",
+              "h": "2be5f64b3623"
+            },
+            "confirmAndProceed": {
+              "t": "Bevestigen en doorgaan",
+              "src": "machine",
+              "h": "4324c73437b7"
             }
           }
         },
         "pl": {
-          "file": "3c5bb50d9157",
+          "file": "b968cc82d740",
           "counts": {
-            "esri": 32,
+            "esri": 52,
             "esri-check": 1,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 146,
+            "machine": 142,
             "stale": 0,
-            "missing": 0
+            "missing": 72
           },
           "entries": {
             "_widgetLabel": {
@@ -16418,25 +16176,10 @@
               "src": "machine",
               "h": "0d9adda150cd"
             },
-            "helpNoMatches": {
-              "t": "Nic w przewodniku nie pasuje do tego słowa. Spróbuj innego, albo otwórz powyższe sekcje.",
-              "src": "machine",
-              "h": "3fe179f75330"
-            },
             "firstRunBody": {
               "t": "Wybierz rekordy na mapie, wybierz arkusz etykiety, a następnie kliknij PDF lub CSV.",
               "src": "machine",
               "h": "3415af27d8f4"
-            },
-            "firstRunHelpLink": {
-              "t": "Otwórz przewodnik.",
-              "src": "machine",
-              "h": "2447dd6134ea"
-            },
-            "helpStartTitle": {
-              "t": "Zacznij tutaj: trzy kroki",
-              "src": "machine",
-              "h": "789320b4831d"
             },
             "helpStart1": {
               "t": "Wybierz rekordy, które chcesz, wybierając funkcje na mapie.",
@@ -16558,11 +16301,6 @@
               "src": "machine",
               "h": "05b11e1acf39"
             },
-            "helpTroubleTitle": {
-              "t": "Jeśli coś wygląda źle",
-              "src": "machine",
-              "h": "6f7fec3ff1e0"
-            },
             "helpTroubleNoMap": {
               "t": "Nie można niczego wybrać na mapie: żadna mapa nie jest połączona z tym widżetem. Poproś tego, kto skonfigurował aplikację, aby dodał jedną do ustawień.",
               "src": "machine",
@@ -16588,11 +16326,6 @@
               "src": "machine",
               "h": "b333ef862ba2"
             },
-            "helpTipsTitle": {
-              "t": "Dobrze wiedzieć.",
-              "src": "machine",
-              "h": "79fc372dc790"
-            },
             "helpTips1": {
               "t": "Przed wydrukowaniem pełnego pudełka etykiet należy wykonać jeden arkusz testowy na zwykłym papierze.",
               "src": "machine",
@@ -16602,20 +16335,25 @@
               "t": "Sort ZIP jest wymagany dla rabatów hurtowo-pocztowych USPS, więc ustaw etykiety sortuj na ZIP, jeśli wysyłasz luzem.",
               "src": "machine",
               "h": "2a206b356569"
+            },
+            "confirmAndProceed": {
+              "t": "Potwierdź i kontynuuj",
+              "src": "machine",
+              "h": "4324c73437b7"
             }
           }
         },
         "pt-br": {
-          "file": "1cdf50490b0a",
+          "file": "d94d2ab77583",
           "counts": {
-            "esri": 29,
+            "esri": 48,
             "esri-check": 4,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 146,
+            "machine": 143,
             "stale": 0,
-            "missing": 0
+            "missing": 72
           },
           "entries": {
             "_widgetLabel": {
@@ -17163,25 +16901,10 @@
               "src": "machine",
               "h": "0d9adda150cd"
             },
-            "helpNoMatches": {
-              "t": "Nada no guia combina com essa palavra. Tente outro, ou abra as seções acima.",
-              "src": "machine",
-              "h": "3fe179f75330"
-            },
             "firstRunBody": {
               "t": "Selecione registros no mapa, escolha sua folha de etiqueta, e clique em PDF ou CSV.",
               "src": "machine",
               "h": "3415af27d8f4"
-            },
-            "firstRunHelpLink": {
-              "t": "Abra o guia.",
-              "src": "machine",
-              "h": "2447dd6134ea"
-            },
-            "helpStartTitle": {
-              "t": "Comece aqui: três passos",
-              "src": "machine",
-              "h": "789320b4831d"
             },
             "helpStart1": {
               "t": "Escolha os registros que quiser selecionando as características no mapa.",
@@ -17303,11 +17026,6 @@
               "src": "machine",
               "h": "05b11e1acf39"
             },
-            "helpTroubleTitle": {
-              "t": "Se algo parecer errado",
-              "src": "machine",
-              "h": "6f7fec3ff1e0"
-            },
             "helpTroubleNoMap": {
               "t": "Você não pode selecionar nada no mapa: nenhum mapa está conectado a este widget. Pergunte a quem montou o aplicativo para adicionar um nas configurações.",
               "src": "machine",
@@ -17333,11 +17051,6 @@
               "src": "machine",
               "h": "b333ef862ba2"
             },
-            "helpTipsTitle": {
-              "t": "Bom saber.",
-              "src": "machine",
-              "h": "79fc372dc790"
-            },
             "helpTips1": {
               "t": "Passe uma folha de teste em papel puro antes de imprimir uma caixa cheia de rótulos.",
               "src": "machine",
@@ -17347,20 +17060,30 @@
               "t": "O tipo ZIP é necessário para descontos de correio, então defina etiquetas de classificação para ZIP se você estiver enviando em massa.",
               "src": "machine",
               "h": "2a206b356569"
+            },
+            "buffer": {
+              "t": "Buffer",
+              "src": "machine",
+              "h": "2be5f64b3623"
+            },
+            "confirmAndProceed": {
+              "t": "Confirme e prossiga.",
+              "src": "machine",
+              "h": "4324c73437b7"
             }
           }
         },
         "pt-pt": {
-          "file": "bcc1f538952c",
+          "file": "39409ec23983",
           "counts": {
-            "esri": 33,
+            "esri": 52,
             "esri-check": 0,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 146,
+            "machine": 143,
             "stale": 0,
-            "missing": 0
+            "missing": 72
           },
           "entries": {
             "_widgetLabel": {
@@ -17908,25 +17631,10 @@
               "src": "machine",
               "h": "0d9adda150cd"
             },
-            "helpNoMatches": {
-              "t": "Nada no guia corresponde a essa palavra. Tente outro, ou abra as seções acima.",
-              "src": "machine",
-              "h": "3fe179f75330"
-            },
             "firstRunBody": {
               "t": "Selecione registros no mapa, escolha sua folha de etiqueta e clique em PDF ou CSV.",
               "src": "machine",
               "h": "3415af27d8f4"
-            },
-            "firstRunHelpLink": {
-              "t": "Abra o guia.",
-              "src": "machine",
-              "h": "2447dd6134ea"
-            },
-            "helpStartTitle": {
-              "t": "Comece aqui: três passos",
-              "src": "machine",
-              "h": "789320b4831d"
             },
             "helpStart1": {
               "t": "Escolha os registros que deseja selecionando recursos no mapa.",
@@ -18048,11 +17756,6 @@
               "src": "machine",
               "h": "05b11e1acf39"
             },
-            "helpTroubleTitle": {
-              "t": "Se algo parecer errado",
-              "src": "machine",
-              "h": "6f7fec3ff1e0"
-            },
             "helpTroubleNoMap": {
               "t": "Você não pode selecionar nada no mapa: nenhum mapa está conectado a este widget. Peça a quem configurar o aplicativo para adicionar um nas configurações.",
               "src": "machine",
@@ -18078,11 +17781,6 @@
               "src": "machine",
               "h": "b333ef862ba2"
             },
-            "helpTipsTitle": {
-              "t": "É bom saber.",
-              "src": "machine",
-              "h": "79fc372dc790"
-            },
             "helpTips1": {
               "t": "Execute uma folha de teste em papel simples antes de imprimir uma caixa cheia de etiquetas.",
               "src": "machine",
@@ -18092,20 +17790,30 @@
               "t": "A classificação ZIP é necessária para descontos em massa do USPS, então defina etiquetas Ordenar para ZIP se você estiver enviando em massa.",
               "src": "machine",
               "h": "2a206b356569"
+            },
+            "buffer": {
+              "t": "Buffer",
+              "src": "machine",
+              "h": "2be5f64b3623"
+            },
+            "confirmAndProceed": {
+              "t": "Confirmar e prosseguir",
+              "src": "machine",
+              "h": "4324c73437b7"
             }
           }
         },
         "ro": {
-          "file": "0167d2b2c743",
+          "file": "e754b06c8664",
           "counts": {
-            "esri": 29,
+            "esri": 48,
             "esri-check": 4,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 146,
+            "machine": 143,
             "stale": 0,
-            "missing": 0
+            "missing": 72
           },
           "entries": {
             "_widgetLabel": {
@@ -18653,25 +18361,10 @@
               "src": "machine",
               "h": "0d9adda150cd"
             },
-            "helpNoMatches": {
-              "t": "Nimic din ghid nu se potriveşte cu acest cuvânt. Încearcă altul, sau deschide secţiunile de mai sus.",
-              "src": "machine",
-              "h": "3fe179f75330"
-            },
             "firstRunBody": {
               "t": "Selectaţi înregistrările de pe hartă, alegeţi foaia de etichetă, apoi faceţi clic pe PDF sau CSV.",
               "src": "machine",
               "h": "3415af27d8f4"
-            },
-            "firstRunHelpLink": {
-              "t": "Deschide ghidul.",
-              "src": "machine",
-              "h": "2447dd6134ea"
-            },
-            "helpStartTitle": {
-              "t": "Începe aici: trei pași",
-              "src": "machine",
-              "h": "789320b4831d"
             },
             "helpStart1": {
               "t": "Alegeți înregistrările pe care doriți prin selectarea caracteristicilor de pe hartă.",
@@ -18793,11 +18486,6 @@
               "src": "machine",
               "h": "05b11e1acf39"
             },
-            "helpTroubleTitle": {
-              "t": "Dacă ceva nu arată bine",
-              "src": "machine",
-              "h": "6f7fec3ff1e0"
-            },
             "helpTroubleNoMap": {
               "t": "Nu puteți selecta nimic de pe hartă: nicio hartă nu este conectată la acest widget. Întreabă pe oricine a înființat aplicația pentru a adăuga una în setările.",
               "src": "machine",
@@ -18823,11 +18511,6 @@
               "src": "machine",
               "h": "b333ef862ba2"
             },
-            "helpTipsTitle": {
-              "t": "E bine de ştiut.",
-              "src": "machine",
-              "h": "79fc372dc790"
-            },
             "helpTips1": {
               "t": "Rulați o foaie de încercare pe hârtie simplă înainte de a tipări o cutie completă de etichete.",
               "src": "machine",
@@ -18837,20 +18520,30 @@
               "t": "Sort ZIP este necesar pentru reduceri USPS vrac-mail, astfel setați etichete Sortare la ZIP dacă sunteți mail în vrac.",
               "src": "machine",
               "h": "2a206b356569"
+            },
+            "buffer": {
+              "t": "Buffer",
+              "src": "machine",
+              "h": "2be5f64b3623"
+            },
+            "confirmAndProceed": {
+              "t": "Confirmă și continuă",
+              "src": "machine",
+              "h": "4324c73437b7"
             }
           }
         },
         "ru": {
-          "file": "3305b0800468",
+          "file": "c2c371128239",
           "counts": {
-            "esri": 32,
+            "esri": 52,
             "esri-check": 1,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 146,
+            "machine": 142,
             "stale": 0,
-            "missing": 0
+            "missing": 72
           },
           "entries": {
             "_widgetLabel": {
@@ -19398,25 +19091,10 @@
               "src": "machine",
               "h": "0d9adda150cd"
             },
-            "helpNoMatches": {
-              "t": "Ничто в руководстве не соответствует этому слову. Попробуйте другой или откройте разделы выше.",
-              "src": "machine",
-              "h": "3fe179f75330"
-            },
             "firstRunBody": {
               "t": "Выберите записи на карте, выберите лист этикетки, затем нажмите PDF или CSV.",
               "src": "machine",
               "h": "3415af27d8f4"
-            },
-            "firstRunHelpLink": {
-              "t": "Откройте проводник.",
-              "src": "machine",
-              "h": "2447dd6134ea"
-            },
-            "helpStartTitle": {
-              "t": "Начните здесь: три шага",
-              "src": "machine",
-              "h": "789320b4831d"
             },
             "helpStart1": {
               "t": "Выберите нужные вам записи, выбрав функции на карте.",
@@ -19538,11 +19216,6 @@
               "src": "machine",
               "h": "05b11e1acf39"
             },
-            "helpTroubleTitle": {
-              "t": "Если что-то выглядит неправильно",
-              "src": "machine",
-              "h": "6f7fec3ff1e0"
-            },
             "helpTroubleNoMap": {
               "t": "Вы не можете выбрать что-либо на карте: ни одна карта не связана с этим виджетом. Спросите любого, кто настроил приложение, чтобы добавить его в настройки.",
               "src": "machine",
@@ -19568,11 +19241,6 @@
               "src": "machine",
               "h": "b333ef862ba2"
             },
-            "helpTipsTitle": {
-              "t": "Хорошо знать",
-              "src": "machine",
-              "h": "79fc372dc790"
-            },
             "helpTips1": {
               "t": "Запустите один тестовый лист на простой бумаге, прежде чем печатать полную коробку этикеток.",
               "src": "machine",
@@ -19582,20 +19250,25 @@
               "t": "Сортировка ZIP требуется для скидок на основную почту USPS, поэтому установите этикетки Sort на ZIP, если вы отправляете оптом.",
               "src": "machine",
               "h": "2a206b356569"
+            },
+            "confirmAndProceed": {
+              "t": "Подтвердить и продолжить",
+              "src": "machine",
+              "h": "4324c73437b7"
             }
           }
         },
         "sk": {
-          "file": "b34e3074c3b7",
+          "file": "4b556a2923a9",
           "counts": {
-            "esri": 29,
+            "esri": 49,
             "esri-check": 4,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 146,
+            "machine": 142,
             "stale": 0,
-            "missing": 0
+            "missing": 72
           },
           "entries": {
             "_widgetLabel": {
@@ -20143,25 +19816,10 @@
               "src": "machine",
               "h": "0d9adda150cd"
             },
-            "helpNoMatches": {
-              "t": "Nič v sprievodcovi nezodpovedá tomu slovu. Skúste iné, alebo otvoriť časti vyššie.",
-              "src": "machine",
-              "h": "3fe179f75330"
-            },
             "firstRunBody": {
               "t": "Vyberte záznamy na mape, vyberte si štítok a kliknite na PDF alebo CSV.",
               "src": "machine",
               "h": "3415af27d8f4"
-            },
-            "firstRunHelpLink": {
-              "t": "Otvorte sprievodcu.",
-              "src": "machine",
-              "h": "2447dd6134ea"
-            },
-            "helpStartTitle": {
-              "t": "Začnite tu: tri kroky",
-              "src": "machine",
-              "h": "789320b4831d"
             },
             "helpStart1": {
               "t": "Vyberte si záznamy, ktoré chcete, výberom funkcií na mape.",
@@ -20283,11 +19941,6 @@
               "src": "machine",
               "h": "05b11e1acf39"
             },
-            "helpTroubleTitle": {
-              "t": "Ak niečo vyzerá zle",
-              "src": "machine",
-              "h": "6f7fec3ff1e0"
-            },
             "helpTroubleNoMap": {
               "t": "Nemôžete vybrať nič na mape: žiadna mapa nie je pripojená k tomuto widgetu. Opýtajte sa každého, kto nastaví aplikáciu, aby ju do nastavení pridal.",
               "src": "machine",
@@ -20313,11 +19966,6 @@
               "src": "machine",
               "h": "b333ef862ba2"
             },
-            "helpTipsTitle": {
-              "t": "Dobré vedieť",
-              "src": "machine",
-              "h": "79fc372dc790"
-            },
             "helpTips1": {
               "t": "Spustite jeden skúšobný list na obyčajný papier pred vytlačením plnej krabice štítkov.",
               "src": "machine",
@@ -20327,20 +19975,25 @@
               "t": "ZIP sort je potrebné pre USPS hromadne-mailové zľavy, tak nastaviť Triediť štítky na ZIP, ak sa posielate hromadne.",
               "src": "machine",
               "h": "2a206b356569"
+            },
+            "confirmAndProceed": {
+              "t": "Potvrdiť a pokračovať",
+              "src": "machine",
+              "h": "4324c73437b7"
             }
           }
         },
         "sl": {
-          "file": "670aa2a6ded3",
+          "file": "697077c124a6",
           "counts": {
-            "esri": 32,
+            "esri": 52,
             "esri-check": 1,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 146,
+            "machine": 142,
             "stale": 0,
-            "missing": 0
+            "missing": 72
           },
           "entries": {
             "_widgetLabel": {
@@ -20888,25 +20541,10 @@
               "src": "machine",
               "h": "0d9adda150cd"
             },
-            "helpNoMatches": {
-              "t": "Nič v vodiču se ne ujema s to besedo. Poskusite drugo ali pa odprite zgornje oddelke.",
-              "src": "machine",
-              "h": "3fe179f75330"
-            },
             "firstRunBody": {
               "t": "Izberite zapise na zemljevidu, izberite nalepko list, nato kliknite PDF ali CSV.",
               "src": "machine",
               "h": "3415af27d8f4"
-            },
-            "firstRunHelpLink": {
-              "t": "Odpri vodič.",
-              "src": "machine",
-              "h": "2447dd6134ea"
-            },
-            "helpStartTitle": {
-              "t": "Začnite tukaj: trije koraki",
-              "src": "machine",
-              "h": "789320b4831d"
             },
             "helpStart1": {
               "t": "Izberite želene zapise z izbiro funkcij na zemljevidu.",
@@ -21028,11 +20666,6 @@
               "src": "machine",
               "h": "05b11e1acf39"
             },
-            "helpTroubleTitle": {
-              "t": "Če je kaj narobe.",
-              "src": "machine",
-              "h": "6f7fec3ff1e0"
-            },
             "helpTroubleNoMap": {
               "t": "Na zemljevidu ne morete izbrati ničesar: noben zemljevid ni povezan s tem gradnikom. Vprašajte tistega, ki je nastavil aplikacijo, da jo doda v nastavitve.",
               "src": "machine",
@@ -21058,11 +20691,6 @@
               "src": "machine",
               "h": "b333ef862ba2"
             },
-            "helpTipsTitle": {
-              "t": "Dobro je vedeti.",
-              "src": "machine",
-              "h": "79fc372dc790"
-            },
             "helpTips1": {
               "t": "Zaženite en testni list na navadnem papirju, preden natisnete polno škatlo etiket.",
               "src": "machine",
@@ -21072,34 +20700,39 @@
               "t": "ZIP sorta je potrebna za USPS paketne poštne popuste, zato nastavite Razvrsti oznake na ZIP, če pošiljate v razsutem stanju.",
               "src": "machine",
               "h": "2a206b356569"
+            },
+            "confirmAndProceed": {
+              "t": "Potrdite in nadaljujte",
+              "src": "machine",
+              "h": "4324c73437b7"
             }
           }
         },
         "sr": {
-          "file": "b3bf78466a0a",
+          "file": "12a7e004cb58",
           "counts": {
-            "esri": 31,
+            "esri": 44,
             "esri-check": 2,
             "community": 0,
             "manual": 0,
             "existing": 0,
             "machine": 0,
             "stale": 0,
-            "missing": 146
+            "missing": 221
           },
           "entries": {}
         },
         "sv": {
-          "file": "ac6a121321ec",
+          "file": "01e44fd965de",
           "counts": {
-            "esri": 30,
+            "esri": 48,
             "esri-check": 3,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 146,
+            "machine": 144,
             "stale": 0,
-            "missing": 0
+            "missing": 72
           },
           "entries": {
             "_widgetLabel": {
@@ -21647,25 +21280,10 @@
               "src": "machine",
               "h": "0d9adda150cd"
             },
-            "helpNoMatches": {
-              "t": "Ingenting i guiden matchar det ordet. Prova en annan, eller öppna avsnitten ovan.",
-              "src": "machine",
-              "h": "3fe179f75330"
-            },
             "firstRunBody": {
               "t": "Välj poster på kartan, välj ditt etikettblad, klicka sedan på PDF eller CSV.",
               "src": "machine",
               "h": "3415af27d8f4"
-            },
-            "firstRunHelpLink": {
-              "t": "Öppna guiden.",
-              "src": "machine",
-              "h": "2447dd6134ea"
-            },
-            "helpStartTitle": {
-              "t": "Börja här: tre steg",
-              "src": "machine",
-              "h": "789320b4831d"
             },
             "helpStart1": {
               "t": "Välj de poster du vill genom att välja funktioner på kartan.",
@@ -21787,11 +21405,6 @@
               "src": "machine",
               "h": "05b11e1acf39"
             },
-            "helpTroubleTitle": {
-              "t": "Om något ser fel",
-              "src": "machine",
-              "h": "6f7fec3ff1e0"
-            },
             "helpTroubleNoMap": {
               "t": "Du kan inte välja något på kartan: ingen karta är ansluten till denna widget. Fråga vem som än ställer in appen för att lägga till en i inställningarna.",
               "src": "machine",
@@ -21817,11 +21430,6 @@
               "src": "machine",
               "h": "b333ef862ba2"
             },
-            "helpTipsTitle": {
-              "t": "Bra att veta",
-              "src": "machine",
-              "h": "79fc372dc790"
-            },
             "helpTips1": {
               "t": "Kör ett testblad på vanligt papper innan du skriver en fullständig låda med etiketter.",
               "src": "machine",
@@ -21831,20 +21439,35 @@
               "t": "ZIP sort krävs för USPS bulk-mail rabatter, så ställ Sort etiketter till ZIP om du skickar i bulk.",
               "src": "machine",
               "h": "2a206b356569"
+            },
+            "polygon": {
+              "t": "Polygon",
+              "src": "machine",
+              "h": "85066b2ca9c0"
+            },
+            "start": {
+              "t": "Börja",
+              "src": "machine",
+              "h": "952f375412e8"
+            },
+            "confirmAndProceed": {
+              "t": "Bekräfta och fortsätta",
+              "src": "machine",
+              "h": "4324c73437b7"
             }
           }
         },
         "th": {
-          "file": "75ffed40ae2f",
+          "file": "4af54c892b87",
           "counts": {
-            "esri": 32,
+            "esri": 52,
             "esri-check": 1,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 146,
+            "machine": 142,
             "stale": 0,
-            "missing": 0
+            "missing": 72
           },
           "entries": {
             "_widgetLabel": {
@@ -22392,25 +22015,10 @@
               "src": "machine",
               "h": "0d9adda150cd"
             },
-            "helpNoMatches": {
-              "t": "ไม่มีอะไรในคู่มือที่ตรงกับคํานั้น ลอง เปิด อีก ส่วน หนึ่ง ข้าง บน.",
-              "src": "machine",
-              "h": "3fe179f75330"
-            },
             "firstRunBody": {
               "t": "เลือกบันทึกบนแผนที่ เลือกแผ่นงานของคุณ จากนั้นคลิก PDF หรือ CSV",
               "src": "machine",
               "h": "3415af27d8f4"
-            },
-            "firstRunHelpLink": {
-              "t": "เปิดคู่มือ",
-              "src": "machine",
-              "h": "2447dd6134ea"
-            },
-            "helpStartTitle": {
-              "t": "เริ่มที่นี่: สามขั้นตอน",
-              "src": "machine",
-              "h": "789320b4831d"
             },
             "helpStart1": {
               "t": "เลือกบันทึกที่คุณต้องการ โดยการเลือกคุณสมบัติในแผนที่",
@@ -22532,11 +22140,6 @@
               "src": "machine",
               "h": "05b11e1acf39"
             },
-            "helpTroubleTitle": {
-              "t": "ถ้ามีอะไรผิดปกติ",
-              "src": "machine",
-              "h": "6f7fec3ff1e0"
-            },
             "helpTroubleNoMap": {
               "t": "คุณไม่สามารถเลือกสิ่งใด ๆ บนแผนที่ได้: ไม่มีแผนที่ที่เชื่อมต่อกับวิดเจ็ตนี้ ถามคนที่ติดตั้งโปรแกรมนี้ ให้เพิ่มลงในเซต",
               "src": "machine",
@@ -22562,11 +22165,6 @@
               "src": "machine",
               "h": "b333ef862ba2"
             },
-            "helpTipsTitle": {
-              "t": "ดีที่ได้รู้",
-              "src": "machine",
-              "h": "79fc372dc790"
-            },
             "helpTips1": {
               "t": "เรียกใช้แผ่นทดสอบบนกระดาษธรรมดาหนึ่งแผ่น ก่อนจะพิมพ์เต็มกล่องป้าย",
               "src": "machine",
@@ -22576,20 +22174,25 @@
               "t": "เรียงลําดับ ZIP นั้นจําเป็นสําหรับส่วนลดของอีเมลแบบเต็ม ๆ USPS ดังนั้นให้ตั้งค่าการเรียงลําดับป้ายเป็น ZIP หากคุณมีการส่งเมลเป็นจํานวนมาก",
               "src": "machine",
               "h": "2a206b356569"
+            },
+            "confirmAndProceed": {
+              "t": "ยืนยันและดําเนินการ",
+              "src": "machine",
+              "h": "4324c73437b7"
             }
           }
         },
         "tr": {
-          "file": "a71bbab48a50",
+          "file": "71636ba23167",
           "counts": {
-            "esri": 30,
+            "esri": 50,
             "esri-check": 3,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 146,
+            "machine": 142,
             "stale": 0,
-            "missing": 0
+            "missing": 72
           },
           "entries": {
             "_widgetLabel": {
@@ -23137,25 +22740,10 @@
               "src": "machine",
               "h": "0d9adda150cd"
             },
-            "helpNoMatches": {
-              "t": "Rehberde hiçbir şey bu kelimeyi maçları. Başka bir deneyin veya yukarıdaki bölümleri açın.",
-              "src": "machine",
-              "h": "3fe179f75330"
-            },
             "firstRunBody": {
               "t": "Haritadaki kayıtları seçin, etiket sayfanızı seçin, sonra PDF veya CSV tıklayın.",
               "src": "machine",
               "h": "3415af27d8f4"
-            },
-            "firstRunHelpLink": {
-              "t": "Rehberi açın.",
-              "src": "machine",
-              "h": "2447dd6134ea"
-            },
-            "helpStartTitle": {
-              "t": "Buraya başlayın: Üç adım",
-              "src": "machine",
-              "h": "789320b4831d"
             },
             "helpStart1": {
               "t": "Haritadaki özellikleri seçerek istediğiniz kayıtları seçin.",
@@ -23277,11 +22865,6 @@
               "src": "machine",
               "h": "05b11e1acf39"
             },
-            "helpTroubleTitle": {
-              "t": "Bir şey yanlış görünüyorsa",
-              "src": "machine",
-              "h": "6f7fec3ff1e0"
-            },
             "helpTroubleNoMap": {
               "t": "Haritada herhangi bir şey seçemezsiniz: harita bu widget'a bağlı değildir. Uygulamayı ayarlarda birini eklemek için kim ayarlayın.",
               "src": "machine",
@@ -23307,11 +22890,6 @@
               "src": "machine",
               "h": "b333ef862ba2"
             },
-            "helpTipsTitle": {
-              "t": "İyi bilmek",
-              "src": "machine",
-              "h": "79fc372dc790"
-            },
             "helpTips1": {
               "t": "Tam bir etiket basmadan önce düz kağıt üzerinde bir test sayfası çalıştırın.",
               "src": "machine",
@@ -23321,20 +22899,25 @@
               "t": "ZIP türü USPS toplu e-posta indirimleri için gereklidir, bu nedenle ZIP'ye toplu olarak posta yaparsanız listeleyin.",
               "src": "machine",
               "h": "2a206b356569"
+            },
+            "confirmAndProceed": {
+              "t": "Onaylayın ve devam edin",
+              "src": "machine",
+              "h": "4324c73437b7"
             }
           }
         },
         "zh-cn": {
-          "file": "310c706414be",
+          "file": "fc8e5705dce3",
           "counts": {
-            "esri": 32,
+            "esri": 52,
             "esri-check": 1,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 146,
+            "machine": 142,
             "stale": 0,
-            "missing": 0
+            "missing": 72
           },
           "entries": {
             "_widgetLabel": {
@@ -23882,25 +23465,10 @@
               "src": "machine",
               "h": "0d9adda150cd"
             },
-            "helpNoMatches": {
-              "t": "指南中没有任何内容与这个词相符。 尝试另一个,或者打开上面的部分。",
-              "src": "machine",
-              "h": "3fe179f75330"
-            },
             "firstRunBody": {
               "t": "选择地图上的记录,选择您的标签表,然后点击 PDF 或 CSV 。",
               "src": "machine",
               "h": "3415af27d8f4"
-            },
-            "firstRunHelpLink": {
-              "t": "开导.",
-              "src": "machine",
-              "h": "2447dd6134ea"
-            },
-            "helpStartTitle": {
-              "t": "从这里开始: 三步",
-              "src": "machine",
-              "h": "789320b4831d"
             },
             "helpStart1": {
               "t": "通过选择地图上的特性来选择您想要的记录 。",
@@ -24022,11 +23590,6 @@
               "src": "machine",
               "h": "05b11e1acf39"
             },
-            "helpTroubleTitle": {
-              "t": "如果有什么不对劲",
-              "src": "machine",
-              "h": "6f7fec3ff1e0"
-            },
             "helpTroubleNoMap": {
               "t": "您无法选择地图上的任何内容 : 没有地图连接到此部件 。 询问设置应用程序的人在设置中添加一个 。",
               "src": "machine",
@@ -24052,11 +23615,6 @@
               "src": "machine",
               "h": "b333ef862ba2"
             },
-            "helpTipsTitle": {
-              "t": "很高兴知道",
-              "src": "machine",
-              "h": "79fc372dc790"
-            },
             "helpTips1": {
               "t": "在打印完整的标签盒之前,先在普通纸上运行一个测试表.",
               "src": "machine",
@@ -24066,20 +23624,25 @@
               "t": "ZIP排序是USPS批量邮件折扣需要的,所以如果是批量邮件,将排序标签设置为ZIP.",
               "src": "machine",
               "h": "2a206b356569"
+            },
+            "confirmAndProceed": {
+              "t": "确认并进行",
+              "src": "machine",
+              "h": "4324c73437b7"
             }
           }
         },
         "uk": {
-          "file": "8809f5f66046",
+          "file": "5ef66ab2a5bc",
           "counts": {
-            "esri": 30,
+            "esri": 50,
             "esri-check": 3,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 146,
+            "machine": 142,
             "stale": 0,
-            "missing": 0
+            "missing": 72
           },
           "entries": {
             "_widgetLabel": {
@@ -24627,25 +24190,10 @@
               "src": "machine",
               "h": "0d9adda150cd"
             },
-            "helpNoMatches": {
-              "t": "Ніщо в інструкції відповідає словом. Спробуйте ще одну або відкрийте розділи вище.",
-              "src": "machine",
-              "h": "3fe179f75330"
-            },
             "firstRunBody": {
               "t": "Виберіть записи на карті, оберіть аркуш етикетки, потім натисніть PDF або CSV.",
               "src": "machine",
               "h": "3415af27d8f4"
-            },
-            "firstRunHelpLink": {
-              "t": "Відкрийте посібник.",
-              "src": "machine",
-              "h": "2447dd6134ea"
-            },
-            "helpStartTitle": {
-              "t": "Почати тут: три кроки",
-              "src": "machine",
-              "h": "789320b4831d"
             },
             "helpStart1": {
               "t": "Виберіть записи, які ви хочете, вибравши функції на мапі.",
@@ -24767,11 +24315,6 @@
               "src": "machine",
               "h": "05b11e1acf39"
             },
-            "helpTroubleTitle": {
-              "t": "Якщо щось виглядає неправильно",
-              "src": "machine",
-              "h": "6f7fec3ff1e0"
-            },
             "helpTroubleNoMap": {
               "t": "Ви не можете вибрати все на карті: немає карти підключено до цього віджету. Запитайте, хто встановив додаток, щоб додати один в налаштуваннях.",
               "src": "machine",
@@ -24797,11 +24340,6 @@
               "src": "machine",
               "h": "b333ef862ba2"
             },
-            "helpTipsTitle": {
-              "t": "Добре знати",
-              "src": "machine",
-              "h": "79fc372dc790"
-            },
             "helpTips1": {
               "t": "Запуск одного тестового листа на звичайний папір перед друком повної коробки етикеток.",
               "src": "machine",
@@ -24811,20 +24349,25 @@
               "t": "ЗІП сорту обов'язковий для USPS насипно-поштових знижок, тому встановлюється Сорт етикеток до ЗІП, якщо ви пересилаєте в об'ємі.",
               "src": "machine",
               "h": "2a206b356569"
+            },
+            "confirmAndProceed": {
+              "t": "Підтвердити і продовжити",
+              "src": "machine",
+              "h": "4324c73437b7"
             }
           }
         },
         "vi": {
-          "file": "56ef0d2633d7",
+          "file": "85c91ba2ec04",
           "counts": {
-            "esri": 31,
-            "esri-check": 2,
+            "esri": 50,
+            "esri-check": 3,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 146,
+            "machine": 142,
             "stale": 0,
-            "missing": 0
+            "missing": 72
           },
           "entries": {
             "_widgetLabel": {
@@ -25372,25 +24915,10 @@
               "src": "machine",
               "h": "0d9adda150cd"
             },
-            "helpNoMatches": {
-              "t": "Không có gì phù hợp với từ đó. Thử cái khác, hoặc mở phần trên.",
-              "src": "machine",
-              "h": "3fe179f75330"
-            },
             "firstRunBody": {
               "t": "Chọn hồ sơ trên bản đồ, chọn tờ nhãn, rồi nhấn PDF hoặc CNV.",
               "src": "machine",
               "h": "3415af27d8f4"
-            },
-            "firstRunHelpLink": {
-              "t": "Mở sách hướng dẫn ra.",
-              "src": "machine",
-              "h": "2447dd6134ea"
-            },
-            "helpStartTitle": {
-              "t": "Bắt đầu ở đây: ba bước",
-              "src": "machine",
-              "h": "789320b4831d"
             },
             "helpStart1": {
               "t": "Chọn các hồ sơ bạn muốn bằng cách chọn các tính năng trên bản đồ.",
@@ -25512,11 +25040,6 @@
               "src": "machine",
               "h": "05b11e1acf39"
             },
-            "helpTroubleTitle": {
-              "t": "Nếu có gì không ổn",
-              "src": "machine",
-              "h": "6f7fec3ff1e0"
-            },
             "helpTroubleNoMap": {
               "t": "Không thể chọn bất cứ điều gì trên bản đồ: không có bản đồ nào được kết nối đến ô điều khiển này. Yêu cầu bất cứ ai thiết lập ứng dụng để thêm vào thiết lập.",
               "src": "machine",
@@ -25542,11 +25065,6 @@
               "src": "machine",
               "h": "b333ef862ba2"
             },
-            "helpTipsTitle": {
-              "t": "Rất vui được biết",
-              "src": "machine",
-              "h": "79fc372dc790"
-            },
             "helpTips1": {
               "t": "Chạy một tờ kiểm tra trên giấy thường trước khi in một hộp đầy nhãn.",
               "src": "machine",
@@ -25556,20 +25074,25 @@
               "t": "Kiểu ZIP là cần thiết cho việc giảm giá thư từ USPS, vì vậy đặt nhãn Sắp xếp ZIP nếu bạn gửi theo số lượng lớn.",
               "src": "machine",
               "h": "2a206b356569"
+            },
+            "confirmAndProceed": {
+              "t": "Xác nhận và tiếp tục",
+              "src": "machine",
+              "h": "4324c73437b7"
             }
           }
         },
         "zh-hk": {
-          "file": "17879b3bb456",
+          "file": "b3c675493319",
           "counts": {
-            "esri": 32,
+            "esri": 52,
             "esri-check": 1,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 146,
+            "machine": 142,
             "stale": 0,
-            "missing": 0
+            "missing": 72
           },
           "entries": {
             "_widgetLabel": {
@@ -26117,25 +25640,10 @@
               "src": "machine",
               "h": "0d9adda150cd"
             },
-            "helpNoMatches": {
-              "t": "向导裡沒有什麼能符合這個詞的 再試一次,或者打開上面的區域",
-              "src": "machine",
-              "h": "3fe179f75330"
-            },
             "firstRunBody": {
               "t": "選擇地圖上的紀錄, 選擇您的標籤表, 然后點擊 PDF 或 CSV 。",
               "src": "machine",
               "h": "3415af27d8f4"
-            },
-            "firstRunHelpLink": {
-              "t": "打開向导",
-              "src": "machine",
-              "h": "2447dd6134ea"
-            },
-            "helpStartTitle": {
-              "t": "從這裡開始: 三步",
-              "src": "machine",
-              "h": "789320b4831d"
             },
             "helpStart1": {
               "t": "在地圖上選擇您想要的紀錄 。",
@@ -26257,11 +25765,6 @@
               "src": "machine",
               "h": "05b11e1acf39"
             },
-            "helpTroubleTitle": {
-              "t": "如果有什麼不對勁",
-              "src": "machine",
-              "h": "6f7fec3ff1e0"
-            },
             "helpTroubleNoMap": {
               "t": "您不能選擇地圖上的任何項目: 沒有地圖連接到此元件 。 問建立應用程式的人在設定中加一個 。",
               "src": "machine",
@@ -26287,11 +25790,6 @@
               "src": "machine",
               "h": "b333ef862ba2"
             },
-            "helpTipsTitle": {
-              "t": "很高興知道",
-              "src": "machine",
-              "h": "79fc372dc790"
-            },
             "helpTips1": {
               "t": "在打印整盒標籤前先在普通紙上執行一個測試表 。",
               "src": "machine",
@@ -26301,20 +25799,25 @@
               "t": "ZIP 類型是 USPS 批量郵件折扣的要求, 所以如果您是批量信件, 請將排序標籤設定為 ZIP 。",
               "src": "machine",
               "h": "2a206b356569"
+            },
+            "confirmAndProceed": {
+              "t": "确认並繼續",
+              "src": "machine",
+              "h": "4324c73437b7"
             }
           }
         },
         "zh-tw": {
-          "file": "17879b3bb456",
+          "file": "b3c675493319",
           "counts": {
-            "esri": 32,
+            "esri": 52,
             "esri-check": 1,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 146,
+            "machine": 142,
             "stale": 0,
-            "missing": 0
+            "missing": 72
           },
           "entries": {
             "_widgetLabel": {
@@ -26862,25 +26365,10 @@
               "src": "machine",
               "h": "0d9adda150cd"
             },
-            "helpNoMatches": {
-              "t": "向导裡沒有什麼能符合這個詞的 再試一次,或者打開上面的區域",
-              "src": "machine",
-              "h": "3fe179f75330"
-            },
             "firstRunBody": {
               "t": "選擇地圖上的紀錄, 選擇您的標籤表, 然后點擊 PDF 或 CSV 。",
               "src": "machine",
               "h": "3415af27d8f4"
-            },
-            "firstRunHelpLink": {
-              "t": "打開向导",
-              "src": "machine",
-              "h": "2447dd6134ea"
-            },
-            "helpStartTitle": {
-              "t": "從這裡開始: 三步",
-              "src": "machine",
-              "h": "789320b4831d"
             },
             "helpStart1": {
               "t": "在地圖上選擇您想要的紀錄 。",
@@ -27002,11 +26490,6 @@
               "src": "machine",
               "h": "05b11e1acf39"
             },
-            "helpTroubleTitle": {
-              "t": "如果有什麼不對勁",
-              "src": "machine",
-              "h": "6f7fec3ff1e0"
-            },
             "helpTroubleNoMap": {
               "t": "您不能選擇地圖上的任何項目: 沒有地圖連接到此元件 。 問建立應用程式的人在設定中加一個 。",
               "src": "machine",
@@ -27032,11 +26515,6 @@
               "src": "machine",
               "h": "b333ef862ba2"
             },
-            "helpTipsTitle": {
-              "t": "很高興知道",
-              "src": "machine",
-              "h": "79fc372dc790"
-            },
             "helpTips1": {
               "t": "在打印整盒標籤前先在普通紙上執行一個測試表 。",
               "src": "machine",
@@ -27046,14 +26524,19 @@
               "t": "ZIP 類型是 USPS 批量郵件折扣的要求, 所以如果您是批量信件, 請將排序標籤設定為 ZIP 。",
               "src": "machine",
               "h": "2a206b356569"
+            },
+            "confirmAndProceed": {
+              "t": "确认並繼續",
+              "src": "machine",
+              "h": "4324c73437b7"
             }
           }
         }
       }
     },
     "setting": {
-      "en": "5492dfcd5214",
-      "keys": 381,
+      "en": "8e7a4bba77ea",
+      "keys": 434,
       "hashes": {
         "_widgetLabel": "a1be6f23b258",
         "_widgetDescription": "a3c2cd9238ac",
@@ -27435,20 +26918,73 @@
         "webMercator": "7816182970c9",
         "wgs84": "fb9a92a9c0a9",
         "coordinateSystem": "d4fae8cd8647",
-        "projection": "8aa49fe84036"
+        "projection": "8aa49fe84036",
+        "uiNone": "6eef6648406c",
+        "uiUseCustomTextForName": "969e8b5772f3",
+        "uiCustomNameText": "e013b542c1a8",
+        "uiSource": "6da13addb000",
+        "uiSelectMapWidget": "16adfa4e45f0",
+        "uiConnectingToMapWidgetMapsWith": "b5ec19a5d216",
+        "uiRetryConnection": "a35123568079",
+        "uiAddressTypes": "fecf0b6bab60",
+        "uiPhysicalMailingAddress": "5ebe338d271b",
+        "uiEnablePhysicalMailingAddress": "8691d8b52656",
+        "uiOwnerAddress": "5a76270d66d8",
+        "uiEnableOwnerAddress": "8189d6a5d52c",
+        "uiDefaultAddressType": "eb1bcadfd3b7",
+        "uiPhysicalAddress": "d34a059a90f4",
+        "uiPhysicalAddressLayer": "1f5eae31678d",
+        "uiSelectALayer": "1d41fa011fcf",
+        "uiLoadLayers": "756b33a638fc",
+        "uiOwnerAddressLayer": "85ffb19eb3d8",
+        "uiSelection": "d1f8e5ea93b2",
+        "uiGeometrySelection": "6262eb400b75",
+        "uiEnableGeometrySelection": "66b7c25ff724",
+        "uiSelectionLayer": "73c5f2a99f72",
+        "uiSelectionMethod": "810fcfc73fdd",
+        "uiClickToSelect": "aac1569ccf6b",
+        "uiDrawSelectionArea": "61d1a495360e",
+        "uiClickAndDraw": "3fc099426a35",
+        "uiAcceptGeometryFromDrawWidget": "d4d5df791f04",
+        "uiOutputDefaults": "fb182d994598",
+        "uiDefaultLabelSort": "40c7764cf5d5",
+        "uiNoSortSelectionOrder": "b97f96bae3fe",
+        "uiNameAToZ": "e53a5982ee84",
+        "uiCityAToZ": "95118adc20e8",
+        "uiStateAToZ": "9515e7047721",
+        "uiZipUspsBulkMail": "3f0b1c698dbd",
+        "uiWrapLongLines": "df1c5cdcb032",
+        "uiWrapLongLinesOntoAdditionalLines": "2affcd1d1538",
+        "uiMapBehavior": "46a0cf328193",
+        "uiSuppressMapPopupsWhileOpen": "1204b7550d63",
+        "uiSuppressMapPopupsWhileWidgetIs": "0da436ea637f",
+        "uiAddressSearch": "c227dc4028be",
+        "uiGeocodeServiceUrl": "9cd99b59da08",
+        "uiSettingsFile": "afa8087e2dc3",
+        "uiExportXml": "f6a2de2384a3",
+        "uiImportXml": "85b4016d27dc",
+        "uiShowHelpGuide": "03e9f0b81336",
+        "uiShowTheQuestionMarkButtonThat": "62c4e81a84ca",
+        "layerId": "bcfa324c7a94",
+        "unknownErrorOccurredWhileLoadingLayers": "263d0fac325c",
+        "serviceReturnedAnError": "e2f44d71cf52",
+        "requestFailed": "92a0d7d4d561",
+        "unknownError": "af6321ca7a8b",
+        "eGCurrentResident": "1d35bf3f1eb6",
+        "eGPropertyOwner": "0a9260ad91a5"
       },
       "locales": {
         "ar": {
-          "file": "6fddaeea8dc5",
+          "file": "506ddd717af4",
           "counts": {
-            "esri": 64,
+            "esri": 72,
             "esri-check": 2,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 315,
+            "machine": 318,
             "stale": 0,
-            "missing": 0
+            "missing": 42
           },
           "entries": {
             "_widgetLabel": {
@@ -29025,20 +28561,35 @@
               "t": "الإسقاط",
               "src": "machine",
               "h": "8aa49fe84036"
+            },
+            "uiGeocodeServiceUrl": {
+              "t": "Geocode service URL",
+              "src": "machine",
+              "h": "9cd99b59da08"
+            },
+            "uiExportXml": {
+              "t": "Export XML",
+              "src": "machine",
+              "h": "f6a2de2384a3"
+            },
+            "uiImportXml": {
+              "t": "Import XML",
+              "src": "machine",
+              "h": "85b4016d27dc"
             }
           }
         },
         "bg": {
-          "file": "8985e400ed9a",
+          "file": "65d7e79bce1d",
           "counts": {
-            "esri": 64,
+            "esri": 74,
             "esri-check": 2,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 315,
+            "machine": 316,
             "stale": 0,
-            "missing": 0
+            "missing": 42
           },
           "entries": {
             "_widgetLabel": {
@@ -30615,34 +30166,39 @@
               "t": "Проекция",
               "src": "machine",
               "h": "8aa49fe84036"
+            },
+            "uiGeocodeServiceUrl": {
+              "t": "Адрес на услугата Geocode",
+              "src": "machine",
+              "h": "9cd99b59da08"
             }
           }
         },
         "bs": {
-          "file": "ea9dec21a54b",
+          "file": "65b0e47839ba",
           "counts": {
-            "esri": 65,
+            "esri": 71,
             "esri-check": 1,
             "community": 0,
             "manual": 0,
             "existing": 0,
             "machine": 0,
             "stale": 0,
-            "missing": 315
+            "missing": 362
           },
           "entries": {}
         },
         "ca": {
-          "file": "60bc28fa48bb",
+          "file": "c3c718fbf1cb",
           "counts": {
-            "esri": 66,
-            "esri-check": 0,
+            "esri": 73,
+            "esri-check": 1,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 315,
+            "machine": 318,
             "stale": 0,
-            "missing": 0
+            "missing": 42
           },
           "entries": {
             "_widgetLabel": {
@@ -31109,6 +30665,11 @@
               "t": "Dibuixa les àrees de selecció",
               "src": "machine",
               "h": "b03643d42cbf"
+            },
+            "rectangleTool": {
+              "t": "Rectangle",
+              "src": "machine",
+              "h": "c158695a64ad"
             },
             "bufferDistance": {
               "t": "Distància de la memòria intermèdia (Opcional)",
@@ -32185,6 +31746,11 @@
               "src": "machine",
               "h": "dcf4cc69bca4"
             },
+            "string": {
+              "t": "Text",
+              "src": "machine",
+              "h": "c3328c39b0e2"
+            },
             "boolean": {
               "t": "Sí/ No",
               "src": "machine",
@@ -32219,20 +31785,25 @@
               "t": "Projecció",
               "src": "machine",
               "h": "8aa49fe84036"
+            },
+            "uiGeocodeServiceUrl": {
+              "t": "URL del servei Geocode",
+              "src": "machine",
+              "h": "9cd99b59da08"
             }
           }
         },
         "cs": {
-          "file": "9d5e1a54cbbc",
+          "file": "12099b5f926c",
           "counts": {
-            "esri": 65,
-            "esri-check": 1,
+            "esri": 72,
+            "esri-check": 2,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 315,
+            "machine": 318,
             "stale": 0,
-            "missing": 0
+            "missing": 42
           },
           "entries": {
             "_widgetLabel": {
@@ -32699,6 +32270,11 @@
               "t": "Vykreslit výběrové oblasti",
               "src": "machine",
               "h": "b03643d42cbf"
+            },
+            "polygonTool": {
+              "t": "Polygon",
+              "src": "machine",
+              "h": "85066b2ca9c0"
             },
             "bufferDistance": {
               "t": "Vzdálenost buffer (nepovinné)",
@@ -33775,6 +33351,11 @@
               "src": "machine",
               "h": "dcf4cc69bca4"
             },
+            "string": {
+              "t": "Text",
+              "src": "machine",
+              "h": "c3328c39b0e2"
+            },
             "boolean": {
               "t": "Ano / Ne",
               "src": "machine",
@@ -33809,20 +33390,25 @@
               "t": "Projekce",
               "src": "machine",
               "h": "8aa49fe84036"
+            },
+            "uiGeocodeServiceUrl": {
+              "t": "Name",
+              "src": "machine",
+              "h": "9cd99b59da08"
             }
           }
         },
         "da": {
-          "file": "82a949738c8c",
+          "file": "b41025e8c1d8",
           "counts": {
-            "esri": 63,
+            "esri": 70,
             "esri-check": 3,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 315,
+            "machine": 319,
             "stale": 0,
-            "missing": 0
+            "missing": 42
           },
           "entries": {
             "_widgetLabel": {
@@ -34289,6 +33875,11 @@
               "t": "Tegn markeringsområder",
               "src": "machine",
               "h": "b03643d42cbf"
+            },
+            "polygonTool": {
+              "t": "Polygon",
+              "src": "machine",
+              "h": "85066b2ca9c0"
             },
             "bufferDistance": {
               "t": "Bufferafstand (valgfri)",
@@ -35360,6 +34951,11 @@
               "src": "machine",
               "h": "0fce4167b520"
             },
+            "download": {
+              "t": "Download",
+              "src": "machine",
+              "h": "a479c9c34e87"
+            },
             "uploadFile": {
               "t": "Upload fil",
               "src": "machine",
@@ -35380,6 +34976,11 @@
               "src": "machine",
               "h": "a8f9e73a31d1"
             },
+            "buffer": {
+              "t": "Buffer Formand",
+              "src": "machine",
+              "h": "2be5f64b3623"
+            },
             "webMercator": {
               "t": "Web Mercator",
               "src": "machine",
@@ -35399,20 +35000,25 @@
               "t": "Fremskrivning",
               "src": "machine",
               "h": "8aa49fe84036"
+            },
+            "uiGeocodeServiceUrl": {
+              "t": "Geocode tjeneste URL",
+              "src": "machine",
+              "h": "9cd99b59da08"
             }
           }
         },
         "de": {
-          "file": "0bc2b946b19e",
+          "file": "b52525b4594f",
           "counts": {
-            "esri": 66,
-            "esri-check": 0,
+            "esri": 68,
+            "esri-check": 2,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 315,
+            "machine": 322,
             "stale": 0,
-            "missing": 0
+            "missing": 42
           },
           "entries": {
             "_widgetLabel": {
@@ -35549,6 +35155,11 @@
               "t": "-- Feld auswählen --",
               "src": "machine",
               "h": "9d11cb9367f5"
+            },
+            "nameField": {
+              "t": "Name",
+              "src": "machine",
+              "h": "709a23220f2c"
             },
             "nameFieldDescription": {
               "t": "Name des Empfängers oder Eigentümers",
@@ -35879,6 +35490,11 @@
               "t": "Auswahlbereiche zeichnen",
               "src": "machine",
               "h": "b03643d42cbf"
+            },
+            "polygonTool": {
+              "t": "Polygon",
+              "src": "machine",
+              "h": "85066b2ca9c0"
             },
             "bufferDistance": {
               "t": "Pufferabstand (optional)",
@@ -36955,6 +36571,11 @@
               "src": "machine",
               "h": "dcf4cc69bca4"
             },
+            "string": {
+              "t": "Text",
+              "src": "machine",
+              "h": "c3328c39b0e2"
+            },
             "boolean": {
               "t": "Ja/Nein",
               "src": "machine",
@@ -36989,20 +36610,40 @@
               "t": "Projektion",
               "src": "machine",
               "h": "8aa49fe84036"
+            },
+            "uiGeocodeServiceUrl": {
+              "t": "Geocode-Service-URL",
+              "src": "machine",
+              "h": "9cd99b59da08"
+            },
+            "uiExportXml": {
+              "t": "Export XML",
+              "src": "machine",
+              "h": "f6a2de2384a3"
+            },
+            "uiImportXml": {
+              "t": "Import XML",
+              "src": "machine",
+              "h": "85b4016d27dc"
+            },
+            "uiShowHelpGuide": {
+              "t": "Show Help Guide",
+              "src": "machine",
+              "h": "03e9f0b81336"
             }
           }
         },
         "el": {
-          "file": "3716e4a74ac2",
+          "file": "00b94be93ab7",
           "counts": {
-            "esri": 62,
-            "esri-check": 4,
+            "esri": 71,
+            "esri-check": 5,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 315,
+            "machine": 316,
             "stale": 0,
-            "missing": 0
+            "missing": 42
           },
           "entries": {
             "_widgetLabel": {
@@ -38579,20 +38220,25 @@
               "t": "Προβολή",
               "src": "machine",
               "h": "8aa49fe84036"
+            },
+            "uiGeocodeServiceUrl": {
+              "t": "URL υπηρεσίας Geocode",
+              "src": "machine",
+              "h": "9cd99b59da08"
             }
           }
         },
         "es": {
-          "file": "b7d5ba672a3d",
+          "file": "6115996a438a",
           "counts": {
-            "esri": 66,
-            "esri-check": 0,
+            "esri": 75,
+            "esri-check": 1,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 315,
+            "machine": 316,
             "stale": 0,
-            "missing": 0
+            "missing": 42
           },
           "entries": {
             "_widgetLabel": {
@@ -40169,20 +39815,25 @@
               "t": "Proyección",
               "src": "machine",
               "h": "8aa49fe84036"
+            },
+            "uiGeocodeServiceUrl": {
+              "t": "Geocode service URL",
+              "src": "machine",
+              "h": "9cd99b59da08"
             }
           }
         },
         "et": {
-          "file": "7124ef1cf276",
+          "file": "a13695bc34a4",
           "counts": {
-            "esri": 58,
-            "esri-check": 8,
+            "esri": 67,
+            "esri-check": 7,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 315,
+            "machine": 318,
             "stale": 0,
-            "missing": 0
+            "missing": 42
           },
           "entries": {
             "_widgetLabel": {
@@ -41725,6 +41376,11 @@
               "src": "machine",
               "h": "dcf4cc69bca4"
             },
+            "number": {
+              "t": "Number",
+              "src": "machine",
+              "h": "b7baa1d40c4e"
+            },
             "boolean": {
               "t": "Jah/ei",
               "src": "machine",
@@ -41734,6 +41390,11 @@
               "t": "Intersects",
               "src": "machine",
               "h": "f88681a35752"
+            },
+            "contains": {
+              "t": "Sisaldab",
+              "src": "machine",
+              "h": "33e15d008d51"
             },
             "overlaps": {
               "t": "Overlaps",
@@ -41759,20 +41420,25 @@
               "t": "Projektsioon",
               "src": "machine",
               "h": "8aa49fe84036"
+            },
+            "uiGeocodeServiceUrl": {
+              "t": "Geokoodi teenuse URL",
+              "src": "machine",
+              "h": "9cd99b59da08"
             }
           }
         },
         "fi": {
-          "file": "57ae4fbd04ed",
+          "file": "9af3a52b76c6",
           "counts": {
-            "esri": 64,
+            "esri": 74,
             "esri-check": 2,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 315,
+            "machine": 316,
             "stale": 0,
-            "missing": 0
+            "missing": 42
           },
           "entries": {
             "_widgetLabel": {
@@ -43349,20 +43015,25 @@
               "t": "Ennuste",
               "src": "machine",
               "h": "8aa49fe84036"
+            },
+            "uiGeocodeServiceUrl": {
+              "t": "Geokoodipalvelun URL",
+              "src": "machine",
+              "h": "9cd99b59da08"
             }
           }
         },
         "fr": {
-          "file": "d9be9cdd368f",
+          "file": "9b7108552bf7",
           "counts": {
-            "esri": 66,
+            "esri": 72,
             "esri-check": 0,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 315,
+            "machine": 320,
             "stale": 0,
-            "missing": 0
+            "missing": 42
           },
           "entries": {
             "_widgetLabel": {
@@ -43829,6 +43500,16 @@
               "t": "Dessiner les zones de sélection",
               "src": "machine",
               "h": "b03643d42cbf"
+            },
+            "pointTool": {
+              "t": "Remarque",
+              "src": "machine",
+              "h": "f79a28423ed1"
+            },
+            "rectangleTool": {
+              "t": "Rectangle",
+              "src": "machine",
+              "h": "c158695a64ad"
             },
             "bufferDistance": {
               "t": "Distance de tampon (facultatif)",
@@ -44905,6 +44586,11 @@
               "src": "machine",
               "h": "dcf4cc69bca4"
             },
+            "date": {
+              "t": "Date",
+              "src": "machine",
+              "h": "eb9a4bc1c0c1"
+            },
             "boolean": {
               "t": "Oui/Non",
               "src": "machine",
@@ -44939,20 +44625,30 @@
               "t": "Projection",
               "src": "machine",
               "h": "8aa49fe84036"
+            },
+            "uiSource": {
+              "t": "Source",
+              "src": "machine",
+              "h": "6da13addb000"
+            },
+            "uiGeocodeServiceUrl": {
+              "t": "URL du service Geocode",
+              "src": "machine",
+              "h": "9cd99b59da08"
             }
           }
         },
         "he": {
-          "file": "c2e694802a01",
+          "file": "8d9ca381d7db",
           "counts": {
-            "esri": 59,
+            "esri": 67,
             "esri-check": 7,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 315,
+            "machine": 318,
             "stale": 0,
-            "missing": 0
+            "missing": 42
           },
           "entries": {
             "_widgetLabel": {
@@ -46529,34 +46225,49 @@
               "t": "פרוייקט",
               "src": "machine",
               "h": "8aa49fe84036"
+            },
+            "uiGeocodeServiceUrl": {
+              "t": "כתובת: Geocode Service",
+              "src": "machine",
+              "h": "9cd99b59da08"
+            },
+            "uiExportXml": {
+              "t": "יצוא XML",
+              "src": "machine",
+              "h": "f6a2de2384a3"
+            },
+            "uiImportXml": {
+              "t": "ייבוא XML",
+              "src": "machine",
+              "h": "85b4016d27dc"
             }
           }
         },
         "hr": {
-          "file": "ea9dec21a54b",
+          "file": "65b0e47839ba",
           "counts": {
-            "esri": 65,
+            "esri": 71,
             "esri-check": 1,
             "community": 0,
             "manual": 0,
             "existing": 0,
             "machine": 0,
             "stale": 0,
-            "missing": 315
+            "missing": 362
           },
           "entries": {}
         },
         "hu": {
-          "file": "77bbe4a36080",
+          "file": "e47a5a4e0f66",
           "counts": {
-            "esri": 66,
-            "esri-check": 0,
+            "esri": 74,
+            "esri-check": 1,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 315,
+            "machine": 317,
             "stale": 0,
-            "missing": 0
+            "missing": 42
           },
           "entries": {
             "_widgetLabel": {
@@ -48114,6 +47825,11 @@
               "src": "machine",
               "h": "a8f9e73a31d1"
             },
+            "buffer": {
+              "t": "PufferName",
+              "src": "machine",
+              "h": "2be5f64b3623"
+            },
             "webMercator": {
               "t": "Web Mercator",
               "src": "machine",
@@ -48133,20 +47849,25 @@
               "t": "Kibocsátás",
               "src": "machine",
               "h": "8aa49fe84036"
+            },
+            "uiGeocodeServiceUrl": {
+              "t": "Geocode szolgáltatás URL",
+              "src": "machine",
+              "h": "9cd99b59da08"
             }
           }
         },
         "id": {
-          "file": "7948b8139270",
+          "file": "6bc2e406f11e",
           "counts": {
-            "esri": 61,
+            "esri": 70,
             "esri-check": 5,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 315,
+            "machine": 317,
             "stale": 0,
-            "missing": 0
+            "missing": 42
           },
           "entries": {
             "_widgetLabel": {
@@ -49704,6 +49425,11 @@
               "src": "machine",
               "h": "a8f9e73a31d1"
             },
+            "buffer": {
+              "t": "Penyangga",
+              "src": "machine",
+              "h": "2be5f64b3623"
+            },
             "webMercator": {
               "t": "Mercator Web",
               "src": "machine",
@@ -49723,20 +49449,25 @@
               "t": "Proyeksi",
               "src": "machine",
               "h": "8aa49fe84036"
+            },
+            "uiGeocodeServiceUrl": {
+              "t": "URL layanan Geocode",
+              "src": "machine",
+              "h": "9cd99b59da08"
             }
           }
         },
         "it": {
-          "file": "159a73dbcff4",
+          "file": "e8c41396b60b",
           "counts": {
-            "esri": 63,
+            "esri": 73,
             "esri-check": 3,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 315,
+            "machine": 316,
             "stale": 0,
-            "missing": 0
+            "missing": 42
           },
           "entries": {
             "_widgetLabel": {
@@ -51313,20 +51044,25 @@
               "t": "Proiezione",
               "src": "machine",
               "h": "8aa49fe84036"
+            },
+            "uiGeocodeServiceUrl": {
+              "t": "URL del servizio Geocode",
+              "src": "machine",
+              "h": "9cd99b59da08"
             }
           }
         },
         "ja": {
-          "file": "289ab266dcad",
+          "file": "c1642e1871df",
           "counts": {
-            "esri": 65,
+            "esri": 73,
             "esri-check": 1,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 315,
+            "machine": 318,
             "stale": 0,
-            "missing": 0
+            "missing": 42
           },
           "entries": {
             "_widgetLabel": {
@@ -52903,20 +52639,35 @@
               "t": "プロジェクト",
               "src": "machine",
               "h": "8aa49fe84036"
+            },
+            "uiGeocodeServiceUrl": {
+              "t": "ジオコードサービス URL",
+              "src": "machine",
+              "h": "9cd99b59da08"
+            },
+            "uiExportXml": {
+              "t": "エクスポートXML",
+              "src": "machine",
+              "h": "f6a2de2384a3"
+            },
+            "uiImportXml": {
+              "t": "インポートXML",
+              "src": "machine",
+              "h": "85b4016d27dc"
             }
           }
         },
         "ko": {
-          "file": "8ebca244e974",
+          "file": "f0b985e2d90f",
           "counts": {
-            "esri": 62,
-            "esri-check": 4,
+            "esri": 71,
+            "esri-check": 3,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 315,
+            "machine": 318,
             "stale": 0,
-            "missing": 0
+            "missing": 42
           },
           "entries": {
             "_widgetLabel": {
@@ -54493,20 +54244,35 @@
               "t": "사업소개",
               "src": "machine",
               "h": "8aa49fe84036"
+            },
+            "uiGeocodeServiceUrl": {
+              "t": "Geocode 서비스 URL",
+              "src": "machine",
+              "h": "9cd99b59da08"
+            },
+            "uiExportXml": {
+              "t": "수출 XML",
+              "src": "machine",
+              "h": "f6a2de2384a3"
+            },
+            "uiImportXml": {
+              "t": "XML 가져오기",
+              "src": "machine",
+              "h": "85b4016d27dc"
             }
           }
         },
         "lt": {
-          "file": "16855551c08e",
+          "file": "d47a7bde3aa4",
           "counts": {
-            "esri": 63,
+            "esri": 73,
             "esri-check": 3,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 315,
+            "machine": 316,
             "stale": 0,
-            "missing": 0
+            "missing": 42
           },
           "entries": {
             "_widgetLabel": {
@@ -56083,20 +55849,25 @@
               "t": "Projektas",
               "src": "machine",
               "h": "8aa49fe84036"
+            },
+            "uiGeocodeServiceUrl": {
+              "t": "Geocode paslaugos URL",
+              "src": "machine",
+              "h": "9cd99b59da08"
             }
           }
         },
         "lv": {
-          "file": "7a9ff6a8737b",
+          "file": "ed855f4f9ae4",
           "counts": {
-            "esri": 65,
-            "esri-check": 1,
+            "esri": 73,
+            "esri-check": 3,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 315,
+            "machine": 316,
             "stale": 0,
-            "missing": 0
+            "missing": 42
           },
           "entries": {
             "_widgetLabel": {
@@ -57673,20 +57444,25 @@
               "t": "Projekcija",
               "src": "machine",
               "h": "8aa49fe84036"
+            },
+            "uiGeocodeServiceUrl": {
+              "t": "Ģeokoda pakalpojuma URL",
+              "src": "machine",
+              "h": "9cd99b59da08"
             }
           }
         },
         "no": {
-          "file": "3571b6277fd6",
+          "file": "4a2dddfc3a03",
           "counts": {
-            "esri": 62,
+            "esri": 70,
             "esri-check": 4,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 315,
+            "machine": 318,
             "stale": 0,
-            "missing": 0
+            "missing": 42
           },
           "entries": {
             "_widgetLabel": {
@@ -58153,6 +57929,11 @@
               "t": "Tegn utvalgsområde",
               "src": "machine",
               "h": "b03643d42cbf"
+            },
+            "polygonTool": {
+              "t": "Polygon",
+              "src": "machine",
+              "h": "85066b2ca9c0"
             },
             "bufferDistance": {
               "t": "Bufferavstand (valgfritt)",
@@ -59244,6 +59025,11 @@
               "src": "machine",
               "h": "a8f9e73a31d1"
             },
+            "buffer": {
+              "t": "Buffer",
+              "src": "machine",
+              "h": "2be5f64b3623"
+            },
             "webMercator": {
               "t": "Web Mercator",
               "src": "machine",
@@ -59263,20 +59049,25 @@
               "t": "Projection",
               "src": "machine",
               "h": "8aa49fe84036"
+            },
+            "uiGeocodeServiceUrl": {
+              "t": "Geocode-tjenesteadresse",
+              "src": "machine",
+              "h": "9cd99b59da08"
             }
           }
         },
         "nl": {
-          "file": "3a2f200b9258",
+          "file": "01166a3efc46",
           "counts": {
-            "esri": 62,
-            "esri-check": 4,
+            "esri": 70,
+            "esri-check": 5,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 315,
+            "machine": 317,
             "stale": 0,
-            "missing": 0
+            "missing": 42
           },
           "entries": {
             "_widgetLabel": {
@@ -60834,6 +60625,11 @@
               "src": "machine",
               "h": "a8f9e73a31d1"
             },
+            "buffer": {
+              "t": "Buffer",
+              "src": "machine",
+              "h": "2be5f64b3623"
+            },
             "webMercator": {
               "t": "Web Mercator",
               "src": "machine",
@@ -60853,20 +60649,25 @@
               "t": "Projectie",
               "src": "machine",
               "h": "8aa49fe84036"
+            },
+            "uiGeocodeServiceUrl": {
+              "t": "Geocode service-URL",
+              "src": "machine",
+              "h": "9cd99b59da08"
             }
           }
         },
         "pl": {
-          "file": "26405f061244",
+          "file": "76e76b0b4ac6",
           "counts": {
-            "esri": 64,
-            "esri-check": 2,
+            "esri": 73,
+            "esri-check": 3,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 315,
+            "machine": 316,
             "stale": 0,
-            "missing": 0
+            "missing": 42
           },
           "entries": {
             "_widgetLabel": {
@@ -62443,20 +62244,25 @@
               "t": "Projekcja",
               "src": "machine",
               "h": "8aa49fe84036"
+            },
+            "uiGeocodeServiceUrl": {
+              "t": "URL usługi Geocode",
+              "src": "machine",
+              "h": "9cd99b59da08"
             }
           }
         },
         "pt-br": {
-          "file": "22a857510516",
+          "file": "2b89b71ee3be",
           "counts": {
-            "esri": 64,
-            "esri-check": 2,
+            "esri": 71,
+            "esri-check": 3,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 315,
+            "machine": 318,
             "stale": 0,
-            "missing": 0
+            "missing": 42
           },
           "entries": {
             "_widgetLabel": {
@@ -63994,6 +63800,11 @@
               "src": "machine",
               "h": "0fce4167b520"
             },
+            "download": {
+              "t": "Baixe",
+              "src": "machine",
+              "h": "a479c9c34e87"
+            },
             "uploadFile": {
               "t": "Enviar arquivo",
               "src": "machine",
@@ -64014,6 +63825,11 @@
               "src": "machine",
               "h": "a8f9e73a31d1"
             },
+            "buffer": {
+              "t": "Buffer",
+              "src": "machine",
+              "h": "2be5f64b3623"
+            },
             "webMercator": {
               "t": "Web Mercator",
               "src": "machine",
@@ -64033,20 +63849,25 @@
               "t": "Projeção",
               "src": "machine",
               "h": "8aa49fe84036"
+            },
+            "uiGeocodeServiceUrl": {
+              "t": "URL de serviço do Geocode",
+              "src": "machine",
+              "h": "9cd99b59da08"
             }
           }
         },
         "pt-pt": {
-          "file": "71a5d27942ca",
+          "file": "86be484390f2",
           "counts": {
-            "esri": 65,
+            "esri": 74,
             "esri-check": 1,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 315,
+            "machine": 317,
             "stale": 0,
-            "missing": 0
+            "missing": 42
           },
           "entries": {
             "_widgetLabel": {
@@ -65604,6 +65425,11 @@
               "src": "machine",
               "h": "a8f9e73a31d1"
             },
+            "buffer": {
+              "t": "Buffer",
+              "src": "machine",
+              "h": "2be5f64b3623"
+            },
             "webMercator": {
               "t": "Mercator Web",
               "src": "machine",
@@ -65623,20 +65449,25 @@
               "t": "Projecção",
               "src": "machine",
               "h": "8aa49fe84036"
+            },
+            "uiGeocodeServiceUrl": {
+              "t": "URL de serviço do Geocode",
+              "src": "machine",
+              "h": "9cd99b59da08"
             }
           }
         },
         "ro": {
-          "file": "bd57de8ca14a",
+          "file": "aa4fdd71ebfb",
           "counts": {
-            "esri": 65,
-            "esri-check": 1,
+            "esri": 69,
+            "esri-check": 2,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 315,
+            "machine": 321,
             "stale": 0,
-            "missing": 0
+            "missing": 42
           },
           "entries": {
             "_widgetLabel": {
@@ -67174,10 +67005,25 @@
               "src": "machine",
               "h": "0fce4167b520"
             },
+            "export": {
+              "t": "Exportă",
+              "src": "machine",
+              "h": "f3e4fadb9e37"
+            },
+            "import": {
+              "t": "Importă",
+              "src": "machine",
+              "h": "d6fbc9d2bdd5"
+            },
             "uploadFile": {
               "t": "Încarcă fișierul",
               "src": "machine",
               "h": "dcf4cc69bca4"
+            },
+            "string": {
+              "t": "Text",
+              "src": "machine",
+              "h": "c3328c39b0e2"
             },
             "boolean": {
               "t": "Da/Nu",
@@ -67193,6 +67039,11 @@
               "t": "Suprapuse",
               "src": "machine",
               "h": "a8f9e73a31d1"
+            },
+            "buffer": {
+              "t": "Buffer",
+              "src": "machine",
+              "h": "2be5f64b3623"
             },
             "webMercator": {
               "t": "Web Mercator",
@@ -67213,20 +67064,30 @@
               "t": "Proiectare",
               "src": "machine",
               "h": "8aa49fe84036"
+            },
+            "uiGeocodeServiceUrl": {
+              "t": "URL- ul serviciului Geocode",
+              "src": "machine",
+              "h": "9cd99b59da08"
+            },
+            "uiImportXml": {
+              "t": "Import XML",
+              "src": "machine",
+              "h": "85b4016d27dc"
             }
           }
         },
         "ru": {
-          "file": "608da4a1a7a7",
+          "file": "df0a1f771282",
           "counts": {
-            "esri": 61,
+            "esri": 71,
             "esri-check": 5,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 315,
+            "machine": 316,
             "stale": 0,
-            "missing": 0
+            "missing": 42
           },
           "entries": {
             "_widgetLabel": {
@@ -68803,20 +68664,25 @@
               "t": "Проекция",
               "src": "machine",
               "h": "8aa49fe84036"
+            },
+            "uiGeocodeServiceUrl": {
+              "t": "Сервис Geocode URL",
+              "src": "machine",
+              "h": "9cd99b59da08"
             }
           }
         },
         "sk": {
-          "file": "bb37d82497c9",
+          "file": "0a3db8f34d21",
           "counts": {
-            "esri": 62,
+            "esri": 69,
             "esri-check": 4,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 315,
+            "machine": 319,
             "stale": 0,
-            "missing": 0
+            "missing": 42
           },
           "entries": {
             "_widgetLabel": {
@@ -70354,10 +70220,20 @@
               "src": "machine",
               "h": "0fce4167b520"
             },
+            "export": {
+              "t": "Vývoz",
+              "src": "machine",
+              "h": "f3e4fadb9e37"
+            },
             "uploadFile": {
               "t": "Odoslať súbor",
               "src": "machine",
               "h": "dcf4cc69bca4"
+            },
+            "string": {
+              "t": "Text",
+              "src": "machine",
+              "h": "c3328c39b0e2"
             },
             "boolean": {
               "t": "áno/nie",
@@ -70393,20 +70269,30 @@
               "t": "Projekcia",
               "src": "machine",
               "h": "8aa49fe84036"
+            },
+            "uiGeocodeServiceUrl": {
+              "t": "URL služby Geocode",
+              "src": "machine",
+              "h": "9cd99b59da08"
+            },
+            "uiImportXml": {
+              "t": "Import XML",
+              "src": "machine",
+              "h": "85b4016d27dc"
             }
           }
         },
         "sl": {
-          "file": "ad81e9fff17e",
+          "file": "ab3dc84aa0da",
           "counts": {
-            "esri": 65,
+            "esri": 75,
             "esri-check": 1,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 315,
+            "machine": 316,
             "stale": 0,
-            "missing": 0
+            "missing": 42
           },
           "entries": {
             "_widgetLabel": {
@@ -71983,34 +71869,39 @@
               "t": "Projekcija",
               "src": "machine",
               "h": "8aa49fe84036"
+            },
+            "uiGeocodeServiceUrl": {
+              "t": "URL storitve Geocode",
+              "src": "machine",
+              "h": "9cd99b59da08"
             }
           }
         },
         "sr": {
-          "file": "718b816e830b",
+          "file": "eaccf81794c5",
           "counts": {
-            "esri": 64,
-            "esri-check": 2,
+            "esri": 69,
+            "esri-check": 3,
             "community": 0,
             "manual": 0,
             "existing": 0,
             "machine": 0,
             "stale": 0,
-            "missing": 315
+            "missing": 362
           },
           "entries": {}
         },
         "sv": {
-          "file": "3b377ef99098",
+          "file": "d248f97a8501",
           "counts": {
-            "esri": 62,
+            "esri": 68,
             "esri-check": 4,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 315,
+            "machine": 320,
             "stale": 0,
-            "missing": 0
+            "missing": 42
           },
           "entries": {
             "_widgetLabel": {
@@ -72477,6 +72368,11 @@
               "t": "Drag Selection Areas",
               "src": "machine",
               "h": "b03643d42cbf"
+            },
+            "polygonTool": {
+              "t": "Polygon",
+              "src": "machine",
+              "h": "85066b2ca9c0"
             },
             "bufferDistance": {
               "t": "Buffert Avstånd (Valfritt)",
@@ -73548,10 +73444,20 @@
               "src": "machine",
               "h": "0fce4167b520"
             },
+            "import": {
+              "t": "Importera import",
+              "src": "machine",
+              "h": "d6fbc9d2bdd5"
+            },
             "uploadFile": {
               "t": "Ladda upp fil",
               "src": "machine",
               "h": "dcf4cc69bca4"
+            },
+            "string": {
+              "t": "Texttext",
+              "src": "machine",
+              "h": "c3328c39b0e2"
             },
             "boolean": {
               "t": "Ja/Nej",
@@ -73587,20 +73493,30 @@
               "t": "Projektion",
               "src": "machine",
               "h": "8aa49fe84036"
+            },
+            "uiGeocodeServiceUrl": {
+              "t": "Geocode service URL",
+              "src": "machine",
+              "h": "9cd99b59da08"
+            },
+            "uiExportXml": {
+              "t": "Export XML",
+              "src": "machine",
+              "h": "f6a2de2384a3"
             }
           }
         },
         "th": {
-          "file": "f3979bdc0a9a",
+          "file": "264ff4904ada",
           "counts": {
-            "esri": 63,
-            "esri-check": 3,
+            "esri": 70,
+            "esri-check": 4,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 315,
+            "machine": 318,
             "stale": 0,
-            "missing": 0
+            "missing": 42
           },
           "entries": {
             "_widgetLabel": {
@@ -75177,20 +75093,35 @@
               "t": "โปรเจคชัน",
               "src": "machine",
               "h": "8aa49fe84036"
+            },
+            "uiGeocodeServiceUrl": {
+              "t": "ที่อยู่ URL ของบริการ Goocode",
+              "src": "machine",
+              "h": "9cd99b59da08"
+            },
+            "uiExportXml": {
+              "t": "ส่งออกเป็น XML",
+              "src": "machine",
+              "h": "f6a2de2384a3"
+            },
+            "uiImportXml": {
+              "t": "นําเข้า XML",
+              "src": "machine",
+              "h": "85b4016d27dc"
             }
           }
         },
         "tr": {
-          "file": "ce3a2b1260d6",
+          "file": "096c4f82c689",
           "counts": {
-            "esri": 64,
-            "esri-check": 2,
+            "esri": 72,
+            "esri-check": 3,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 315,
+            "machine": 317,
             "stale": 0,
-            "missing": 0
+            "missing": 42
           },
           "entries": {
             "_widgetLabel": {
@@ -76767,20 +76698,30 @@
               "t": "Projection",
               "src": "machine",
               "h": "8aa49fe84036"
+            },
+            "uiGeocodeServiceUrl": {
+              "t": "Geocode hizmeti URL",
+              "src": "machine",
+              "h": "9cd99b59da08"
+            },
+            "uiShowHelpGuide": {
+              "t": "Show help guide",
+              "src": "machine",
+              "h": "03e9f0b81336"
             }
           }
         },
         "zh-cn": {
-          "file": "f540cf1b73e9",
+          "file": "925292f15574",
           "counts": {
-            "esri": 62,
+            "esri": 70,
             "esri-check": 4,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 315,
+            "machine": 318,
             "stale": 0,
-            "missing": 0
+            "missing": 42
           },
           "entries": {
             "_widgetLabel": {
@@ -78357,20 +78298,35 @@
               "t": "预测",
               "src": "machine",
               "h": "8aa49fe84036"
+            },
+            "uiGeocodeServiceUrl": {
+              "t": "地理代码服务 URL",
+              "src": "machine",
+              "h": "9cd99b59da08"
+            },
+            "uiExportXml": {
+              "t": "导出 XML",
+              "src": "machine",
+              "h": "f6a2de2384a3"
+            },
+            "uiImportXml": {
+              "t": "导入 XML",
+              "src": "machine",
+              "h": "85b4016d27dc"
             }
           }
         },
         "uk": {
-          "file": "0d318a8324bf",
+          "file": "bf6ffa9c0f07",
           "counts": {
-            "esri": 66,
-            "esri-check": 0,
+            "esri": 75,
+            "esri-check": 1,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 315,
+            "machine": 316,
             "stale": 0,
-            "missing": 0
+            "missing": 42
           },
           "entries": {
             "_widgetLabel": {
@@ -79947,20 +79903,25 @@
               "t": "Проектування",
               "src": "machine",
               "h": "8aa49fe84036"
+            },
+            "uiGeocodeServiceUrl": {
+              "t": "Статус на сервери",
+              "src": "machine",
+              "h": "9cd99b59da08"
             }
           }
         },
         "vi": {
-          "file": "205379c938d2",
+          "file": "dd56bb681260",
           "counts": {
-            "esri": 65,
+            "esri": 75,
             "esri-check": 1,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 315,
+            "machine": 316,
             "stale": 0,
-            "missing": 0
+            "missing": 42
           },
           "entries": {
             "_widgetLabel": {
@@ -81537,20 +81498,25 @@
               "t": "Dự án",
               "src": "machine",
               "h": "8aa49fe84036"
+            },
+            "uiGeocodeServiceUrl": {
+              "t": "URL dịch vụ Geocde",
+              "src": "machine",
+              "h": "9cd99b59da08"
             }
           }
         },
         "zh-hk": {
-          "file": "004a7331f932",
+          "file": "97854ceb46bf",
           "counts": {
-            "esri": 65,
+            "esri": 73,
             "esri-check": 1,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 315,
+            "machine": 318,
             "stale": 0,
-            "missing": 0
+            "missing": 42
           },
           "entries": {
             "_widgetLabel": {
@@ -83127,20 +83093,35 @@
               "t": "投影",
               "src": "machine",
               "h": "8aa49fe84036"
+            },
+            "uiGeocodeServiceUrl": {
+              "t": "地理碼服務網址",
+              "src": "machine",
+              "h": "9cd99b59da08"
+            },
+            "uiExportXml": {
+              "t": "匯出 XML",
+              "src": "machine",
+              "h": "f6a2de2384a3"
+            },
+            "uiImportXml": {
+              "t": "匯入 XML",
+              "src": "machine",
+              "h": "85b4016d27dc"
             }
           }
         },
         "zh-tw": {
-          "file": "004a7331f932",
+          "file": "97854ceb46bf",
           "counts": {
-            "esri": 65,
+            "esri": 73,
             "esri-check": 1,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 315,
+            "machine": 318,
             "stale": 0,
-            "missing": 0
+            "missing": 42
           },
           "entries": {
             "_widgetLabel": {
@@ -84717,6 +84698,21 @@
               "t": "投影",
               "src": "machine",
               "h": "8aa49fe84036"
+            },
+            "uiGeocodeServiceUrl": {
+              "t": "地理碼服務網址",
+              "src": "machine",
+              "h": "9cd99b59da08"
+            },
+            "uiExportXml": {
+              "t": "匯出 XML",
+              "src": "machine",
+              "h": "f6a2de2384a3"
+            },
+            "uiImportXml": {
+              "t": "匯入 XML",
+              "src": "machine",
+              "h": "85b4016d27dc"
             }
           }
         }

@@ -1,4 +1,5 @@
 ﻿import { ImmutableObject } from 'jimu-core'
+import { __t } from './runtime/i18n-t'
 
 /**
  * Widget configuration interface
@@ -184,7 +185,7 @@ export const LABEL_FORMATS: Record<LabelFormat, LabelFormatSpec> = {
         topMargin: 36,
         horizontalSpacing: 9,
         verticalSpacing: 0,
-        description: 'Avery 5160 - 30 labels (2⅝" × 1")'
+        description: __t("avery516030Labels21")
     },
     avery5161: {
         width: 288, // 4 inches
@@ -195,7 +196,7 @@ export const LABEL_FORMATS: Record<LabelFormat, LabelFormatSpec> = {
         topMargin: 36,
         horizontalSpacing: 13.5,
         verticalSpacing: 0,
-        description: 'Avery 5161 - 20 labels (4" × 1")'
+        description: __t("avery516120Labels41")
     },
     avery5162: {
         width: 288, // 4 inches
@@ -206,7 +207,7 @@ export const LABEL_FORMATS: Record<LabelFormat, LabelFormatSpec> = {
         topMargin: 50.4,
         horizontalSpacing: 13.5,
         verticalSpacing: 0,
-        description: 'Avery 5162 - 14 labels (4" × 1⅓")'
+        description: __t("avery516214Labels41")
     },
     avery5163: {
         width: 288, // 4 inches
@@ -217,7 +218,7 @@ export const LABEL_FORMATS: Record<LabelFormat, LabelFormatSpec> = {
         topMargin: 36,
         horizontalSpacing: 11.5,
         verticalSpacing: 0,
-        description: 'Avery 5163 - 10 labels (4" × 2")'
+        description: __t("avery516310Labels42")
     },
     avery5164: {
         width: 240, // 3.33 inches
@@ -228,7 +229,7 @@ export const LABEL_FORMATS: Record<LabelFormat, LabelFormatSpec> = {
         topMargin: 36,
         horizontalSpacing: 13.5,
         verticalSpacing: 0,
-        description: 'Avery 5164 - 6 labels (3⅓" × 4")'
+        description: __t("avery51646Labels34")
     },
     avery5165: {
         width: 576, // 8 inches usable
@@ -239,7 +240,7 @@ export const LABEL_FORMATS: Record<LabelFormat, LabelFormatSpec> = {
         topMargin: 36,
         horizontalSpacing: 0,
         verticalSpacing: 0,
-        description: 'Avery 5165 - 1 full-sheet label (8" × 10")'
+        description: __t("avery51651FullSheetLabel")
     },
     avery5167: {
         width: 126, // 1.75 inches
@@ -250,7 +251,7 @@ export const LABEL_FORMATS: Record<LabelFormat, LabelFormatSpec> = {
         topMargin: 36,
         horizontalSpacing: 22,
         verticalSpacing: 0,
-        description: 'Avery 5167 - 80 return-address labels (1¾" × ½")'
+        description: __t("avery516780ReturnAddressLabels")
     },
     avery5168: {
         width: 252, // 3.5 inches
@@ -261,7 +262,7 @@ export const LABEL_FORMATS: Record<LabelFormat, LabelFormatSpec> = {
         topMargin: 36,
         horizontalSpacing: 0,
         verticalSpacing: 0,
-        description: 'Avery 5168 - 4 shipping labels (3½" × 5")'
+        description: __t("avery51684ShippingLabels3")
     }
 }
 
