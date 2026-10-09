@@ -2,6 +2,14 @@
 
 All notable changes to the Mailing Labels widget are recorded here, newest first.
 
+## 1.1.5 (2026-10-09)
+
+- Localize section headings such as Draw selection, label-format descriptions, selection notifications, and settings help that previously bypassed translation calls.
+- Read shared format descriptions lazily so changing the app language updates them after import.
+- Add French translations for the newly exposed text, preserving placeholders. AI translations remain unreviewed in the translation lock.
+- Declare the existing Show help guide option in the settings config type.
+- Checked with Experience Builder 1.21 TypeScript and webpack, plus French-to-English render and notification regression checks.
+
 ## 1.1.4 (2026-09-18)
 
 - Settings: a **Show help guide** option. Turn it off and the question-mark button and the first-run hint both disappear; the guide itself is untouched. Undefined means on, so apps configured before this release keep their help button.

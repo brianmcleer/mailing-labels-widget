@@ -185,7 +185,7 @@ export const LABEL_FORMATS: Record<LabelFormat, LabelFormatSpec> = {
         topMargin: 36,
         horizontalSpacing: 9,
         verticalSpacing: 0,
-        description: __t("avery516030Labels21")
+        get description () { return __t("avery516030Labels21") }
     },
     avery5161: {
         width: 288, // 4 inches
@@ -196,7 +196,7 @@ export const LABEL_FORMATS: Record<LabelFormat, LabelFormatSpec> = {
         topMargin: 36,
         horizontalSpacing: 13.5,
         verticalSpacing: 0,
-        description: __t("avery516120Labels41")
+        get description () { return __t("avery516120Labels41") }
     },
     avery5162: {
         width: 288, // 4 inches
@@ -207,7 +207,7 @@ export const LABEL_FORMATS: Record<LabelFormat, LabelFormatSpec> = {
         topMargin: 50.4,
         horizontalSpacing: 13.5,
         verticalSpacing: 0,
-        description: __t("avery516214Labels41")
+        get description () { return __t("avery516214Labels41") }
     },
     avery5163: {
         width: 288, // 4 inches
@@ -218,7 +218,7 @@ export const LABEL_FORMATS: Record<LabelFormat, LabelFormatSpec> = {
         topMargin: 36,
         horizontalSpacing: 11.5,
         verticalSpacing: 0,
-        description: __t("avery516310Labels42")
+        get description () { return __t("avery516310Labels42") }
     },
     avery5164: {
         width: 240, // 3.33 inches
@@ -229,7 +229,7 @@ export const LABEL_FORMATS: Record<LabelFormat, LabelFormatSpec> = {
         topMargin: 36,
         horizontalSpacing: 13.5,
         verticalSpacing: 0,
-        description: __t("avery51646Labels34")
+        get description () { return __t("avery51646Labels34") }
     },
     avery5165: {
         width: 576, // 8 inches usable
@@ -240,7 +240,7 @@ export const LABEL_FORMATS: Record<LabelFormat, LabelFormatSpec> = {
         topMargin: 36,
         horizontalSpacing: 0,
         verticalSpacing: 0,
-        description: __t("avery51651FullSheetLabel")
+        get description () { return __t("avery51651FullSheetLabel") }
     },
     avery5167: {
         width: 126, // 1.75 inches
@@ -251,7 +251,7 @@ export const LABEL_FORMATS: Record<LabelFormat, LabelFormatSpec> = {
         topMargin: 36,
         horizontalSpacing: 22,
         verticalSpacing: 0,
-        description: __t("avery516780ReturnAddressLabels")
+        get description () { return __t("avery516780ReturnAddressLabels") }
     },
     avery5168: {
         width: 252, // 3.5 inches
@@ -262,7 +262,7 @@ export const LABEL_FORMATS: Record<LabelFormat, LabelFormatSpec> = {
         topMargin: 36,
         horizontalSpacing: 0,
         verticalSpacing: 0,
-        description: __t("avery51684ShippingLabels3")
+        get description () { return __t("avery51684ShippingLabels3") }
     }
 }
 

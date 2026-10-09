@@ -17,6 +17,7 @@ const __t = (id: string, values?: { [key: string]: any }): string => {
 
 
 interface Config {
+    showHelp?: boolean
     useMapWidgetIds?: string[] | any // Allow both regular array and ImmutableArray
     selectedLayerId?: string
     ownerLayerId?: string // Separate layer for owner addresses
@@ -787,8 +788,8 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
         return (
             <>
                 {this.descRow(kind === 'physical'
-                    ? 'Map each label line to a field in the physical address layer.'
-                    : 'Map each label line to a field in the owner address layer.')}
+                    ? __t("mapEachLabelLineToA")
+                    : __t("mapEachLabelLineToA2"))}
 
                 <SettingRow tag="label" label={__t("uiUseCustomTextForName")}>
                     <Checkbox
@@ -799,7 +800,7 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
                 </SettingRow>
 
                 {useCustom
-                    ? this.stackedRow('Name (custom text)',
+                    ? this.stackedRow(__t("nameCustomText"),
                         <TextInput
                             className="ml-control"
                             size="sm"
@@ -808,8 +809,8 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
                             onChange={(evt: any) => onMap('nameCustomText', evt.target.value)}
                             aria-label={__t("uiCustomNameText")}
                         />)
-                    : this.stackedRow('Name',
-                        this.fieldSelect(mappings.name, fields, (v) => onMap('name', v), 'Name field'))}
+                    : this.stackedRow(__t("nameField"),
+                        this.fieldSelect(mappings.name, fields, (v) => onMap('name', v), __t("nameField2")))}
 
                 {Object.keys(mappings)
                     .filter(key => key !== 'name' && key !== 'nameCustomText' && key !== 'useCustomName')
@@ -849,7 +850,7 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
             <div className="widget-setting-mailing-labels">
                 {/* Map source */}
                 <SettingSection title={__t("uiSource")}>
-                    {this.stackedRow('Map widget',
+                    {this.stackedRow(__t("mapWidget"),
                         <MapWidgetSelector
                             onSelect={this.onMapWidgetSelected}
                             useMapWidgetIds={mapWidgetIdsArray}
@@ -898,7 +899,7 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
                     <>
                         {/* Address types */}
                         <SettingSection title={__t("uiAddressTypes")}>
-                            {this.descRow('Choose which address types end users can generate labels for.')}
+                            {this.descRow(__t("chooseWhichAddressTypesEndUsers"))}
 
                             <SettingRow tag="label" label={__t("uiPhysicalMailingAddress")}>
                                 <Switch
@@ -916,7 +917,7 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
                                 />
                             </SettingRow>
 
-                            {physicalEnabled && ownerEnabled && this.stackedRow('Default address type',
+                            {physicalEnabled && ownerEnabled && this.stackedRow(__t("uiDefaultAddressType"),
                                 <Select
                                     className="ml-control"
                                     size="sm"
@@ -932,9 +933,9 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
                         {/* Physical address layer */}
                         {physicalEnabled && (
                             <SettingSection title={__t("uiPhysicalAddress")}>
-                                {this.descRow('Layer containing physical mailing address data (where mail is delivered).')}
+                                {this.descRow(__t("layerContainingPhysicalMailingAddressData"))}
 
-                                {this.stackedRow('Layer',
+                                {this.stackedRow(__t("layer"),
                                     <Select
                                         className="ml-control"
                                         size="sm"
@@ -950,7 +951,7 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
 
                                 {availableLayers.length === 0 && !layerLoadError && (
                                     <>
-                                        {this.descRow('No layers loaded yet.')}
+                                        {this.descRow(__t("noLayersLoadedYet"))}
                                         <SettingRow flush>
                                             <Button className="ml-control" size="sm" type="primary" onClick={() => this.loadLayersFromMap()}>
                                                 {__t("uiLoadLayers")}
@@ -967,9 +968,9 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
                         {/* Owner address layer */}
                         {ownerEnabled && (
                             <SettingSection title={__t("uiOwnerAddress")}>
-                                {this.descRow('Layer containing property owner address data (who owns the property).')}
+                                {this.descRow(__t("layerContainingPropertyOwnerAddressData"))}
 
-                                {this.stackedRow('Layer',
+                                {this.stackedRow(__t("layer"),
                                     <Select
                                         className="ml-control"
                                         size="sm"
@@ -998,11 +999,11 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
                                         aria-label={__t("uiEnableGeometrySelection")}
                                     />
                                 </SettingRow>
-                                {this.descRow('Let users draw areas on the map to filter which features are included.')}
+                                {this.descRow(__t("letUsersDrawAreasOnThe"))}
 
                                 {enableGeometrySelection && (
                                     <>
-                                        {this.stackedRow('Selection layer',
+                                        {this.stackedRow(__t("uiSelectionLayer"),
                                             <Select
                                                 className="ml-control"
                                                 size="sm"
@@ -1016,7 +1017,7 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
                                                 ))}
                                             </Select>)}
 
-                                        {this.stackedRow('Selection method',
+                                        {this.stackedRow(__t("uiSelectionMethod"),
                                             <Select
                                                 className="ml-control"
                                                 size="sm"
@@ -1044,14 +1045,14 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
                                     />
                                 </SettingRow>
                                 {this.descRow(this.props.config.enableDrawWidgetIntegration
-                                    ? 'Shapes drawn in the Draw widget can be used to select parcels. The Draw widget must also have its Mailing Labels integration enabled.'
-                                    : 'Geometry from the Draw widget is ignored.')}
+                                    ? __t("shapesDrawnInTheDrawWidget")
+                                    : __t("geometryFromTheDrawWidgetIs"))}
                             </SettingSection>
                         )}
 
                         {/* Output defaults */}
                         <SettingSection title={__t("uiOutputDefaults")}>
-                            {this.stackedRow('Default sort',
+                            {this.stackedRow(__t("defaultSort"),
                                 <Select
                                     className="ml-control"
                                     size="sm"
@@ -1070,7 +1071,7 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
                                     <Option value="state">{__t("uiStateAToZ")}</Option>
                                     <Option value="zip">{__t("uiZipUspsBulkMail")}</Option>
                                 </Select>)}
-                            {this.descRow('The sort selected when the widget opens. Users can still change it in the widget.')}
+                            {this.descRow(__t("theSortSelectedWhenTheWidget"))}
 
                             <SettingRow tag="label" label={__t("uiWrapLongLines")}>
                                 <Switch
@@ -1085,8 +1086,8 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
                                 />
                             </SettingRow>
                             {this.descRow(this.props.config.wrapLongLines
-                                ? 'Text wider than the label (such as a long owner name) continues on the next line. If the label runs out of room, the font shrinks (down to 5pt) so no line is dropped.'
-                                : 'Each line stays on one line and is trimmed with an ellipsis at the label edge.')}
+                                ? __t("textWiderThanTheLabelSuch")
+                                : __t("eachLineStaysOnOneLine"))}
                         </SettingSection>
 
                         {/* Map behavior */}
@@ -1104,13 +1105,13 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
                                 />
                             </SettingRow>
                             {this.descRow(this.props.config.suppressMapPopups !== false
-                                ? 'Map clicks select features instead of opening popups. Popups are restored when the widget closes.'
-                                : 'Map popups stay enabled and may open when users click the map.')}
+                                ? __t("mapClicksSelectFeaturesInsteadOf")
+                                : __t("mapPopupsStayEnabledAndMay"))}
                         </SettingSection>
 
                         {/* Address search */}
                         <SettingSection title={__t("uiAddressSearch")}>
-                            {this.stackedRow('Geocode service URL',
+                            {this.stackedRow(__t("uiGeocodeServiceUrl"),
                                 <TextInput
                                     className="ml-control"
                                     size="sm"
@@ -1140,7 +1141,7 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
                                     )}
                                 </div>
                             </SettingRow>
-                            {this.descRow('Provide an ArcGIS GeocodeServer URL to enable address search inside the widget. Leave blank to hide the search panel.')}
+                            {this.descRow(__t("provideAnArcGISGeocodeServerUrlTo"))}
                         </SettingSection>
 
                         {/* Settings file */}
@@ -1170,7 +1171,7 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
                                     />
                                 </SettingRow>
                             )}
-                            {this.descRow('Export saves the current settings to an XML file; import applies a previously exported file. The map widget binding is not transferred, so imported layer and field settings only resolve when the target app uses a map containing the same layers.')}
+                            {this.descRow(__t("exportSavesTheCurrentSettingsTo"))}
                         </SettingSection>
                         <SettingSection title={__t("help")}>
                           <SettingRow tag='label' label={__t("uiShowHelpGuide")}>

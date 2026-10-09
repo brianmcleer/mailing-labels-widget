@@ -928,7 +928,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
             }
         });
 
-        this.showMessage('success', `${features.length} features highlighted with enhanced visualization`);
+        this.showMessage('success', __t("lengthFeaturesHighlightedWithEnhancedVisualization", { length: features.length }));
     }
 
     highlightSelectedFeatures = async (features: any[]) => {
@@ -969,7 +969,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                 this.addFallbackHighlightGraphics(features);
             }
         } catch (error) {
-            this.showMessage('warning', 'Features selected but highlighting failed. Using fallback visualization.');
+            this.showMessage('warning', __t("featuresSelectedButHighlightingFailedUsing"));
             this.addFallbackHighlightGraphics(features);
         }
     }
@@ -1256,13 +1256,13 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
 
         const view = this.state.mapView?.view;
         if (!view) {
-            this.showMessage('error', 'Map is not ready. Please open the map first and try again.');
+            this.showMessage('error', __t("mapIsNotReadyPleaseOpen"));
             return;
         }
 
         const layer = this.getCurrentActiveLayer();
         if (!layer) {
-            this.showMessage('error', 'No parcel layer configured. Open the Mailing Labels widget settings and select a layer.');
+            this.showMessage('error', __t("noParcelLayerConfiguredOpenThe"));
             return;
         }
 
@@ -1347,7 +1347,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                     }));
                 }
             } catch (err) {
-                this.showMessage('error', 'Error creating buffer geometry.');
+                this.showMessage('error', __t("errorCreatingBufferGeometry"));
                 return;
             }
         } else {
@@ -1397,10 +1397,10 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                 currentTool: ''
             });
 
-            this.showMessage('success', `${result.features?.length || 0} features selected from drawing geometry.`);
+            this.showMessage('success', __t("valueFeaturesSelectedFromDrawingGeometry", { value: result.features?.length || 0 }));
         } catch (err) {
             console.error('[Mailing Labels] Query failed for external geometry:', err);
-            this.showMessage('error', 'Failed to select features from drawing geometry.');
+            this.showMessage('error', __t("failedToSelectFeaturesFromDrawing"));
         }
     };
 
@@ -1500,7 +1500,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                             }
                         }));
                     } catch (err) {
-                        this.showMessage('error', 'Error creating buffer geometry.');
+                        this.showMessage('error', __t("errorCreatingBufferGeometry"));
                         return;
                     }
                 } else {
@@ -1559,9 +1559,9 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                         currentTool: ''
                     });
 
-                    this.showMessage('success', `${result.features?.length || 0} features selected and highlighted.`);
+                    this.showMessage('success', __t("valueFeaturesSelectedAndHighlighted", { value: result.features?.length || 0 }));
                 } catch (err) {
-                    this.showMessage('error', 'Failed to select features.');
+                    this.showMessage('error', __t("failedToSelectFeatures"));
                 }
             });
 
@@ -1702,7 +1702,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
             if (this.state.drawingPoints.length >= 3) {
                 this.finishPolygonDrawing()
             } else {
-                this.showMessage('warning', 'Need at least 3 points for a polygon')
+                this.showMessage('warning', __t("needAtLeast3PointsFor"))
                 this.cancelDrawing()
             }
         })
@@ -2392,8 +2392,8 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
         });
 
         this.showMessage('info', newDeleteMode
-            ? 'Delete mode active - Click on any drawn area to remove it'
-            : 'Delete mode disabled');
+            ? __t("deleteModeActiveClickOnAny")
+            : __t("deleteModeDisabled"));
     }
 
     toggleAddMode = () => {
@@ -2475,8 +2475,8 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
         });
 
         this.showMessage('info', newAddMode
-            ? 'Add mode active - Click on features to add them to your selection'
-            : 'Add mode disabled');
+            ? __t("addModeActiveClickOnFeatures")
+            : __t("addModeDisabled"));
     }
 
     handleAddFeatureClick = async (event: any) => {
@@ -2486,14 +2486,14 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
 
 
         if (this.state.selections.length === 0) {
-            this.showMessage('warning', 'Please draw a selection area first before adding features');
+            this.showMessage('warning', __t("pleaseDrawASelectionAreaFirst"));
             return;
         }
 
         try {
             const layer = this.getCurrentActiveLayer();
             if (!layer) {
-                this.showMessage('error', 'No layer available');
+                this.showMessage('error', __t("noLayerAvailable"));
                 return;
             }
 
@@ -2525,7 +2525,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
             const result = await layer.queryFeatures(query);
 
             if (!result.features || result.features.length === 0) {
-                this.showMessage('info', 'No feature found at this location. Try clicking directly on a parcel.');
+                this.showMessage('info', __t("noFeatureFoundAtThisLocation"));
                 return;
             }
 
@@ -2544,7 +2544,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
             }
 
             if (alreadySelected) {
-                this.showMessage('info', 'Feature is already in your selection');
+                this.showMessage('info', __t("featureIsAlreadyInYourSelection"));
                 return;
             }
 
@@ -2578,10 +2578,10 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                 selectedFeatureCount: totalCount
             });
 
-            this.showMessage('success', `Feature added! Total: ${totalCount} features`);
+            this.showMessage('success', __t("featureAddedTotalTotalCountFeatures", { totalCount: totalCount }));
         } catch (error) {
             console.error('Error in handleAddFeatureClick:', error);
-            this.showMessage('error', 'Error adding feature. Please try again.');
+            this.showMessage('error', __t("errorAddingFeaturePleaseTryAgain"));
         }
     }
 
@@ -2602,7 +2602,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
             selectedFeatureCount: totalCount
         });
 
-        this.showMessage('success', 'Selection area removed');
+        this.showMessage('success', __t("selectionAreaRemoved"));
     }
 
     handleGraphicClick = async (event: any) => {
@@ -2673,7 +2673,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                                     selectedFeatureCount: totalCount
                                 });
 
-                                this.showMessage('success', 'Feature removed from selection');
+                                this.showMessage('success', __t("featureRemovedFromSelection"));
                                 return;
                             }
                         }
@@ -2734,7 +2734,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
         const totalCount = updatedSelections.reduce((sum, s) => sum + s.featureObjectIds.length, 0);
         this.setState({ selectedFeatureCount: totalCount });
 
-        this.showMessage('success', 'Selection area removed');
+        this.showMessage('success', __t("selectionAreaRemoved"));
     }
 
     // Helper to compare if two geometries are the same
@@ -2845,7 +2845,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
         if (this.state.selectedLayer) {
             const newVisibility = !this.state.selectedLayer.visible;
             this.state.selectedLayer.visible = newVisibility;
-            this.showMessage('info', `Layer visibility: ${newVisibility ? 'ON' : 'OFF'}`);
+            this.showMessage('info', __t("layerVisibilityValue", { value: newVisibility ? __t('on') : __t('off') }));
         }
     }
 
@@ -2860,7 +2860,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
         this.setState({ labelType: newLabelType });
 
         // Show a brief message to indicate the switch and clearing
-        this.showMessage('info', `Switched to ${newLabelType === 'owner' ? 'Owner Address' : 'Physical Mailing Address'}. Previous selection cleared.`);
+        this.showMessage('info', __t("switchedToValuePreviousSelectionCleared", { value: newLabelType === 'owner' ? 'Owner Address' : 'Physical Mailing Address' }));
     }
 
     getCurrentActiveLayer = () => {
@@ -3067,7 +3067,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
             const candidate = Array.isArray(data?.candidates) ? data.candidates[0] : null;
             if (!candidate?.location) {
                 this.setState({ addressSearchLoading: false });
-                this.showMessage('warning', 'No location returned for that address.');
+                this.showMessage('warning', __t("noLocationReturnedForThatAddress"));
                 return;
             }
 
@@ -3121,7 +3121,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
         const view = this.state.mapView?.view;
 
         if (!searched || !layer || !view) {
-            this.showMessage('warning', 'Search for an address first.');
+            this.showMessage('warning', __t("searchForAnAddressFirst"));
             return;
         }
 
@@ -3163,8 +3163,8 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
 
             if (!features.length) {
                 this.showMessage('warning', bufferDistance > 0
-                    ? 'No features at that address. Try increasing the buffer distance.'
-                    : 'No features at that address.');
+                    ? __t("noFeaturesAtThatAddressTry")
+                    : __t("noFeaturesAtThatAddress"));
                 return;
             }
 
@@ -3199,20 +3199,20 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
             if (missing === features.length) {
                 // Found a parcel but it has no mailing data
                 this.showMessage('warning', features.length === 1
-                    ? `Selected ${searched.label}, but no mailing data is on file (likely a confidential record).`
-                    : `Selected ${features.length} feature(s) at ${searched.label}, but none have mailing data on file (likely confidential records).`
+                    ? __t("selectedLabelButNoMailingData", { label: searched.label })
+                    : __t("selectedLengthFeatureSAtLabel", { length: features.length, label: searched.label })
                 );
             } else if (missing > 0) {
                 // Some mixed
                 this.showMessage('info',
-                    `${withMailing} of ${features.length} selected feature(s) have mailing data; ${missing} appear confidential and will be skipped on export.`
+                    __t("withMailingOfLengthSelectedFeatureS", { withMailing: withMailing, length: features.length, missing: missing })
                 );
             } else {
-                this.showMessage('success', `${features.length} feature(s) selected at ${searched.label}.`);
+                this.showMessage('success', __t("lengthFeatureSSelectedAtLabel", { length: features.length, label: searched.label }));
             }
         } catch (err: any) {
             this.beacon?.error(err, 'search');
-            this.showMessage('error', 'Failed to query features at that address.');
+            this.showMessage('error', __t("failedToQueryFeaturesAtThat"));
         }
     }
 
@@ -3247,7 +3247,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
         const currentLayer = this.getCurrentActiveLayer();
 
         if (!currentLayer) {
-            this.showMessage('error', 'No layer selected for current address type')
+            this.showMessage('error', __t("noLayerSelectedForCurrentAddress"))
             return
         }
 
@@ -3270,7 +3270,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
             const currentLayer = this.getCurrentActiveLayer();
 
             if (!currentLayer) {
-                this.showMessage('error', 'No layer available for current address type')
+                this.showMessage('error', __t("noLayerAvailableForCurrentAddress"))
                 return
             }
 
@@ -3278,7 +3278,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
             const fieldsToUse = this.state.labelType === 'owner' ? ownerFields : selectedFields;
 
             if (!fieldsToUse) {
-                this.showMessage('error', `No ${this.state.labelType === 'owner' ? 'owner' : 'physical address'} fields configured`)
+                this.showMessage('error', __t("noValueFieldsConfigured", { value: this.state.labelType === 'owner' ? __t('owner') : __t('physicalAddress') }))
                 return
             }
 
@@ -3303,13 +3303,13 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                 try {
                     features = await this.queryAllFeaturesWithPagination(undefined, currentLayer)
                 } catch (allFeaturesError) {
-                    this.showMessage('error', 'Unable to retrieve features from the layer')
+                    this.showMessage('error', __t("unableToRetrieveFeaturesFromThe"))
                     return
                 }
             }
 
             if (features.length === 0) {
-                this.showMessage('warning', 'No features found in selection. The spatial query may have failed. Try selecting a larger area or use "Generate Labels" without a selection to get all features.')
+                this.showMessage('warning', __t("noFeaturesFoundInSelectionThe"))
                 return
             }
 
@@ -3319,14 +3319,14 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                 outputFeatures = this.filterEmptyRecords(features, fieldsToUse)
                 const removed = features.length - outputFeatures.length
                 if (removed > 0) {
-                    this.showMessage('info', `Removed ${removed} empty record(s) from ${features.length} total`)
+                    this.showMessage('info', __t("removedRemovedEmptyRecordSFrom", { removed: removed, length: features.length }))
                 }
                 if (outputFeatures.length === 0) {
                     // Distinguish "nothing was selected" from "selected, but no mailing data"
                     this.showMessage('warning',
                         features.length === 1
-                            ? 'The selected feature has no mailing data — likely a confidential record. Nothing to export.'
-                            : `${features.length} feature(s) selected, but none have mailing data — likely confidential records. Nothing to export.`
+                            ? __t("theSelectedFeatureHasNoMailing")
+                            : __t("lengthFeatureSSelectedButNone", { length: features.length })
                     )
                     return
                 }
@@ -3338,7 +3338,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                 outputFeatures = this.filterDuplicateRecords(outputFeatures, fieldsToUse)
                 const dupsRemoved = beforeDedup - outputFeatures.length
                 if (dupsRemoved > 0) {
-                    this.showMessage('info', `Removed ${dupsRemoved} duplicate label(s) from ${beforeDedup} records`)
+                    this.showMessage('info', __t("removedDupsRemovedDuplicateLabelSFrom", { dupsRemoved: dupsRemoved, beforeDedup: beforeDedup }))
                 }
             }
 
@@ -3349,7 +3349,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
             this.generateCSV(outputFeatures, fieldsToUse)
 
         } catch (error) {
-            this.showMessage('error', 'Error generating mailing labels. This may be due to server connectivity issues. Please try again or contact support.')
+            this.showMessage('error', __t("errorGeneratingMailingLabelsThisMay"))
         } finally {
             this.setState({ isGenerating: false })
         }
@@ -3365,7 +3365,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
             const fieldsToUse = this.state.labelType === 'owner' ? ownerFields : selectedFields;
 
             if (!fieldsToUse) {
-                this.showMessage('error', `No ${this.state.labelType === 'owner' ? 'owner' : 'physical address'} fields configured`)
+                this.showMessage('error', __t("noValueFieldsConfigured", { value: this.state.labelType === 'owner' ? __t('owner') : __t('physicalAddress') }))
                 return
             }
 
@@ -3388,13 +3388,13 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                 try {
                     features = await this.queryAllFeaturesWithPagination()
                 } catch (allFeaturesError) {
-                    this.showMessage('error', 'Unable to retrieve features from the layer');
+                    this.showMessage('error', __t("unableToRetrieveFeaturesFromThe"));
                     return;
                 }
             }
 
             if (features.length === 0) {
-                this.showMessage('warning', 'No features found in selection.');
+                this.showMessage('warning', __t("noFeaturesFoundInSelection"));
                 return;
             }
 
@@ -3404,14 +3404,14 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                 features = this.filterEmptyRecords(features, fieldsToUse)
                 const removed = beforeCount - features.length
                 if (removed > 0) {
-                    this.showMessage('info', `Removed ${removed} empty record(s) from ${beforeCount} total`)
+                    this.showMessage('info', __t("removedRemovedEmptyRecordSFrom2", { removed: removed, beforeCount: beforeCount }))
                 }
                 if (features.length === 0) {
                     // Distinguish "nothing was selected" from "selected, but no mailing data"
                     this.showMessage('warning',
                         beforeCount === 1
-                            ? 'The selected feature has no mailing data — likely a confidential record. Nothing to print.'
-                            : `${beforeCount} feature(s) selected, but none have mailing data — likely confidential records. Nothing to print.`
+                            ? __t("theSelectedFeatureHasNoMailing2")
+                            : __t("beforeCountFeatureSSelectedButNone", { beforeCount: beforeCount })
                     )
                     return
                 }
@@ -3423,7 +3423,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                 features = this.filterDuplicateRecords(features, fieldsToUse)
                 const dupsRemoved = beforeDedup - features.length
                 if (dupsRemoved > 0) {
-                    this.showMessage('info', `Removed ${dupsRemoved} duplicate label(s) from ${beforeDedup} records`)
+                    this.showMessage('info', __t("removedDupsRemovedDuplicateLabelSFrom", { dupsRemoved: dupsRemoved, beforeDedup: beforeDedup }))
                 }
             }
 
@@ -3434,7 +3434,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
             await this.generatePDF(features, fieldsToUse, mode);
 
         } catch (error) {
-            this.showMessage('error', 'PDF generation failed. Please try CSV export instead.');
+            this.showMessage('error', __t("pdfGenerationFailedPleaseTryCsv"));
         } finally {
             this.setState({ isGenerating: false });
         }
@@ -3457,7 +3457,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
         let hasMoreFeatures = true;
         let queryCount = 0;
 
-        this.showMessage('info', `Starting paginated query. Target: ${maxFeatures} records`);
+        this.showMessage('info', __t("startingPaginatedQueryTargetMaxFeaturesRecords", { maxFeatures: maxFeatures }));
 
         while (hasMoreFeatures && allFeatures.length < maxFeatures && queryCount < 10) {
             queryCount++;
@@ -3473,11 +3473,11 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                     query.spatialRelationship = 'intersects';
                 }
 
-                this.showMessage('info', `Query ${queryCount}: Requesting ${query.num} records starting at ${start}`);
+                this.showMessage('info', __t("queryQueryCountRequestingNumRecordsStarting", { queryCount: queryCount, num: query.num, start: start }));
 
                 const result = await targetLayer.queryFeatures(query);
 
-                this.showMessage('info', `Query ${queryCount}: Received ${result.features?.length || 0} records. ExceededTransferLimit: ${result.exceededTransferLimit}`);
+                this.showMessage('info', __t("queryQueryCountReceivedValueRecordsExceededTransferLimit", { queryCount: queryCount, value: result.features?.length || 0, exceededTransferLimit: result.exceededTransferLimit }));
 
                 if (result.features && result.features.length > 0) {
                     allFeatures.push(...result.features);
@@ -3485,23 +3485,23 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
 
                     if (result.features.length < pageSize || !result.exceededTransferLimit) {
                         hasMoreFeatures = false;
-                        this.showMessage('info', `Query complete. No more features available.`);
+                        this.showMessage('info', __t("queryCompleteNoMoreFeaturesAvailable"));
                     }
                 } else {
                     hasMoreFeatures = false;
-                    this.showMessage('info', `Query returned no features. Stopping pagination.`);
+                    this.showMessage('info', __t("queryReturnedNoFeaturesStoppingPagination"));
                 }
 
                 if (start > maxFeatures * 2) {
-                    this.showMessage('warning', `Safety limit reached. Stopping pagination.`);
+                    this.showMessage('warning', __t("safetyLimitReachedStoppingPagination"));
                     break;
                 }
             } catch (error: any) {
-                this.showMessage('error', `Query ${queryCount} failed: ${error.message}`);
+                this.showMessage('error', __t("queryQueryCountFailedMessage", { queryCount: queryCount, message: error.message }));
 
                 if (start === 0) {
                     try {
-                        this.showMessage('info', 'Trying fallback query without pagination...');
+                        this.showMessage('info', __t("tryingFallbackQueryWithoutPagination"));
                         const simpleQuery = targetLayer.createQuery();
                         simpleQuery.outFields = ['*'];
                         simpleQuery.returnGeometry = false;
@@ -3513,10 +3513,10 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                         }
 
                         const fallbackResult = await targetLayer.queryFeatures(simpleQuery);
-                        this.showMessage('info', `Fallback query returned ${fallbackResult.features?.length || 0} records`);
+                        this.showMessage('info', __t("fallbackQueryReturnedValueRecords", { value: fallbackResult.features?.length || 0 }));
                         return fallbackResult.features || [];
                     } catch (fallbackError: any) {
-                        this.showMessage('error', `Fallback query also failed: ${fallbackError.message}`);
+                        this.showMessage('error', __t("fallbackQueryAlsoFailedMessage", { message: fallbackError.message }));
                         throw fallbackError;
                     }
                 } else {
@@ -3526,21 +3526,21 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
         }
 
         const finalCount = allFeatures.slice(0, maxFeatures).length;
-        this.showMessage('success', `Pagination complete. Total features collected: ${finalCount}`);
+        this.showMessage('success', __t("paginationCompleteTotalFeaturesCollectedFinalCount", { finalCount: finalCount }));
         return allFeatures.slice(0, maxFeatures);
     }
 
     generatePDF = async (features: any[], selectedFields: any, mode: 'download' | 'print' = 'download') => {
         if (!selectedFields) {
-            this.showMessage('error', 'No mailing fields configured');
+            this.showMessage('error', __t("noMailingFieldsConfigured"));
             return;
         }
 
         this.beacon?.action(mode === 'print' ? 'print' : 'export-pdf');
 
         try {
-            const verb = mode === 'print' ? 'printing' : 'downloading';
-            this.showMessage('info', `PDF Generation: Processing ${features.length} features for ${verb}`);
+            const verb = mode === 'print' ? __t('printing') : __t('downloading');
+            this.showMessage('info', __t("pdfGenerationProcessingLengthFeaturesFor", { length: features.length, verb: verb }));
 
             const pdfGenerator = new SimplePDFGenerator();
 
@@ -3555,13 +3555,13 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
             );
 
             const successMsg = mode === 'print'
-                ? `Sent ${features.length} label(s) to your printer.`
-                : `Generated mailing_labels.pdf with ${features.length} mailing labels successfully!`;
+                ? __t("sentLengthLabelSToYour", { length: features.length })
+                : __t("generatedMailingLabelsPdfWithLength", { length: features.length });
             this.showMessage('success', successMsg);
 
         } catch (error: any) {
             this.beacon?.error(error, 'export-pdf');
-            this.showMessage('error', `PDF generation failed: ${error.message}`);
+            this.showMessage('error', __t("pdfGenerationFailedMessage", { message: error.message }));
         }
     };
 
@@ -3678,7 +3678,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
 
     generateCSV = (features: any[], selectedFields: any) => {
         if (!selectedFields) {
-            this.showMessage('error', 'No mailing fields configured');
+            this.showMessage('error', __t("noMailingFieldsConfigured"));
             return;
         }
 
@@ -3717,7 +3717,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
         document.body.removeChild(link);
         URL.revokeObjectURL(url);
 
-        this.showMessage('success', `Generated ${filename} with ${features.length} mailing labels successfully!`);
+        this.showMessage('success', __t("generatedFilenameWithLengthMailingLabels", { filename: filename, length: features.length }));
     };
 
     activateDrawTool = (tool: 'point' | 'polyline' | 'polygon' | 'rectangle' | 'circle' | 'multipoint') => {
@@ -3790,7 +3790,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                     const updatedLocations = [...this.state.multipointLocations, mapPoint];
                     this.setState({ multipointLocations: updatedLocations });
 
-                    this.showMessage('info', `${updatedLocations.length} point(s) placed. Double-click or press Finish to complete.`);
+                    this.showMessage('info', __t("lengthPointSPlacedDoubleClick", { length: updatedLocations.length }));
                 }
             } catch (error) {
                 // Handle silently
@@ -3805,7 +3805,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
             if (this.state.multipointLocations.length >= 1) {
                 this.finishMultipointDrawing();
             } else {
-                this.showMessage('warning', 'Place at least 1 point before finishing.');
+                this.showMessage('warning', __t("placeAtLeast1PointBefore"));
             }
         });
 
@@ -3875,20 +3875,20 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
     finishMultipointDrawing = async () => {
         const points = this.state.multipointLocations;
         if (points.length === 0) {
-            this.showMessage('warning', 'No points placed.');
+            this.showMessage('warning', __t("noPointsPlaced"));
             this.clearDrawing();
             return;
         }
 
         this.clearDrawingHandlers();
-        this.showMessage('info', `Processing ${points.length} point(s)...`);
+        this.showMessage('info', __t("processingLengthPointS", { length: points.length }));
 
         const { bufferDistance, bufferUnit } = this.state;
         const view = this.state.mapView!.view;
         const layer = this.getCurrentActiveLayer();
 
         if (!layer) {
-            this.showMessage('error', 'No layer available for query.');
+            this.showMessage('error', __t("noLayerAvailableForQuery"));
             this.clearDrawing();
             return;
         }
@@ -4024,9 +4024,9 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                 activeDrawingGraphics: []
             });
 
-            this.showMessage('success', `${allFeatures.length} feature(s) selected from ${points.length} point(s).`);
+            this.showMessage('success', __t("lengthFeatureSSelectedFromLength2", { length: allFeatures.length, length2: points.length }));
         } catch (err) {
-            this.showMessage('error', 'Failed to process multipoint selection.');
+            this.showMessage('error', __t("failedToProcessMultipointSelection"));
             this.setState({
                 multipointLocations: [],
                 drawingPoints: [],
@@ -4071,14 +4071,14 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
         const currentFields = this.state.labelType === 'owner' ? ownerFields : selectedFields;
 
         const labelFormatOptions = [
-            { value: 'avery5160', short: 'Avery 5160', long: '2⅝" × 1" — 30 labels' },
-            { value: 'avery5161', short: 'Avery 5161', long: '4" × 1" — 20 labels' },
-            { value: 'avery5162', short: 'Avery 5162', long: '4" × 1⅓" — 14 labels' },
-            { value: 'avery5163', short: 'Avery 5163', long: '4" × 2" — 10 labels' },
-            { value: 'avery5164', short: 'Avery 5164', long: '3⅓" × 4" — 6 labels' },
-            { value: 'avery5165', short: 'Avery 5165', long: '8" × 10" — 1 full-sheet label' },
-            { value: 'avery5167', short: 'Avery 5167', long: '1¾" × ½" — 80 return-address labels' },
-            { value: 'avery5168', short: 'Avery 5168', long: '3½" × 5" — 4 shipping labels' }
+            { value: 'avery5160', short: __t("avery5160"), long: __t("_2130Labels") },
+            { value: 'avery5161', short: __t("avery5161"), long: __t("_4120Labels") },
+            { value: 'avery5162', short: __t("avery5162"), long: __t("_4114Labels") },
+            { value: 'avery5163', short: __t("avery5163"), long: __t("_4210Labels") },
+            { value: 'avery5164', short: __t("avery5164"), long: __t("_346Labels") },
+            { value: 'avery5165', short: __t("avery5165"), long: __t("_8101FullSheetLabel") },
+            { value: 'avery5167', short: __t("avery5167"), long: __t("_180ReturnAddressLabels") },
+            { value: 'avery5168', short: __t("avery5168"), long: __t("_354ShippingLabels") }
         ] as const;
         const currentFormatLong = labelFormatOptions.find(o => o.value === this.state.labelFormat)?.long || '';
 
@@ -4463,7 +4463,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
 
             // Row: address type (only when both are enabled)
             if (showAddressTypeSelection) {
-                outputRows.push(formRow('row-type', 'Type', jsx('div', {
+                outputRows.push(formRow('row-type', __t("type"), jsx('div', {
                     key: 'type-group',
                     role: 'radiogroup',
                     'aria-label': __t("labelType"),
@@ -4508,7 +4508,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
             }
 
             // Row: format + font (side by side, with a small description below the format)
-            outputRows.push(formRow('row-fmt', 'Format', jsx('div', {
+            outputRows.push(formRow('row-fmt', __t("format"), jsx('div', {
                 key: 'fmt-col',
                 style: { display: 'flex', flexDirection: 'column', gap: '4px', flex: 1, minWidth: 0 },
                 children: [
@@ -4673,7 +4673,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
             })));
 
             // Row: sort dropdown
-            outputRows.push(formRow('row-sort', 'Sort', jsx('select', {
+            outputRows.push(formRow('row-sort', __t("sort"), jsx('select', {
                 key: 'sort',
                 id: this.sortById,
                 'aria-label': __t("sortLabels"),
@@ -4691,7 +4691,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
             })));
 
             // Row: filter checkboxes (compact, side-by-side)
-            outputRows.push(formRow('row-filters', 'Filter', jsx('div', {
+            outputRows.push(formRow('row-filters', __t("filter"), jsx('div', {
                 key: 'filters',
                 style: { display: 'flex', gap: '14px', alignItems: 'center', fontSize: '12px', color: tokens.text, flexWrap: 'wrap' },
                 children: [
@@ -4726,7 +4726,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                 ]
             })));
 
-            children.push(collapsibleCard('output-settings', 'Output', outputRows));
+            children.push(collapsibleCard('output-settings', __t("output"), outputRows));
         }
 
         // Partial-Sheet Start Position — compact: input + grid side-by-side
@@ -4767,7 +4767,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                 }));
             }
 
-            children.push(collapsibleCard('start-position', 'Partial sheet', [
+            children.push(collapsibleCard('start-position', __t("partialSheet"), [
                 jsx('div', {
                     key: 'sp-row',
                     style: { display: 'flex', alignItems: 'flex-start', gap: '12px', flexWrap: 'wrap' },
@@ -5103,7 +5103,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                 ]
             });
 
-            children.push(collapsibleCard('address-search-section', 'Address search', [
+            children.push(collapsibleCard('address-search-section', __t("addressSearch"), [
                 jsx('div', {
                     key: 'address-search-wrapper',
                     style: { position: 'relative' },
@@ -5325,7 +5325,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                 );
             }
 
-            children.push(collapsibleCard('draw-section', 'Draw selection', drawSectionChildren));
+            children.push(collapsibleCard('draw-section', __t("drawSelection"), drawSectionChildren));
         }
 
         // Selection summary moved to the header banner (top of widget) for visibility.
@@ -5366,7 +5366,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
             // the preview — 9px floor would otherwise lie about 5/6/7pt picks.
             const previewFontPx = Math.max(6, Math.round(this.state.fontSize * scale));
 
-            children.push(collapsibleCard('preview-panel', 'Preview', [
+            children.push(collapsibleCard('preview-panel', __t("preview"), [
                 jsx('div', {
                     key: 'preview-meta',
                     style: { fontSize: '11px', color: tokens.textMuted, marginBottom: '8px' },
@@ -5669,15 +5669,15 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
 
         const ordered: any[] = [...partitioned.header];
         if (partitioned.find.length) {
-            ordered.push(sectionPill('Find features', 'sec-find'));
+            ordered.push(sectionPill(__t("findFeatures"), 'sec-find'));
             ordered.push(...partitioned.find);
         }
         if (partitioned.configure.length) {
-            ordered.push(sectionPill('Configure output', 'sec-cfg'));
+            ordered.push(sectionPill(__t("configureOutput"), 'sec-cfg'));
             ordered.push(...partitioned.configure);
         }
         if (partitioned.exportPart.length) {
-            ordered.push(sectionPill('Preview & export', 'sec-exp'));
+            ordered.push(sectionPill(__t("previewExport"), 'sec-exp'));
             ordered.push(...partitioned.exportPart);
         }
         ordered.push(...partitioned.overlay);

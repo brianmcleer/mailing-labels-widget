@@ -126,3 +126,7 @@ https://community.esri.com/t5/experience-builder-custom-widgets/mailing-labels-c
 ## License
 
 Apache-2.0. Copyright 2026 City of Grand Junction, CO.
+
+## Localization checks
+
+Version 1.1.5 connects helper headings, label-format descriptions, selection notifications, and settings help to the app locale. Format metadata follows locale changes after import. French additions preserve placeholders and are marked as unreviewed machine translations; catalog coverage is not a native-language review. Other languages use Esri translations, the shared memory, and English fallbacks until translations are available. Run the i18n kit audit and test runtime and settings when changing UI text.
