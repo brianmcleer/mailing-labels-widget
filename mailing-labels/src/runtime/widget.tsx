@@ -493,6 +493,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
     // -- In-widget help guide --------------------------------------------------------
     /** Translate a key from the widget's messages, with {token} interpolation. */
     private t = (id: string, values?: Record<string, string>): string => {
+        const __intl: any = (this.props as any).intl; if (__intl && typeof __intl.formatMessage === "function") { try { return __intl.formatMessage({ id, defaultMessage: (defaultMessages as any)[id] ?? id }, values) } catch (e) { } }
         const msgs: any = defaultMessages;
         let s: string = (msgs && msgs[id] != null) ? String(msgs[id]) : id;
         if (values) {
