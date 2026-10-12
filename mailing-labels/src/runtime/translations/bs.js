@@ -179,7 +179,7 @@ System.register([], function (e) {
         helpTrouble2: "Oznake slijeću u pogrešne slotove: Startni broj namjerno preskače slotove. Postavi Start ponovo na 1 za puni list.",
         helpTroubleSearch: "Adresar pokazuje grešku ili ne rezultate: usluga adrese nije odgovorila. Pokušajte jednostavniju adresu ili ponovo učitaj stranicu i pokušajte ponovo.",
         helpTroubleContact: "Kontaktirajte odjel GIS-a i spomenite ime Mailing Labels i ovu aplikaciju.",
-        helpTipsTitle: "Dobro je znati.",
+        helpTipsTitle: "Dobro je znati",
         helpTips1: "Napravite jedan testni list na običnom papiru pre nego što štampate punu kutiju etiketa.",
         helpTips2: "ZIP sortiranje je potrebno za USPS popuste na glomaznu poštu, pa postavite Sortiraj oznake na ZIP ako šaljete na veliko.",
         avery516030Labels21: "Avery 5160 - 30 oznaka (258 ×)",

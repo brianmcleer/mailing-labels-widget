@@ -3491,14 +3491,14 @@
           }
         },
         "bs": {
-          "file": "535ff5f3f7fb",
+          "file": "22510af976ef",
           "counts": {
-            "esri": 53,
+            "esri": 62,
             "esri-check": 1,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 311,
+            "machine": 302,
             "stale": 0,
             "missing": 7
           },
@@ -4033,35 +4033,10 @@
               "src": "machine",
               "h": "0d9adda150cd"
             },
-            "helpNoMatches": {
-              "t": "Ništa u vodiču ne odgovara toj riječi.",
-              "src": "machine",
-              "h": "3fe179f75330"
-            },
-            "firstRunTitle": {
-              "t": "Novi ovdje?",
-              "src": "machine",
-              "h": "b81f2e17e001"
-            },
             "firstRunBody": {
               "t": "Odaberite zapise na karti, izaberite svoj list oznake, zatim kliknite na PDF ili CSV.",
               "src": "machine",
               "h": "3415af27d8f4"
-            },
-            "firstRunHelpLink": {
-              "t": "Otvori vodič.",
-              "src": "machine",
-              "h": "2447dd6134ea"
-            },
-            "firstRunDismiss": {
-              "t": "Otpust",
-              "src": "machine",
-              "h": "70afe9eff3f2"
-            },
-            "helpStartTitle": {
-              "t": "Počnite ovdje: tri koraka",
-              "src": "machine",
-              "h": "789320b4831d"
             },
             "helpStart1": {
               "t": "Izaberite zapise koje želite odabirom osobina na karti.",
@@ -4183,11 +4158,6 @@
               "src": "machine",
               "h": "05b11e1acf39"
             },
-            "helpTroubleTitle": {
-              "t": "Ako nešto nije u redu",
-              "src": "machine",
-              "h": "6f7fec3ff1e0"
-            },
             "helpTroubleNoMap": {
               "t": "Ne možete izabrati ništa na karti: mapa nije spojena na ovaj grafički element. Pitajte onoga ko je postavio aplikaciju da bi dodao jednu u podešavanjima.",
               "src": "machine",
@@ -4212,11 +4182,6 @@
               "t": "Kontaktirajte odjel GIS-a i spomenite ime Mailing Labels i ovu aplikaciju.",
               "src": "machine",
               "h": "b333ef862ba2"
-            },
-            "helpTipsTitle": {
-              "t": "Dobro je znati.",
-              "src": "machine",
-              "h": "79fc372dc790"
             },
             "helpTips1": {
               "t": "Napravite jedan testni list na običnom papiru pre nego što štampate punu kutiju etiketa.",
@@ -4572,16 +4537,6 @@
               "t": "Grafički element za poštanske oznake",
               "src": "machine",
               "h": "de6d54a05850"
-            },
-            "unknownError": {
-              "t": "nepoznata greška",
-              "src": "machine",
-              "h": "af6321ca7a8b"
-            },
-            "unserializableError": {
-              "t": "Neserijalizacijska greška",
-              "src": "machine",
-              "h": "76e73551597a"
             },
             "lengthFeaturesHighlightedWithEnhancedVisualization": {
               "t": "{length} značajke istaknute pojačanom vizualizacijom",
@@ -20701,14 +20656,14 @@
           }
         },
         "hr": {
-          "file": "e3c44319f172",
+          "file": "ffd76ac4b96b",
           "counts": {
-            "esri": 53,
+            "esri": 62,
             "esri-check": 1,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 317,
+            "machine": 308,
             "stale": 0,
             "missing": 1
           },
@@ -21258,35 +21213,10 @@
               "src": "machine",
               "h": "0d9adda150cd"
             },
-            "helpNoMatches": {
-              "t": "Ništa u vodiču ne odgovara toj riječi. Pokušajte drugi, ili otvorite dijelove iznad.",
-              "src": "machine",
-              "h": "3fe179f75330"
-            },
-            "firstRunTitle": {
-              "t": "Novi ovdje?",
-              "src": "machine",
-              "h": "b81f2e17e001"
-            },
             "firstRunBody": {
               "t": "Odaberite zapise na karti, odaberite svoju oznaku list, zatim kliknite na PDF ili CSV.",
               "src": "machine",
               "h": "3415af27d8f4"
-            },
-            "firstRunHelpLink": {
-              "t": "Otvori vodič.",
-              "src": "machine",
-              "h": "2447dd6134ea"
-            },
-            "firstRunDismiss": {
-              "t": "Otpust",
-              "src": "machine",
-              "h": "70afe9eff3f2"
-            },
-            "helpStartTitle": {
-              "t": "Počnite ovdje: tri koraka",
-              "src": "machine",
-              "h": "789320b4831d"
             },
             "helpStart1": {
               "t": "Odaberite zapise koje želite odabirom značajki na karti.",
@@ -21408,11 +21338,6 @@
               "src": "machine",
               "h": "05b11e1acf39"
             },
-            "helpTroubleTitle": {
-              "t": "Ako nešto izgleda loše",
-              "src": "machine",
-              "h": "6f7fec3ff1e0"
-            },
             "helpTroubleNoMap": {
               "t": "Ne možete odabrati ništa na karti: mapa nije spojena na ovaj widget. Pitajte onoga tko je postavio aplikaciju za dodavanje jedne u postavkama.",
               "src": "machine",
@@ -21437,11 +21362,6 @@
               "t": "Još uvijek zaglavi? Kontaktirajte GIS odjel i spomenuti ime Mailing Labels i ovu aplikaciju.",
               "src": "machine",
               "h": "b333ef862ba2"
-            },
-            "helpTipsTitle": {
-              "t": "Dobro je znati.",
-              "src": "machine",
-              "h": "79fc372dc790"
             },
             "helpTips1": {
               "t": "Pokrenite jedan probni list na običnom papiru prije nego što ispišete punu kutiju etiketa.",
@@ -21807,16 +21727,6 @@
               "t": "Širina s poštanskim oznakama",
               "src": "machine",
               "h": "de6d54a05850"
-            },
-            "unknownError": {
-              "t": "nepoznata greška",
-              "src": "machine",
-              "h": "af6321ca7a8b"
-            },
-            "unserializableError": {
-              "t": "Neserijalizacijska greška",
-              "src": "machine",
-              "h": "76e73551597a"
             },
             "lengthFeaturesHighlightedWithEnhancedVisualization": {
               "t": "{length} značajke istaknute pojačanom vizualizacijom",
@@ -47286,14 +47196,14 @@
           }
         },
         "sr": {
-          "file": "fd36ec43e734",
+          "file": "1d0b478b5401",
           "counts": {
-            "esri": 51,
+            "esri": 60,
             "esri-check": 2,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 317,
+            "machine": 308,
             "stale": 0,
             "missing": 2
           },
@@ -47833,35 +47743,10 @@
               "src": "machine",
               "h": "0d9adda150cd"
             },
-            "helpNoMatches": {
-              "t": "Ništa u vodièu ne odgovara toj reèi.",
-              "src": "machine",
-              "h": "3fe179f75330"
-            },
-            "firstRunTitle": {
-              "t": "Novi ovde?",
-              "src": "machine",
-              "h": "b81f2e17e001"
-            },
             "firstRunBody": {
               "t": "Odaberite zapise na mapi, izaberite listu etiketa, a onda kliknite na PDF ili CSV.",
               "src": "machine",
               "h": "3415af27d8f4"
-            },
-            "firstRunHelpLink": {
-              "t": "Otvori vodiè.",
-              "src": "machine",
-              "h": "2447dd6134ea"
-            },
-            "firstRunDismiss": {
-              "t": "Otpust.",
-              "src": "machine",
-              "h": "70afe9eff3f2"
-            },
-            "helpStartTitle": {
-              "t": "Poènite ovde: tri koraka.",
-              "src": "machine",
-              "h": "789320b4831d"
             },
             "helpStart1": {
               "t": "Izaberite zapise koje želite odabirom osobina na mapi.",
@@ -47983,11 +47868,6 @@
               "src": "machine",
               "h": "05b11e1acf39"
             },
-            "helpTroubleTitle": {
-              "t": "Ako nešto nije u redu",
-              "src": "machine",
-              "h": "6f7fec3ff1e0"
-            },
             "helpTroubleNoMap": {
               "t": "Ne možete odabrati ništa na mapi: mapa nije povezana sa ovim grafičkim elementom. Pitajte ko je postavio aplikaciju da bi dodao jednu u podešavanjima.",
               "src": "machine",
@@ -48012,11 +47892,6 @@
               "t": "Kontaktirajte GIS odjel i spomenite ime Mailing Labels i ovu aplikaciju.",
               "src": "machine",
               "h": "b333ef862ba2"
-            },
-            "helpTipsTitle": {
-              "t": "Dobro je znati.",
-              "src": "machine",
-              "h": "79fc372dc790"
             },
             "helpTips1": {
               "t": "Proverite jedan test na obiènom papiru pre nego što štampate punu kutiju etiketa.",
@@ -48382,16 +48257,6 @@
               "t": "Поштанске ознаке Widget",
               "src": "machine",
               "h": "de6d54a05850"
-            },
-            "unknownError": {
-              "t": "nepoznata greška",
-              "src": "machine",
-              "h": "af6321ca7a8b"
-            },
-            "unserializableError": {
-              "t": "Neserijalizacijska greška",
-              "src": "machine",
-              "h": "76e73551597a"
             },
             "lengthFeaturesHighlightedWithEnhancedVisualization": {
               "t": "{length} značajke istaknute pojačanom vizualizacijom",
@@ -65614,14 +65479,14 @@
           }
         },
         "bs": {
-          "file": "a0996b378d21",
+          "file": "b47515a33ec9",
           "counts": {
-            "esri": 72,
+            "esri": 78,
             "esri-check": 1,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 380,
+            "machine": 374,
             "stale": 0,
             "missing": 2
           },
@@ -67376,26 +67241,6 @@
               "src": "machine",
               "h": "afa8087e2dc3"
             },
-            "uiExportXml": {
-              "t": "Uvezi XML",
-              "src": "machine",
-              "h": "f6a2de2384a3"
-            },
-            "uiImportXml": {
-              "t": "Uvezi...",
-              "src": "machine",
-              "h": "85b4016d27dc"
-            },
-            "uiShowHelpGuide": {
-              "t": "Pokaži vodič za pomoć",
-              "src": "machine",
-              "h": "03e9f0b81336"
-            },
-            "uiShowTheQuestionMarkButtonThat": {
-              "t": "Pokaži dugme sa znakom pitanja koje otvara vodič za pomoć grafičkog elementa",
-              "src": "machine",
-              "h": "62c4e81a84ca"
-            },
             "unknownErrorOccurredWhileLoadingLayers": {
               "t": "Dogodila se nepoznata greška pri učitavanju slojeva",
               "src": "machine",
@@ -67410,11 +67255,6 @@
               "t": "Zahtjev nije uspio.",
               "src": "machine",
               "h": "92a0d7d4d561"
-            },
-            "unknownError": {
-              "t": "nepoznata greška",
-              "src": "machine",
-              "h": "af6321ca7a8b"
             },
             "eGCurrentResident": {
               "t": "npr., trenutni specijalizant",
@@ -67445,11 +67285,6 @@
               "t": "Polje",
               "src": "machine",
               "h": "b737ba63a448"
-            },
-            "mapWidget": {
-              "t": "Mapa grafičkog elementa",
-              "src": "machine",
-              "h": "8b918e901bfa"
             },
             "chooseWhichAddressTypesEndUsers": {
               "t": "Izaberite za koje vrste adresa krajnji korisnici mogu napraviti oznake.",
@@ -86584,14 +86419,14 @@
           }
         },
         "hr": {
-          "file": "f1e9cd67152b",
+          "file": "2dd65d4a2eb9",
           "counts": {
-            "esri": 72,
+            "esri": 78,
             "esri-check": 1,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 381,
+            "machine": 375,
             "stale": 0,
             "missing": 1
           },
@@ -88351,26 +88186,6 @@
               "src": "machine",
               "h": "afa8087e2dc3"
             },
-            "uiExportXml": {
-              "t": "Izvezi XML",
-              "src": "machine",
-              "h": "f6a2de2384a3"
-            },
-            "uiImportXml": {
-              "t": "Uvezi XML",
-              "src": "machine",
-              "h": "85b4016d27dc"
-            },
-            "uiShowHelpGuide": {
-              "t": "Prikaži vodič pomoći",
-              "src": "machine",
-              "h": "03e9f0b81336"
-            },
-            "uiShowTheQuestionMarkButtonThat": {
-              "t": "Prikaži gumb s upitnikom koji otvara vodič za pomoć widgetu",
-              "src": "machine",
-              "h": "62c4e81a84ca"
-            },
             "unknownErrorOccurredWhileLoadingLayers": {
               "t": "Nepoznata greška pri učitavanju slojeva",
               "src": "machine",
@@ -88385,11 +88200,6 @@
               "t": "Zahtjev nije uspio.",
               "src": "machine",
               "h": "92a0d7d4d561"
-            },
-            "unknownError": {
-              "t": "nepoznata greška",
-              "src": "machine",
-              "h": "af6321ca7a8b"
             },
             "eGCurrentResident": {
               "t": "Na primjer, trenutni stanovnik",
@@ -88420,11 +88230,6 @@
               "t": "Polje imena",
               "src": "machine",
               "h": "b737ba63a448"
-            },
-            "mapWidget": {
-              "t": "Grafički element mape",
-              "src": "machine",
-              "h": "8b918e901bfa"
             },
             "chooseWhichAddressTypesEndUsers": {
               "t": "Odaberite za koje vrste adresa krajnji korisnici mogu generirati oznake.",
@@ -118924,14 +118729,14 @@
           }
         },
         "sr": {
-          "file": "940602cec593",
+          "file": "a42be0df19e9",
           "counts": {
-            "esri": 70,
+            "esri": 76,
             "esri-check": 3,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 382,
+            "machine": 376,
             "stale": 0,
             "missing": 0
           },
@@ -120691,26 +120496,6 @@
               "src": "machine",
               "h": "afa8087e2dc3"
             },
-            "uiExportXml": {
-              "t": "Извези ~@ ¦ИксМЛ¦XML¦",
-              "src": "machine",
-              "h": "f6a2de2384a3"
-            },
-            "uiImportXml": {
-              "t": "Увези ~@ ¦ИксМЛ¦XML¦",
-              "src": "machine",
-              "h": "85b4016d27dc"
-            },
-            "uiShowHelpGuide": {
-              "t": "Pokaži vodič za pomoć",
-              "src": "machine",
-              "h": "03e9f0b81336"
-            },
-            "uiShowTheQuestionMarkButtonThat": {
-              "t": "Prikaži dugme sa znakom pitanja koje otvara vodič za pomoć grafičkom elementu",
-              "src": "machine",
-              "h": "62c4e81a84ca"
-            },
             "layerId": {
               "t": "Слој {id}",
               "src": "machine",
@@ -120730,11 +120515,6 @@
               "t": "Zahtev nije uspeo.",
               "src": "machine",
               "h": "92a0d7d4d561"
-            },
-            "unknownError": {
-              "t": "nepoznata greška",
-              "src": "machine",
-              "h": "af6321ca7a8b"
             },
             "eGCurrentResident": {
               "t": "Na primer, trenutni specijalizant",
@@ -120765,11 +120545,6 @@
               "t": "Polje imena",
               "src": "machine",
               "h": "b737ba63a448"
-            },
-            "mapWidget": {
-              "t": "Мапа виџетаQShortcut",
-              "src": "machine",
-              "h": "8b918e901bfa"
             },
             "chooseWhichAddressTypesEndUsers": {
               "t": "Odaberite za koje vrste adresa krajnji korisnici mogu da generišu oznake.",

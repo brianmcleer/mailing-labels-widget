@@ -179,7 +179,7 @@ System.register([], function (e) {
         helpTrouble2: "Naljepnice slijeću u pogrešne utore: početni broj namjerno preskače utore. Postavite Start natrag na 1 za puni list.",
         helpTroubleSearch: "Pretraga adrese pokazuje grešku ili nema rezultata: usluga adrese nije odgovorila. Pokušajte jednostavniju adresu, ili ponovno učitaj stranicu i pokušajte ponovno.",
         helpTroubleContact: "Još uvijek zaglavi? Kontaktirajte GIS odjel i spomenuti ime Mailing Labels i ovu aplikaciju.",
-        helpTipsTitle: "Dobro je znati.",
+        helpTipsTitle: "Dobro je znati",
         helpTips1: "Pokrenite jedan probni list na običnom papiru prije nego što ispišete punu kutiju etiketa.",
         helpTips2: "ZIP sorta je potrebna za USPS glomaznost-mail popusta, tako da set Sortirajte oznake na ZIP ako ste mailing u glomaznost.",
         avery516030Labels21: "Avery 5160 - 30 oznaka (258 ×)",
