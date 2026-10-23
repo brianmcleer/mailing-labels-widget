@@ -1,3 +1,4 @@
+import ParcelSearchSettings from './ParcelSearchSettings'
 ﻿import { AllWidgetSettingProps } from 'jimu-for-builder'
 import { MapWidgetSelector, SettingSection, SettingRow } from 'jimu-ui/advanced/setting-components'
 import { TextInput, Label, Switch, Select, Option, Button, Checkbox, Alert } from 'jimu-ui'
@@ -19,6 +20,10 @@ const __t = (id: string, values?: { [key: string]: any }): string => {
 interface Config {
     showHelp?: boolean
     useMapWidgetIds?: string[] | any // Allow both regular array and ImmutableArray
+    enableParcelSearch?: boolean
+    parcelSearchLayer?: 'physical' | 'owner'
+    parcelSearchField?: string
+    parcelSearchFieldAlias?: string
     selectedLayerId?: string
     ownerLayerId?: string // Separate layer for owner addresses
     selectionLayerId?: string
@@ -1049,6 +1054,8 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
                                     : __t("geometryFromTheDrawWidgetIs"))}
                             </SettingSection>
                         )}
+
+                        <ParcelSearchSettings config={config} layers={availableLayers} onChange={this.updateConfig} t={__t} />
 
                         {/* Output defaults */}
                         <SettingSection title={__t("uiOutputDefaults")}>

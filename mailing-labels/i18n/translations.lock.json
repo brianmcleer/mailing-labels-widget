@@ -3,9 +3,55 @@
   "generator": "exb-i18n-kit",
   "parts": {
     "runtime": {
-      "en": "726faf350366",
-      "keys": 372,
+      "en": "0a2c9b8adf23",
+      "keys": 418,
       "hashes": {
+        "helpParcelOwnerOnly": "9d0e1ec59d91",
+        "parcelMapOnlyInstructions": "126ea94d905a",
+        "parcelSelectionInstructions": "06a694cc362c",
+        "parcelPickOnMap": "37714b66da68",
+        "parcelStopPicking": "9a13bd8b2231",
+        "parcelPickingHint": "1447072e2d79",
+        "parcelSelectedCount": "90b392f4e59d",
+        "parcelSelectedList": "78a3ba1881a3",
+        "parcelRemove": "e963907dac5c",
+        "parcelRemoveNamed": "4fd6639fafc8",
+        "parcelZoomSelected": "9a412372c81c",
+        "parcelClearSelected": "b4796a000d18",
+        "parcelApplySelected": "893271cd9594",
+        "parcelApplyHint": "340d5c651d96",
+        "parcelAlreadySelected": "d62ab012b746",
+        "parcelAdded": "e78f2ef49592",
+        "parcelPickNoMatch": "c11d2871edc0",
+        "parcelSelectionLimit": "b4235d77c8dc",
+        "parcelSelectionTitle": "426d9cfd2480",
+        "helpParcelSelection1": "11adad45a851",
+        "helpParcelSelection2": "eefd97c8adeb",
+        "helpParcelSelection3": "3ce722c0d3f4",
+        "parcelSearchSelectionLimited": "0990528ac3bd",
+        "parcelSearchTitle": "b8470b5b55b0",
+        "parcelSearchInstructions": "5b9aae690604",
+        "parcelSearchValue": "61914a55db8d",
+        "parcelSearchFind": "b8470b5b55b0",
+        "parcelSearchMatch": "bb36f04de1f7",
+        "parcelSearchChoose": "8852d4dba18f",
+        "parcelSearchApply": "fbdc2f780549",
+        "parcelSearchNoMatches": "d2528d1db895",
+        "parcelSearchMoreMatches": "6a3dfdd3c41b",
+        "parcelSearchConfiguration": "b5c3d7b05c65",
+        "parcelSearchValueRequired": "646c17c77b3f",
+        "parcelSearchNumericValue": "f536987f894a",
+        "parcelSearchFailed": "82ec2ce67450",
+        "parcelSearchNoGeometry": "9fc6adf6ba15",
+        "parcelSearchSelected": "2d7a8513a112",
+        "parcelSearchSelectionFailed": "f7778acb8908",
+        "parcelUnit_feet": "7037c84e3199",
+        "parcelUnit_meters": "6ad427ced43e",
+        "parcelUnit_kilometers": "87bafdbb82c6",
+        "parcelUnit_miles": "5fa6c4032be3",
+        "helpParcelSearch1": "e30dc96c9e94",
+        "helpParcelSearch2": "1b2b4bc02ac5",
+        "helpParcelSearch3": "7af652ed43de",
         "_widgetLabel": "a1be6f23b258",
         "_widgetDescription": "edf352e1f38d",
         "widgetTitle": "cff8914bad1c",
@@ -381,16 +427,16 @@
       },
       "locales": {
         "ar": {
-          "file": "7933d7bc59ec",
+          "file": "80a328a28d38",
           "counts": {
-            "esri": 62,
+            "esri": 67,
             "esri-check": 2,
             "community": 0,
             "manual": 0,
             "existing": 0,
             "machine": 308,
             "stale": 0,
-            "missing": 0
+            "missing": 41
           },
           "entries": {
             "_widgetLabel": {
@@ -1936,16 +1982,16 @@
           }
         },
         "bg": {
-          "file": "3a9e7d1e7158",
+          "file": "4e71c9f322ed",
           "counts": {
-            "esri": 62,
-            "esri-check": 2,
+            "esri": 66,
+            "esri-check": 3,
             "community": 0,
             "manual": 0,
             "existing": 0,
             "machine": 308,
             "stale": 0,
-            "missing": 0
+            "missing": 41
           },
           "entries": {
             "_widgetLabel": {
@@ -3491,16 +3537,16 @@
           }
         },
         "bs": {
-          "file": "22510af976ef",
+          "file": "26a445a7131d",
           "counts": {
-            "esri": 62,
+            "esri": 67,
             "esri-check": 1,
             "community": 0,
             "manual": 0,
             "existing": 0,
             "machine": 302,
             "stale": 0,
-            "missing": 7
+            "missing": 48
           },
           "entries": {
             "_widgetLabel": {
@@ -5016,16 +5062,16 @@
           }
         },
         "ca": {
-          "file": "31e5ba5d3891",
+          "file": "658f0fc9713b",
           "counts": {
-            "esri": 58,
+            "esri": 63,
             "esri-check": 3,
             "community": 0,
             "manual": 0,
             "existing": 0,
             "machine": 311,
             "stale": 0,
-            "missing": 0
+            "missing": 41
           },
           "entries": {
             "_widgetLabel": {
@@ -6586,16 +6632,16 @@
           }
         },
         "cs": {
-          "file": "7673ec704097",
+          "file": "fd154345e6e8",
           "counts": {
-            "esri": 62,
+            "esri": 67,
             "esri-check": 1,
             "community": 0,
             "manual": 0,
             "existing": 0,
             "machine": 309,
             "stale": 0,
-            "missing": 0
+            "missing": 41
           },
           "entries": {
             "_widgetLabel": {
@@ -8146,18 +8192,23 @@
           }
         },
         "da": {
-          "file": "fed2c245e5ed",
+          "file": "5e9c9f7b82b2",
           "counts": {
-            "esri": 56,
+            "esri": 60,
             "esri-check": 3,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 313,
+            "machine": 314,
             "stale": 0,
-            "missing": 0
+            "missing": 41
           },
           "entries": {
+            "parcelUnit_miles": {
+              "t": "Miles Formand",
+              "src": "machine",
+              "h": "5fa6c4032be3"
+            },
             "_widgetLabel": {
               "t": "Postmærker",
               "src": "machine",
@@ -9726,16 +9777,16 @@
           }
         },
         "de": {
-          "file": "807dc128c1aa",
+          "file": "a584d408e12c",
           "counts": {
-            "esri": 57,
+            "esri": 62,
             "esri-check": 3,
             "community": 0,
             "manual": 0,
             "existing": 0,
             "machine": 312,
             "stale": 0,
-            "missing": 0
+            "missing": 41
           },
           "entries": {
             "_widgetLabel": {
@@ -11301,16 +11352,16 @@
           }
         },
         "el": {
-          "file": "6a311fc79174",
+          "file": "f2daae3d10d1",
           "counts": {
-            "esri": 61,
+            "esri": 66,
             "esri-check": 3,
             "community": 0,
             "manual": 0,
             "existing": 0,
             "machine": 308,
             "stale": 0,
-            "missing": 0
+            "missing": 41
           },
           "entries": {
             "_widgetLabel": {
@@ -12856,16 +12907,16 @@
           }
         },
         "es": {
-          "file": "1237b5f4591f",
+          "file": "d419ada13b3a",
           "counts": {
-            "esri": 63,
+            "esri": 68,
             "esri-check": 0,
             "community": 0,
             "manual": 0,
             "existing": 0,
             "machine": 309,
             "stale": 0,
-            "missing": 0
+            "missing": 41
           },
           "entries": {
             "_widgetLabel": {
@@ -14416,16 +14467,16 @@
           }
         },
         "et": {
-          "file": "723ca2443525",
+          "file": "148eac793649",
           "counts": {
-            "esri": 60,
-            "esri-check": 4,
+            "esri": 61,
+            "esri-check": 8,
             "community": 0,
             "manual": 0,
             "existing": 0,
             "machine": 308,
             "stale": 0,
-            "missing": 0
+            "missing": 41
           },
           "entries": {
             "_widgetLabel": {
@@ -15971,16 +16022,16 @@
           }
         },
         "fi": {
-          "file": "4ae1297c33b4",
+          "file": "830bc0121ab8",
           "counts": {
-            "esri": 63,
+            "esri": 68,
             "esri-check": 1,
             "community": 0,
             "manual": 0,
             "existing": 0,
             "machine": 308,
             "stale": 0,
-            "missing": 0
+            "missing": 41
           },
           "entries": {
             "_widgetLabel": {
@@ -17526,18 +17577,23 @@
           }
         },
         "fr": {
-          "file": "90b797deadfa",
+          "file": "cdbcc3c2b65e",
           "counts": {
-            "esri": 60,
-            "esri-check": 0,
+            "esri": 63,
+            "esri-check": 1,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 312,
+            "machine": 313,
             "stale": 0,
-            "missing": 0
+            "missing": 41
           },
           "entries": {
+            "parcelUnit_miles": {
+              "t": "Miles",
+              "src": "machine",
+              "h": "5fa6c4032be3"
+            },
             "_widgetLabel": {
               "t": "Affichage des étiquettes",
               "src": "machine",
@@ -19101,16 +19157,16 @@
           }
         },
         "he": {
-          "file": "d48a611d6d66",
+          "file": "e801654feaba",
           "counts": {
-            "esri": 63,
-            "esri-check": 1,
+            "esri": 67,
+            "esri-check": 2,
             "community": 0,
             "manual": 0,
             "existing": 0,
             "machine": 308,
             "stale": 0,
-            "missing": 0
+            "missing": 41
           },
           "entries": {
             "_widgetLabel": {
@@ -20656,16 +20712,16 @@
           }
         },
         "hr": {
-          "file": "ffd76ac4b96b",
+          "file": "9a46a2480d9e",
           "counts": {
-            "esri": 62,
+            "esri": 67,
             "esri-check": 1,
             "community": 0,
             "manual": 0,
             "existing": 0,
             "machine": 308,
             "stale": 0,
-            "missing": 1
+            "missing": 42
           },
           "entries": {
             "_widgetLabel": {
@@ -22211,16 +22267,16 @@
           }
         },
         "hu": {
-          "file": "99b102652c07",
+          "file": "391e72bdcc83",
           "counts": {
-            "esri": 61,
+            "esri": 66,
             "esri-check": 2,
             "community": 0,
             "manual": 0,
             "existing": 0,
             "machine": 309,
             "stale": 0,
-            "missing": 0
+            "missing": 41
           },
           "entries": {
             "_widgetLabel": {
@@ -23771,16 +23827,16 @@
           }
         },
         "id": {
-          "file": "c49cb9744b4c",
+          "file": "7b24f7b748cd",
           "counts": {
-            "esri": 56,
+            "esri": 61,
             "esri-check": 5,
             "community": 0,
             "manual": 0,
             "existing": 0,
             "machine": 311,
             "stale": 0,
-            "missing": 0
+            "missing": 41
           },
           "entries": {
             "_widgetLabel": {
@@ -25341,16 +25397,16 @@
           }
         },
         "it": {
-          "file": "39b610d2119a",
+          "file": "785e56ebf6eb",
           "counts": {
-            "esri": 61,
+            "esri": 66,
             "esri-check": 1,
             "community": 0,
             "manual": 0,
             "existing": 0,
             "machine": 310,
             "stale": 0,
-            "missing": 0
+            "missing": 41
           },
           "entries": {
             "_widgetLabel": {
@@ -26906,16 +26962,16 @@
           }
         },
         "ja": {
-          "file": "b68a4b9afb99",
+          "file": "f9b7bd5ae6de",
           "counts": {
-            "esri": 62,
+            "esri": 67,
             "esri-check": 2,
             "community": 0,
             "manual": 0,
             "existing": 0,
             "machine": 308,
             "stale": 0,
-            "missing": 0
+            "missing": 41
           },
           "entries": {
             "_widgetLabel": {
@@ -28461,16 +28517,16 @@
           }
         },
         "ko": {
-          "file": "9f7905c20f82",
+          "file": "8bfb382e458e",
           "counts": {
-            "esri": 60,
+            "esri": 65,
             "esri-check": 4,
             "community": 0,
             "manual": 0,
             "existing": 0,
             "machine": 308,
             "stale": 0,
-            "missing": 0
+            "missing": 41
           },
           "entries": {
             "_widgetLabel": {
@@ -30016,16 +30072,16 @@
           }
         },
         "lt": {
-          "file": "0eb728f8bbdd",
+          "file": "efb9d2068949",
           "counts": {
-            "esri": 62,
-            "esri-check": 2,
+            "esri": 66,
+            "esri-check": 3,
             "community": 0,
             "manual": 0,
             "existing": 0,
             "machine": 308,
             "stale": 0,
-            "missing": 0
+            "missing": 41
           },
           "entries": {
             "_widgetLabel": {
@@ -31571,16 +31627,16 @@
           }
         },
         "lv": {
-          "file": "1c9d87fd5d9c",
+          "file": "a3b308946c9f",
           "counts": {
-            "esri": 61,
+            "esri": 66,
             "esri-check": 3,
             "community": 0,
             "manual": 0,
             "existing": 0,
             "machine": 308,
             "stale": 0,
-            "missing": 0
+            "missing": 41
           },
           "entries": {
             "_widgetLabel": {
@@ -33126,18 +33182,23 @@
           }
         },
         "no": {
-          "file": "60209350710e",
+          "file": "95924c058571",
           "counts": {
-            "esri": 53,
+            "esri": 57,
             "esri-check": 5,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 314,
+            "machine": 315,
             "stale": 0,
-            "missing": 0
+            "missing": 41
           },
           "entries": {
+            "parcelUnit_miles": {
+              "t": "Miles",
+              "src": "machine",
+              "h": "5fa6c4032be3"
+            },
             "_widgetLabel": {
               "t": "E-postetiketter",
               "src": "machine",
@@ -34711,16 +34772,16 @@
           }
         },
         "nl": {
-          "file": "8ceeb439e12a",
+          "file": "4bb95507aa6f",
           "counts": {
-            "esri": 55,
+            "esri": 60,
             "esri-check": 6,
             "community": 0,
             "manual": 0,
             "existing": 0,
             "machine": 311,
             "stale": 0,
-            "missing": 0
+            "missing": 41
           },
           "entries": {
             "_widgetLabel": {
@@ -36281,16 +36342,16 @@
           }
         },
         "pl": {
-          "file": "cec7448ae292",
+          "file": "e2e9f667d7e3",
           "counts": {
-            "esri": 59,
+            "esri": 64,
             "esri-check": 4,
             "community": 0,
             "manual": 0,
             "existing": 0,
             "machine": 309,
             "stale": 0,
-            "missing": 0
+            "missing": 41
           },
           "entries": {
             "_widgetLabel": {
@@ -37841,16 +37902,16 @@
           }
         },
         "pt-br": {
-          "file": "edce0d543257",
+          "file": "a0cd7659b5e1",
           "counts": {
-            "esri": 57,
+            "esri": 62,
             "esri-check": 6,
             "community": 0,
             "manual": 0,
             "existing": 0,
             "machine": 309,
             "stale": 0,
-            "missing": 0
+            "missing": 41
           },
           "entries": {
             "_widgetLabel": {
@@ -39401,16 +39462,16 @@
           }
         },
         "pt-pt": {
-          "file": "d7434959e74c",
+          "file": "5d5624575cd6",
           "counts": {
-            "esri": 62,
+            "esri": 67,
             "esri-check": 1,
             "community": 0,
             "manual": 0,
             "existing": 0,
             "machine": 309,
             "stale": 0,
-            "missing": 0
+            "missing": 41
           },
           "entries": {
             "_widgetLabel": {
@@ -40961,16 +41022,16 @@
           }
         },
         "ro": {
-          "file": "9c5fca834d46",
+          "file": "f6f3edd98646",
           "counts": {
-            "esri": 58,
+            "esri": 63,
             "esri-check": 5,
             "community": 0,
             "manual": 0,
             "existing": 0,
             "machine": 309,
             "stale": 0,
-            "missing": 0
+            "missing": 41
           },
           "entries": {
             "_widgetLabel": {
@@ -42521,16 +42582,16 @@
           }
         },
         "ru": {
-          "file": "101c29fab043",
+          "file": "b0cdaeadf475",
           "counts": {
-            "esri": 60,
-            "esri-check": 4,
+            "esri": 64,
+            "esri-check": 5,
             "community": 0,
             "manual": 0,
             "existing": 0,
             "machine": 308,
             "stale": 0,
-            "missing": 0
+            "missing": 41
           },
           "entries": {
             "_widgetLabel": {
@@ -44076,16 +44137,16 @@
           }
         },
         "sk": {
-          "file": "361e02177c74",
+          "file": "53862bff3f83",
           "counts": {
-            "esri": 59,
+            "esri": 64,
             "esri-check": 4,
             "community": 0,
             "manual": 0,
             "existing": 0,
             "machine": 309,
             "stale": 0,
-            "missing": 0
+            "missing": 41
           },
           "entries": {
             "_widgetLabel": {
@@ -45636,16 +45697,16 @@
           }
         },
         "sl": {
-          "file": "7f61a0839a2a",
+          "file": "e5ed310f5768",
           "counts": {
-            "esri": 62,
+            "esri": 67,
             "esri-check": 1,
             "community": 0,
             "manual": 0,
             "existing": 0,
             "machine": 309,
             "stale": 0,
-            "missing": 0
+            "missing": 41
           },
           "entries": {
             "_widgetLabel": {
@@ -47196,16 +47257,16 @@
           }
         },
         "sr": {
-          "file": "1d0b478b5401",
+          "file": "bfa11911fde1",
           "counts": {
-            "esri": 60,
+            "esri": 65,
             "esri-check": 2,
             "community": 0,
             "manual": 0,
             "existing": 0,
             "machine": 308,
             "stale": 0,
-            "missing": 2
+            "missing": 43
           },
           "entries": {
             "_widgetLabel": {
@@ -48751,16 +48812,16 @@
           }
         },
         "sv": {
-          "file": "c57884e2737a",
+          "file": "9ec08e9110bf",
           "counts": {
-            "esri": 57,
+            "esri": 62,
             "esri-check": 3,
             "community": 0,
             "manual": 0,
             "existing": 0,
             "machine": 312,
             "stale": 0,
-            "missing": 0
+            "missing": 41
           },
           "entries": {
             "_widgetLabel": {
@@ -50326,16 +50387,16 @@
           }
         },
         "th": {
-          "file": "169e7de67ead",
+          "file": "3e9eb293c21b",
           "counts": {
-            "esri": 62,
+            "esri": 67,
             "esri-check": 2,
             "community": 0,
             "manual": 0,
             "existing": 0,
             "machine": 308,
             "stale": 0,
-            "missing": 0
+            "missing": 41
           },
           "entries": {
             "_widgetLabel": {
@@ -51881,16 +51942,16 @@
           }
         },
         "tr": {
-          "file": "ef47d045b1d0",
+          "file": "393753bd84e8",
           "counts": {
-            "esri": 58,
+            "esri": 63,
             "esri-check": 6,
             "community": 0,
             "manual": 0,
             "existing": 0,
             "machine": 308,
             "stale": 0,
-            "missing": 0
+            "missing": 41
           },
           "entries": {
             "_widgetLabel": {
@@ -53436,16 +53497,16 @@
           }
         },
         "zh-cn": {
-          "file": "6f2ed02f9820",
+          "file": "9833f227975c",
           "counts": {
-            "esri": 60,
+            "esri": 65,
             "esri-check": 4,
             "community": 0,
             "manual": 0,
             "existing": 0,
             "machine": 308,
             "stale": 0,
-            "missing": 0
+            "missing": 41
           },
           "entries": {
             "_widgetLabel": {
@@ -54991,16 +55052,16 @@
           }
         },
         "uk": {
-          "file": "a1bd234ce7ac",
+          "file": "8ffab0470118",
           "counts": {
-            "esri": 61,
+            "esri": 66,
             "esri-check": 3,
             "community": 0,
             "manual": 0,
             "existing": 0,
             "machine": 308,
             "stale": 0,
-            "missing": 0
+            "missing": 41
           },
           "entries": {
             "_widgetLabel": {
@@ -56546,16 +56607,16 @@
           }
         },
         "vi": {
-          "file": "d0712b1b5738",
+          "file": "c67586489395",
           "counts": {
-            "esri": 60,
+            "esri": 65,
             "esri-check": 4,
             "community": 0,
             "manual": 0,
             "existing": 0,
             "machine": 308,
             "stale": 0,
-            "missing": 0
+            "missing": 41
           },
           "entries": {
             "_widgetLabel": {
@@ -58101,16 +58162,16 @@
           }
         },
         "zh-hk": {
-          "file": "668f8b9b2f6b",
+          "file": "319c35c32a83",
           "counts": {
-            "esri": 62,
+            "esri": 67,
             "esri-check": 2,
             "community": 0,
             "manual": 0,
             "existing": 0,
             "machine": 308,
             "stale": 0,
-            "missing": 0
+            "missing": 41
           },
           "entries": {
             "_widgetLabel": {
@@ -59656,16 +59717,16 @@
           }
         },
         "zh-tw": {
-          "file": "668f8b9b2f6b",
+          "file": "319c35c32a83",
           "counts": {
-            "esri": 62,
+            "esri": 67,
             "esri-check": 2,
             "community": 0,
             "manual": 0,
             "existing": 0,
             "machine": 308,
             "stale": 0,
-            "missing": 0
+            "missing": 41
           },
           "entries": {
             "_widgetLabel": {
@@ -61213,9 +61274,26 @@
       }
     },
     "setting": {
-      "en": "1367dfeea928",
-      "keys": 455,
+      "en": "723c6bfca11c",
+      "keys": 472,
       "hashes": {
+        "parcelOwnerOnlySettingsHelp": "39d8d18264a0",
+        "parcelSelectionSettingsTitle": "30a40140f5f8",
+        "parcelSelectionEnable": "1c653631fe0c",
+        "parcelInheritedLayer": "37015c3b6ad7",
+        "parcelInheritedSettingsHelp": "d64e604b6661",
+        "parcelInheritedLayerError": "e41baee53ec7",
+        "parcelSearchLayerSource": "248a02aeac1f",
+        "parcelLayerOwner": "85ffb19eb3d8",
+        "parcelLayerPhysical": "1f5eae31678d",
+        "parcelSearchFieldAlias": "0b0791e63054",
+        "parcelSearchFieldAliasHelp": "90e9507bbf4e",
+        "parcelSearchTitle": "eab61fef67f7",
+        "parcelSearchEnable": "badcc41fc492",
+        "parcelSearchLayer": "17cfecbe91fe",
+        "parcelSearchField": "4ff24de00cd0",
+        "parcelSearchSettingsHelp": "763c703e461a",
+        "parcelSearchLayerError": "5adc2441cc53",
         "_widgetLabel": "a1be6f23b258",
         "_widgetDescription": "a3c2cd9238ac",
         "mapConfigurationSection": "a5956091feb8",
@@ -61674,18 +61752,28 @@
       },
       "locales": {
         "ar": {
-          "file": "c5f04408ce84",
+          "file": "caea6f1ad825",
           "counts": {
             "esri": 74,
             "esri-check": 2,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 379,
+            "machine": 381,
             "stale": 0,
-            "missing": 0
+            "missing": 15
           },
           "entries": {
+            "parcelLayerOwner": {
+              "t": "طبقة عناوين الملكية",
+              "src": "machine",
+              "h": "85ffb19eb3d8"
+            },
+            "parcelLayerPhysical": {
+              "t": "طبقة العنوان المادي",
+              "src": "machine",
+              "h": "1f5eae31678d"
+            },
             "_widgetLabel": {
               "t": "Mailing Labels",
               "src": "machine",
@@ -63584,18 +63672,28 @@
           }
         },
         "bg": {
-          "file": "35f0480aa87a",
+          "file": "842563ff795f",
           "counts": {
             "esri": 77,
             "esri-check": 2,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 376,
+            "machine": 378,
             "stale": 0,
-            "missing": 0
+            "missing": 15
           },
           "entries": {
+            "parcelLayerOwner": {
+              "t": "Собственик адресен слой",
+              "src": "machine",
+              "h": "85ffb19eb3d8"
+            },
+            "parcelLayerPhysical": {
+              "t": "Физически адресен слой",
+              "src": "machine",
+              "h": "1f5eae31678d"
+            },
             "_widgetLabel": {
               "t": "Пощенски етикети",
               "src": "machine",
@@ -65479,18 +65577,28 @@
           }
         },
         "bs": {
-          "file": "b47515a33ec9",
+          "file": "02f7b35f6e75",
           "counts": {
             "esri": 78,
             "esri-check": 1,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 374,
+            "machine": 376,
             "stale": 0,
-            "missing": 2
+            "missing": 17
           },
           "entries": {
+            "parcelLayerOwner": {
+              "t": "Vlasnikov sloj adrese",
+              "src": "machine",
+              "h": "85ffb19eb3d8"
+            },
+            "parcelLayerPhysical": {
+              "t": "Sloj fizičke adrese",
+              "src": "machine",
+              "h": "1f5eae31678d"
+            },
             "_widgetLabel": {
               "t": "Poštanske oznake",
               "src": "machine",
@@ -67364,18 +67472,28 @@
           }
         },
         "ca": {
-          "file": "109e55c8b669",
+          "file": "3fd234377ad2",
           "counts": {
             "esri": 76,
             "esri-check": 1,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 378,
+            "machine": 380,
             "stale": 0,
-            "missing": 0
+            "missing": 15
           },
           "entries": {
+            "parcelLayerOwner": {
+              "t": "Capa adreça del propietari",
+              "src": "machine",
+              "h": "85ffb19eb3d8"
+            },
+            "parcelLayerPhysical": {
+              "t": "Capa d' adreça física",
+              "src": "machine",
+              "h": "1f5eae31678d"
+            },
             "_widgetLabel": {
               "t": "Etiquetes de correu",
               "src": "machine",
@@ -69269,18 +69387,28 @@
           }
         },
         "cs": {
-          "file": "94fd5116d892",
+          "file": "389a5cecd596",
           "counts": {
             "esri": 75,
             "esri-check": 2,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 378,
+            "machine": 380,
             "stale": 0,
-            "missing": 0
+            "missing": 15
           },
           "entries": {
+            "parcelLayerOwner": {
+              "t": "Vrstva adresy majitele",
+              "src": "machine",
+              "h": "85ffb19eb3d8"
+            },
+            "parcelLayerPhysical": {
+              "t": "Vrstva fyzické adresy",
+              "src": "machine",
+              "h": "1f5eae31678d"
+            },
             "_widgetLabel": {
               "t": "Poštovní štítky",
               "src": "machine",
@@ -71174,18 +71302,28 @@
           }
         },
         "da": {
-          "file": "f6ce6b439f88",
+          "file": "d39934b9a36a",
           "counts": {
             "esri": 73,
             "esri-check": 3,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 379,
+            "machine": 381,
             "stale": 0,
-            "missing": 0
+            "missing": 15
           },
           "entries": {
+            "parcelLayerOwner": {
+              "t": "Ejeradresselag",
+              "src": "machine",
+              "h": "85ffb19eb3d8"
+            },
+            "parcelLayerPhysical": {
+              "t": "Fysisk adresselag",
+              "src": "machine",
+              "h": "1f5eae31678d"
+            },
             "_widgetLabel": {
               "t": "Postmærker",
               "src": "machine",
@@ -73084,18 +73222,28 @@
           }
         },
         "de": {
-          "file": "fded54a9cb9d",
+          "file": "7b76f817cc40",
           "counts": {
             "esri": 71,
             "esri-check": 2,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 382,
+            "machine": 384,
             "stale": 0,
-            "missing": 0
+            "missing": 15
           },
           "entries": {
+            "parcelLayerOwner": {
+              "t": "Eigentümer-Adressschicht",
+              "src": "machine",
+              "h": "85ffb19eb3d8"
+            },
+            "parcelLayerPhysical": {
+              "t": "Physikalische Adressschicht",
+              "src": "machine",
+              "h": "1f5eae31678d"
+            },
             "_widgetLabel": {
               "t": "Versandetiketten",
               "src": "machine",
@@ -75009,18 +75157,28 @@
           }
         },
         "el": {
-          "file": "313b993a2598",
+          "file": "93987c9a4f88",
           "counts": {
             "esri": 74,
             "esri-check": 5,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 376,
+            "machine": 378,
             "stale": 0,
-            "missing": 0
+            "missing": 15
           },
           "entries": {
+            "parcelLayerOwner": {
+              "t": "Επίπεδο διεύθυνσης ιδιοκτήτη",
+              "src": "machine",
+              "h": "85ffb19eb3d8"
+            },
+            "parcelLayerPhysical": {
+              "t": "Στρώμα φυσικής διεύθυνσης",
+              "src": "machine",
+              "h": "1f5eae31678d"
+            },
             "_widgetLabel": {
               "t": "Ετικέτα αλληλογραφίας",
               "src": "machine",
@@ -76904,18 +77062,28 @@
           }
         },
         "es": {
-          "file": "08557d21887e",
+          "file": "2f4a043c5ff0",
           "counts": {
             "esri": 78,
             "esri-check": 1,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 376,
+            "machine": 378,
             "stale": 0,
-            "missing": 0
+            "missing": 15
           },
           "entries": {
+            "parcelLayerOwner": {
+              "t": "capa de dirección del propietario",
+              "src": "machine",
+              "h": "85ffb19eb3d8"
+            },
+            "parcelLayerPhysical": {
+              "t": "Capa de dirección física",
+              "src": "machine",
+              "h": "1f5eae31678d"
+            },
             "_widgetLabel": {
               "t": "Etiquetas de correo",
               "src": "machine",
@@ -78799,18 +78967,28 @@
           }
         },
         "et": {
-          "file": "9b52f7fc1805",
+          "file": "d9045a219511",
           "counts": {
             "esri": 70,
             "esri-check": 7,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 378,
+            "machine": 380,
             "stale": 0,
-            "missing": 0
+            "missing": 15
           },
           "entries": {
+            "parcelLayerOwner": {
+              "t": "Omaniku aadressikiht",
+              "src": "machine",
+              "h": "85ffb19eb3d8"
+            },
+            "parcelLayerPhysical": {
+              "t": "Füüsikaline aadressikiht",
+              "src": "machine",
+              "h": "1f5eae31678d"
+            },
             "_widgetLabel": {
               "t": "Postituse sildid",
               "src": "machine",
@@ -80704,18 +80882,28 @@
           }
         },
         "fi": {
-          "file": "597d1f6399f2",
+          "file": "10d1623dc445",
           "counts": {
             "esri": 77,
             "esri-check": 2,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 376,
+            "machine": 378,
             "stale": 0,
-            "missing": 0
+            "missing": 15
           },
           "entries": {
+            "parcelLayerOwner": {
+              "t": "Omistajan osoitekerros",
+              "src": "machine",
+              "h": "85ffb19eb3d8"
+            },
+            "parcelLayerPhysical": {
+              "t": "Fyysinen osoitekerros",
+              "src": "machine",
+              "h": "1f5eae31678d"
+            },
             "_widgetLabel": {
               "t": "Postitusmerkit",
               "src": "machine",
@@ -82599,18 +82787,28 @@
           }
         },
         "fr": {
-          "file": "6132a61024b6",
+          "file": "3e122cb80442",
           "counts": {
             "esri": 75,
             "esri-check": 0,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 380,
+            "machine": 382,
             "stale": 0,
-            "missing": 0
+            "missing": 15
           },
           "entries": {
+            "parcelLayerOwner": {
+              "t": "Couche d'adresse du propriétaire",
+              "src": "machine",
+              "h": "85ffb19eb3d8"
+            },
+            "parcelLayerPhysical": {
+              "t": "Couche d'adresse physique",
+              "src": "machine",
+              "h": "1f5eae31678d"
+            },
             "_widgetLabel": {
               "t": "Affichage des étiquettes",
               "src": "machine",
@@ -84514,18 +84712,28 @@
           }
         },
         "he": {
-          "file": "cd0a3304dd9c",
+          "file": "0b278f501a13",
           "counts": {
             "esri": 70,
             "esri-check": 7,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 378,
+            "machine": 380,
             "stale": 0,
-            "missing": 0
+            "missing": 15
           },
           "entries": {
+            "parcelLayerOwner": {
+              "t": "כתובת:שכבת",
+              "src": "machine",
+              "h": "85ffb19eb3d8"
+            },
+            "parcelLayerPhysical": {
+              "t": "שכבת כתובת פיזית",
+              "src": "machine",
+              "h": "1f5eae31678d"
+            },
             "_widgetLabel": {
               "t": "הודעות דואר",
               "src": "machine",
@@ -86419,18 +86627,28 @@
           }
         },
         "hr": {
-          "file": "2dd65d4a2eb9",
+          "file": "ba998acad424",
           "counts": {
             "esri": 78,
             "esri-check": 1,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 375,
+            "machine": 377,
             "stale": 0,
-            "missing": 1
+            "missing": 16
           },
           "entries": {
+            "parcelLayerOwner": {
+              "t": "Adresni sloj vlasnika",
+              "src": "machine",
+              "h": "85ffb19eb3d8"
+            },
+            "parcelLayerPhysical": {
+              "t": "Tjelesni sloj adrese",
+              "src": "machine",
+              "h": "1f5eae31678d"
+            },
             "_widgetLabel": {
               "t": "Poštanske oznake",
               "src": "machine",
@@ -88309,18 +88527,28 @@
           }
         },
         "hu": {
-          "file": "7940e8683780",
+          "file": "d3fd0e7028d1",
           "counts": {
             "esri": 78,
             "esri-check": 0,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 377,
+            "machine": 379,
             "stale": 0,
-            "missing": 0
+            "missing": 15
           },
           "entries": {
+            "parcelLayerOwner": {
+              "t": "Tulajdonos címrétege",
+              "src": "machine",
+              "h": "85ffb19eb3d8"
+            },
+            "parcelLayerPhysical": {
+              "t": "Fizikai címréteg",
+              "src": "machine",
+              "h": "1f5eae31678d"
+            },
             "_widgetLabel": {
               "t": "Levelezési címkék",
               "src": "machine",
@@ -90209,18 +90437,28 @@
           }
         },
         "id": {
-          "file": "14b4168f4bef",
+          "file": "f334500afbce",
           "counts": {
             "esri": 74,
             "esri-check": 4,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 377,
+            "machine": 379,
             "stale": 0,
-            "missing": 0
+            "missing": 15
           },
           "entries": {
+            "parcelLayerOwner": {
+              "t": "lapis alamat pemilik",
+              "src": "machine",
+              "h": "85ffb19eb3d8"
+            },
+            "parcelLayerPhysical": {
+              "t": "Lapisan alamat fisik",
+              "src": "machine",
+              "h": "1f5eae31678d"
+            },
             "_widgetLabel": {
               "t": "Label Mailing",
               "src": "machine",
@@ -92109,18 +92347,28 @@
           }
         },
         "it": {
-          "file": "9f51e2d2751b",
+          "file": "ef25be79b5c1",
           "counts": {
             "esri": 76,
             "esri-check": 3,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 376,
+            "machine": 378,
             "stale": 0,
-            "missing": 0
+            "missing": 15
           },
           "entries": {
+            "parcelLayerOwner": {
+              "t": "Livello di indirizzo proprietario",
+              "src": "machine",
+              "h": "85ffb19eb3d8"
+            },
+            "parcelLayerPhysical": {
+              "t": "Strato di indirizzo fisico",
+              "src": "machine",
+              "h": "1f5eae31678d"
+            },
             "_widgetLabel": {
               "t": "Etichette di mailing",
               "src": "machine",
@@ -94004,18 +94252,28 @@
           }
         },
         "ja": {
-          "file": "c873efb4083b",
+          "file": "edd92a9a9719",
           "counts": {
             "esri": 76,
             "esri-check": 1,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 378,
+            "machine": 380,
             "stale": 0,
-            "missing": 0
+            "missing": 15
           },
           "entries": {
+            "parcelLayerOwner": {
+              "t": "所有者のアドレス層",
+              "src": "machine",
+              "h": "85ffb19eb3d8"
+            },
+            "parcelLayerPhysical": {
+              "t": "物理アドレス層",
+              "src": "machine",
+              "h": "1f5eae31678d"
+            },
             "_widgetLabel": {
               "t": "郵送ラベル",
               "src": "machine",
@@ -95909,18 +96167,28 @@
           }
         },
         "ko": {
-          "file": "f4578dcaef06",
+          "file": "5c27d2c2b018",
           "counts": {
             "esri": 74,
             "esri-check": 3,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 378,
+            "machine": 380,
             "stale": 0,
-            "missing": 0
+            "missing": 15
           },
           "entries": {
+            "parcelLayerOwner": {
+              "t": "회사 소개",
+              "src": "machine",
+              "h": "85ffb19eb3d8"
+            },
+            "parcelLayerPhysical": {
+              "t": "물리적 주소 층",
+              "src": "machine",
+              "h": "1f5eae31678d"
+            },
             "_widgetLabel": {
               "t": "메일링 라벨",
               "src": "machine",
@@ -97814,18 +98082,28 @@
           }
         },
         "lt": {
-          "file": "36afec0f4160",
+          "file": "2d24f391e6eb",
           "counts": {
             "esri": 76,
             "esri-check": 3,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 376,
+            "machine": 378,
             "stale": 0,
-            "missing": 0
+            "missing": 15
           },
           "entries": {
+            "parcelLayerOwner": {
+              "t": "Savininko adreso sluoksnis",
+              "src": "machine",
+              "h": "85ffb19eb3d8"
+            },
+            "parcelLayerPhysical": {
+              "t": "Fizinio adreso lygmuo",
+              "src": "machine",
+              "h": "1f5eae31678d"
+            },
             "_widgetLabel": {
               "t": "Pašto ženklai",
               "src": "machine",
@@ -99709,18 +99987,28 @@
           }
         },
         "lv": {
-          "file": "9ad1594ef820",
+          "file": "cecc5e0f10f1",
           "counts": {
             "esri": 76,
             "esri-check": 3,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 376,
+            "machine": 378,
             "stale": 0,
-            "missing": 0
+            "missing": 15
           },
           "entries": {
+            "parcelLayerOwner": {
+              "t": "Īpašnieka adrešu slānis",
+              "src": "machine",
+              "h": "85ffb19eb3d8"
+            },
+            "parcelLayerPhysical": {
+              "t": "Fizikālais adreses slānis",
+              "src": "machine",
+              "h": "1f5eae31678d"
+            },
             "_widgetLabel": {
               "t": "Pasta etiķetes",
               "src": "machine",
@@ -101604,18 +101892,28 @@
           }
         },
         "no": {
-          "file": "614135905f06",
+          "file": "c04b40255b5b",
           "counts": {
             "esri": 73,
             "esri-check": 4,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 378,
+            "machine": 380,
             "stale": 0,
-            "missing": 0
+            "missing": 15
           },
           "entries": {
+            "parcelLayerOwner": {
+              "t": "Eier adresse lag",
+              "src": "machine",
+              "h": "85ffb19eb3d8"
+            },
+            "parcelLayerPhysical": {
+              "t": "Fysisk adresselag",
+              "src": "machine",
+              "h": "1f5eae31678d"
+            },
             "_widgetLabel": {
               "t": "E-postetiketter",
               "src": "machine",
@@ -103509,18 +103807,28 @@
           }
         },
         "nl": {
-          "file": "5fa16cba7bf9",
+          "file": "0f327acf3458",
           "counts": {
             "esri": 73,
             "esri-check": 5,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 377,
+            "machine": 379,
             "stale": 0,
-            "missing": 0
+            "missing": 15
           },
           "entries": {
+            "parcelLayerOwner": {
+              "t": "Eigenaar adreslaag",
+              "src": "machine",
+              "h": "85ffb19eb3d8"
+            },
+            "parcelLayerPhysical": {
+              "t": "Laag fysiek adres",
+              "src": "machine",
+              "h": "1f5eae31678d"
+            },
             "_widgetLabel": {
               "t": "Postetiketten",
               "src": "machine",
@@ -105409,18 +105717,28 @@
           }
         },
         "pl": {
-          "file": "3a64bef03553",
+          "file": "11f435b5615d",
           "counts": {
             "esri": 76,
             "esri-check": 3,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 376,
+            "machine": 378,
             "stale": 0,
-            "missing": 0
+            "missing": 15
           },
           "entries": {
+            "parcelLayerOwner": {
+              "t": "Warstwa adresowa właściciela",
+              "src": "machine",
+              "h": "85ffb19eb3d8"
+            },
+            "parcelLayerPhysical": {
+              "t": "Fizyczna warstwa adresowa",
+              "src": "machine",
+              "h": "1f5eae31678d"
+            },
             "_widgetLabel": {
               "t": "Etykiety pocztowe",
               "src": "machine",
@@ -107304,18 +107622,28 @@
           }
         },
         "pt-br": {
-          "file": "0dad090c71c9",
+          "file": "754cc63af899",
           "counts": {
             "esri": 74,
             "esri-check": 3,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 378,
+            "machine": 380,
             "stale": 0,
-            "missing": 0
+            "missing": 15
           },
           "entries": {
+            "parcelLayerOwner": {
+              "t": "Camada de endereço do proprietário",
+              "src": "machine",
+              "h": "85ffb19eb3d8"
+            },
+            "parcelLayerPhysical": {
+              "t": "Camada de endereço físico",
+              "src": "machine",
+              "h": "1f5eae31678d"
+            },
             "_widgetLabel": {
               "t": "Etiquetas de Correio",
               "src": "machine",
@@ -109209,18 +109537,28 @@
           }
         },
         "pt-pt": {
-          "file": "a33ce876e3a7",
+          "file": "67337c9245a2",
           "counts": {
             "esri": 77,
             "esri-check": 1,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 377,
+            "machine": 379,
             "stale": 0,
-            "missing": 0
+            "missing": 15
           },
           "entries": {
+            "parcelLayerOwner": {
+              "t": "Camada de endereço do proprietário",
+              "src": "machine",
+              "h": "85ffb19eb3d8"
+            },
+            "parcelLayerPhysical": {
+              "t": "Camada de endereço físico",
+              "src": "machine",
+              "h": "1f5eae31678d"
+            },
             "_widgetLabel": {
               "t": "E- mailing Labels",
               "src": "machine",
@@ -111109,18 +111447,28 @@
           }
         },
         "ro": {
-          "file": "18621e7d7e0c",
+          "file": "3e79320da443",
           "counts": {
             "esri": 72,
             "esri-check": 2,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 381,
+            "machine": 383,
             "stale": 0,
-            "missing": 0
+            "missing": 15
           },
           "entries": {
+            "parcelLayerOwner": {
+              "t": "Stratul adresei proprietarului",
+              "src": "machine",
+              "h": "85ffb19eb3d8"
+            },
+            "parcelLayerPhysical": {
+              "t": "Strat de adresă fizică",
+              "src": "machine",
+              "h": "1f5eae31678d"
+            },
             "_widgetLabel": {
               "t": "Etichete poștale",
               "src": "machine",
@@ -113029,18 +113377,28 @@
           }
         },
         "ru": {
-          "file": "6a42f220323c",
+          "file": "163c9a585e2d",
           "counts": {
             "esri": 74,
             "esri-check": 5,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 376,
+            "machine": 378,
             "stale": 0,
-            "missing": 0
+            "missing": 15
           },
           "entries": {
+            "parcelLayerOwner": {
+              "t": "Адресный слой владельца",
+              "src": "machine",
+              "h": "85ffb19eb3d8"
+            },
+            "parcelLayerPhysical": {
+              "t": "Физический адресный слой",
+              "src": "machine",
+              "h": "1f5eae31678d"
+            },
             "_widgetLabel": {
               "t": "Почтовые этикетки",
               "src": "machine",
@@ -114924,18 +115282,28 @@
           }
         },
         "sk": {
-          "file": "32c2bcd4a45c",
+          "file": "1dbd993393e1",
           "counts": {
             "esri": 72,
             "esri-check": 4,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 379,
+            "machine": 381,
             "stale": 0,
-            "missing": 0
+            "missing": 15
           },
           "entries": {
+            "parcelLayerOwner": {
+              "t": "Vrstva adresy vlastníka",
+              "src": "machine",
+              "h": "85ffb19eb3d8"
+            },
+            "parcelLayerPhysical": {
+              "t": "Fyzická adresná vrstva",
+              "src": "machine",
+              "h": "1f5eae31678d"
+            },
             "_widgetLabel": {
               "t": "Poštové etikety",
               "src": "machine",
@@ -116834,18 +117202,28 @@
           }
         },
         "sl": {
-          "file": "b279ce377785",
+          "file": "9e1ea75bf485",
           "counts": {
             "esri": 78,
             "esri-check": 1,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 376,
+            "machine": 378,
             "stale": 0,
-            "missing": 0
+            "missing": 15
           },
           "entries": {
+            "parcelLayerOwner": {
+              "t": "Naslovna plast lastnika",
+              "src": "machine",
+              "h": "85ffb19eb3d8"
+            },
+            "parcelLayerPhysical": {
+              "t": "Fizična naslovna plast",
+              "src": "machine",
+              "h": "1f5eae31678d"
+            },
             "_widgetLabel": {
               "t": "Poštne oznake",
               "src": "machine",
@@ -118729,18 +119107,28 @@
           }
         },
         "sr": {
-          "file": "a42be0df19e9",
+          "file": "2da886c25d6d",
           "counts": {
             "esri": 76,
             "esri-check": 3,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 376,
+            "machine": 378,
             "stale": 0,
-            "missing": 0
+            "missing": 15
           },
           "entries": {
+            "parcelLayerOwner": {
+              "t": "Adresni sloj vlasnika",
+              "src": "machine",
+              "h": "85ffb19eb3d8"
+            },
+            "parcelLayerPhysical": {
+              "t": "Fizički sloj adrese",
+              "src": "machine",
+              "h": "1f5eae31678d"
+            },
             "_widgetLabel": {
               "t": "Mailing Labels",
               "src": "machine",
@@ -120624,18 +121012,28 @@
           }
         },
         "sv": {
-          "file": "e9d623aef369",
+          "file": "fbeb7ac7dad6",
           "counts": {
             "esri": 71,
             "esri-check": 4,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 380,
+            "machine": 382,
             "stale": 0,
-            "missing": 0
+            "missing": 15
           },
           "entries": {
+            "parcelLayerOwner": {
+              "t": "Ägare adress lager",
+              "src": "machine",
+              "h": "85ffb19eb3d8"
+            },
+            "parcelLayerPhysical": {
+              "t": "Fysisk adress lager",
+              "src": "machine",
+              "h": "1f5eae31678d"
+            },
             "_widgetLabel": {
               "t": "Mailing Labels",
               "src": "machine",
@@ -122539,18 +122937,28 @@
           }
         },
         "th": {
-          "file": "b7075a8fd843",
+          "file": "763c9d859d95",
           "counts": {
             "esri": 73,
             "esri-check": 4,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 378,
+            "machine": 380,
             "stale": 0,
-            "missing": 0
+            "missing": 15
           },
           "entries": {
+            "parcelLayerOwner": {
+              "t": "เลเยอร์% 1",
+              "src": "machine",
+              "h": "85ffb19eb3d8"
+            },
+            "parcelLayerPhysical": {
+              "t": "เลเยอร์",
+              "src": "machine",
+              "h": "1f5eae31678d"
+            },
             "_widgetLabel": {
               "t": "ป้ายจดหมายเวียน",
               "src": "machine",
@@ -124444,18 +124852,28 @@
           }
         },
         "tr": {
-          "file": "f94ba12142bf",
+          "file": "06139c4a2988",
           "counts": {
             "esri": 74,
             "esri-check": 3,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 378,
+            "machine": 380,
             "stale": 0,
-            "missing": 0
+            "missing": 15
           },
           "entries": {
+            "parcelLayerOwner": {
+              "t": "Sahibi adresi katmanı",
+              "src": "machine",
+              "h": "85ffb19eb3d8"
+            },
+            "parcelLayerPhysical": {
+              "t": "Fiziksel adres katmanı",
+              "src": "machine",
+              "h": "1f5eae31678d"
+            },
             "_widgetLabel": {
               "t": "Mailing Etiketler",
               "src": "machine",
@@ -126349,18 +126767,28 @@
           }
         },
         "zh-cn": {
-          "file": "cab1e34d20c5",
+          "file": "7389aad2d773",
           "counts": {
             "esri": 73,
             "esri-check": 4,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 378,
+            "machine": 380,
             "stale": 0,
-            "missing": 0
+            "missing": 15
           },
           "entries": {
+            "parcelLayerOwner": {
+              "t": "所有者地址层",
+              "src": "machine",
+              "h": "85ffb19eb3d8"
+            },
+            "parcelLayerPhysical": {
+              "t": "物理地址层",
+              "src": "machine",
+              "h": "1f5eae31678d"
+            },
             "_widgetLabel": {
               "t": "邮寄标签",
               "src": "machine",
@@ -128254,18 +128682,28 @@
           }
         },
         "uk": {
-          "file": "3b92648557b4",
+          "file": "939c2c6c2365",
           "counts": {
             "esri": 78,
             "esri-check": 1,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 376,
+            "machine": 378,
             "stale": 0,
-            "missing": 0
+            "missing": 15
           },
           "entries": {
+            "parcelLayerOwner": {
+              "t": "Власник адресного шару",
+              "src": "machine",
+              "h": "85ffb19eb3d8"
+            },
+            "parcelLayerPhysical": {
+              "t": "Фізичний шар адреси",
+              "src": "machine",
+              "h": "1f5eae31678d"
+            },
             "_widgetLabel": {
               "t": "Каталоги розсилки",
               "src": "machine",
@@ -130149,18 +130587,28 @@
           }
         },
         "vi": {
-          "file": "2c4f65c203c0",
+          "file": "39c0a1372f26",
           "counts": {
             "esri": 78,
             "esri-check": 1,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 376,
+            "machine": 378,
             "stale": 0,
-            "missing": 0
+            "missing": 15
           },
           "entries": {
+            "parcelLayerOwner": {
+              "t": "Lớp sở hữu",
+              "src": "machine",
+              "h": "85ffb19eb3d8"
+            },
+            "parcelLayerPhysical": {
+              "t": "Lớp địa chỉ",
+              "src": "machine",
+              "h": "1f5eae31678d"
+            },
             "_widgetLabel": {
               "t": "Nhãn thư",
               "src": "machine",
@@ -132044,18 +132492,28 @@
           }
         },
         "zh-hk": {
-          "file": "1c9d1c8822aa",
+          "file": "9f9790274198",
           "counts": {
             "esri": 76,
             "esri-check": 1,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 378,
+            "machine": 380,
             "stale": 0,
-            "missing": 0
+            "missing": 15
           },
           "entries": {
+            "parcelLayerOwner": {
+              "t": "所有者地址層",
+              "src": "machine",
+              "h": "85ffb19eb3d8"
+            },
+            "parcelLayerPhysical": {
+              "t": "物理地址層",
+              "src": "machine",
+              "h": "1f5eae31678d"
+            },
             "_widgetLabel": {
               "t": "信件標籤",
               "src": "machine",
@@ -133949,18 +134407,28 @@
           }
         },
         "zh-tw": {
-          "file": "1c9d1c8822aa",
+          "file": "9f9790274198",
           "counts": {
             "esri": 76,
             "esri-check": 1,
             "community": 0,
             "manual": 0,
             "existing": 0,
-            "machine": 378,
+            "machine": 380,
             "stale": 0,
-            "missing": 0
+            "missing": 15
           },
           "entries": {
+            "parcelLayerOwner": {
+              "t": "所有者地址層",
+              "src": "machine",
+              "h": "85ffb19eb3d8"
+            },
+            "parcelLayerPhysical": {
+              "t": "物理地址層",
+              "src": "machine",
+              "h": "1f5eae31678d"
+            },
             "_widgetLabel": {
               "t": "信件標籤",
               "src": "machine",

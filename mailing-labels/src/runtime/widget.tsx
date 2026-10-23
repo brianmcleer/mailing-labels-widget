@@ -1,4 +1,7 @@
-﻿import { React, AllWidgetProps, css, jsx, appActions } from 'jimu-core'
+import { React, AllWidgetProps, css, jsx, appActions } from 'jimu-core'
+import { SELECTION_ORDER, showParcelSelection } from './layout'
+import { inheritedParcelLayerId } from './parcel-selection'
+import ParcelSearch from './components/ParcelSearch'
 import { JimuMapViewComponent, JimuMapView } from 'jimu-arcgis'
 import { Button, Alert } from 'jimu-ui'
 import { SettingOutlined } from 'jimu-icons/outlined/application/setting'
@@ -332,6 +335,7 @@ interface State {
     isDeleteMode: boolean
     // Add mode for adding individual features to existing selections
     isAddMode: boolean
+    isPickingParcels: boolean
     // Address search (geocoder) state
     addressSearchText: string
     addressSuggestions: Array<{ text: string, magicKey: string }>
@@ -369,6 +373,8 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
         state: Partial<State> | ((prevState: Readonly<State>, props: Readonly<RuntimeWidgetProps>) => Partial<State> | State | null),
         callback?: () => void
     ) => void
+
+    private parcelSearchRevision = 0;
 
     private beacon: BeaconHandle | null = null
 
@@ -475,6 +481,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
             removeDuplicates: props.config?.removeDuplicates !== false,
             isDeleteMode: false,
             isAddMode: false,
+            isPickingParcels: false,
             addressSearchText: '',
             addressSuggestions: [],
             addressSearchLoading: false,
@@ -483,7 +490,9 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
             addressSearchError: null,
             sortBy: MailingLabelWidget.resolveDefaultSort(props.config),
             startPosition: 1,
-            // Default collapse state: only Partial sheet starts collapsed.
+            // Default collapse state: only Partial sheet starts collapsed. Every other card
+            // is open and toggles independently, so select, configure and export all stay
+            // visible at once instead of a one-card-at-a-time accordion.
             collapsedSections: { 'start-position': true },
             formatDropdownOpen: false,
             helpOpen: false,
@@ -585,6 +594,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                 newAddressType = 'physical';
             }
 
+            this.clearParcelMailingResults();
             this.setState({ labelType: newAddressType });
         }
 
@@ -611,6 +621,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
     }
 
     componentWillUnmount() {
+        this.parcelSearchRevision++;
         document.removeEventListener('keydown', this.handleKeyDown)
         window.removeEventListener('drawWidget:mailingLabels', this.handleExternalGeometry as EventListener);
         this.clearDrawingHandlers()
@@ -648,6 +659,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
     }
 
     handleWidgetClose = () => {
+        this.parcelSearchRevision++;
         const jmv = this.state.mapView;
 
         if (jmv?.view) {
@@ -849,6 +861,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
     };
 
     resetWidgetState = () => {
+        this.parcelSearchRevision++;
         if (this.state.isDrawing) {
             this.cancelDrawing();
         }
@@ -908,7 +921,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
         });
     }
 
-    addFallbackHighlightGraphics = (features: any[]) => {
+    addFallbackHighlightGraphics = (features: any[], layer = this.state.selectedLayer) => {
         if (!features || !features.length || !this.state.graphicsLayer) {
             return;
         }
@@ -920,7 +933,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                     symbol: this.getFallbackHighlightSymbol(feature.geometry.type),
                     attributes: {
                         isHighlight: true,
-                        originalObjectId: feature.attributes[this.state.selectedLayer.objectIdField]
+                        originalObjectId: feature.attributes[layer?.objectIdField || 'OBJECTID']
                     }
                 });
 
@@ -931,30 +944,33 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
         this.showMessage('success', __t("lengthFeaturesHighlightedWithEnhancedVisualization", { length: features.length }));
     }
 
-    highlightSelectedFeatures = async (features: any[]) => {
-        if (!this.state.mapView?.view || !this.state.selectedLayer || !features.length) {
+    highlightSelectedFeatures = async (features: any[], layer = this.state.selectedLayer, isCurrent = () => true) => {
+        if (!isCurrent()) return;
+        if (!this.state.mapView?.view || !layer || !features.length) {
             return;
         }
 
         try {
             this.clearAllHighlights();
 
-            const originalVisibility = this.state.selectedLayer.visible;
-            if (!this.state.selectedLayer.visible) {
-                this.state.selectedLayer.visible = true;
+            const originalVisibility = layer.visible;
+            if (!layer.visible) {
+                layer.visible = true;
             }
 
-            const layerView = await this.state.mapView.view.whenLayerView(this.state.selectedLayer);
+            const layerView = await this.state.mapView.view.whenLayerView(layer);
+
+            if (!isCurrent()) { layer.visible = originalVisibility; return; }
 
             if (!layerView) {
-                this.state.selectedLayer.visible = originalVisibility;
+                layer.visible = originalVisibility;
                 return;
             }
 
             const highlightHandle = layerView.highlight(features);
 
             if (!originalVisibility) {
-                this.state.selectedLayer.visible = originalVisibility;
+                layer.visible = originalVisibility;
             }
 
             if (highlightHandle) {
@@ -963,14 +979,15 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                     selectedFeatures: features
                 });
 
-                this.addFallbackHighlightGraphics(features);
+                this.addFallbackHighlightGraphics(features, layer);
             } else {
-                this.state.selectedLayer.visible = originalVisibility;
-                this.addFallbackHighlightGraphics(features);
+                layer.visible = originalVisibility;
+                this.addFallbackHighlightGraphics(features, layer);
             }
         } catch (error) {
+            if (!isCurrent()) return;
             this.showMessage('warning', __t("featuresSelectedButHighlightingFailedUsing"));
-            this.addFallbackHighlightGraphics(features);
+            this.addFallbackHighlightGraphics(features, layer);
         }
     }
 
@@ -1038,6 +1055,8 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
     }
 
     handleKeyDown = (event: KeyboardEvent) => {
+        // Parcel picking owns Escape; stopping it must not erase the parcel collection.
+        if (event.key === 'Escape' && this.state.isPickingParcels) return;
         if (event.key === 'Escape' && this.state.isDrawing) {
             this.cancelDrawing()
         }
@@ -1047,6 +1066,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
     }
 
     onActiveViewChange = (jimuMapView: JimuMapView) => {
+        this.parcelSearchRevision++;
         if (jimuMapView) {
             const view = jimuMapView.view;
 
@@ -1244,8 +1264,45 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
         }
     };
 
+    clearParcelMailingResults = () => {
+        this.sketchLayer?.removeAll();
+        this.clearAllHighlights();
+        this.setState({ selections: [], selectedFeatureCount: 0 });
+    };
+
+    setParcelPicking = (active: boolean) => {
+        if (active) {
+            this.sketchVM?.cancel();
+            this.clearDrawingHandlers();
+            this.deleteClickHandler?.remove();
+            this.addClickHandler?.remove();
+            this.deleteClickHandler = null;
+            this.addClickHandler = null;
+            this.setState({ isDrawing: false, currentTool: '', isDeleteMode: false, isAddMode: false });
+        }
+        this.setState({ isPickingParcels: active });
+        if (!active && this.state.mapView?.view) {
+            this.state.mapView.view.popupEnabled = this.state.widgetOpen ? !this.shouldSuppressPopups() : true;
+        }
+    };
+
+    applyParcelGeometry = async (geometry: any, isCurrent: () => boolean) => {
+        const revision = this.parcelSearchRevision;
+        const config = this.props.config;
+        const layer = this.getCurrentActiveLayer();
+        const view = this.state.mapView?.view;
+        const valid = () => isCurrent() && revision === this.parcelSearchRevision &&
+            config?.enableParcelSearch === this.props.config?.enableParcelSearch &&
+            inheritedParcelLayerId(config) === inheritedParcelLayerId(this.props.config) &&
+            config?.parcelSearchField === this.props.config?.parcelSearchField &&
+            layer === this.getCurrentActiveLayer() && view === this.state.mapView?.view;
+        await this.handleExternalGeometry(new CustomEvent('parcel-selection', { detail: { geometry, isCurrent: valid, parcel: true } }));
+    };
+
     handleExternalGeometry = async (event: CustomEvent) => {
 
+        const isCurrent = event.detail?.isCurrent || (() => true);
+        if (!isCurrent()) return;
         const geometry = event.detail?.geometry;
         if (!geometry) {
             return;
@@ -1302,6 +1359,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                     bufferResult = bufferResult[0];
                 }
 
+                if (!bufferResult) throw new Error('Empty buffer');
                 bufferedGeometry = bufferResult;
                 (bufferedGeometry as any).selectionId = selectionId;
 
@@ -1372,14 +1430,18 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
             query.spatialRelationship = 'intersects';
             query.returnGeometry = true;
             query.outFields = ['*'];
+            if (event.detail?.parcel) query.num = Math.min(this.props.config?.maxRecords || 2000, 2000);
 
             const result = await layer.queryFeatures(query);
+            if (!isCurrent()) return;
 
             if (result.features && result.features.length > 0) {
-                await this.highlightSelectedFeatures(result.features);
+                await this.highlightSelectedFeatures(result.features, event.detail?.parcel ? layer : this.state.selectedLayer, isCurrent);
             } else {
                 this.clearAllHighlights();
             }
+
+            if (!isCurrent()) return;
 
             // Create Selection object with features
             const objectIdField = layer.objectIdField || 'OBJECTID';
@@ -1397,10 +1459,12 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                 currentTool: ''
             });
 
-            this.showMessage('success', __t("valueFeaturesSelectedFromDrawingGeometry", { value: result.features?.length || 0 }));
+            if (event.detail?.parcel && result.exceededTransferLimit) this.showMessage('warning', __t('parcelSearchSelectionLimited'));
+            else this.showMessage('success', __t(event.detail?.parcel ? 'parcelSearchSelected' : 'valueFeaturesSelectedFromDrawingGeometry', { value: result.features?.length || 0 }));
         } catch (err) {
+            if (!isCurrent()) return;
             console.error('[Mailing Labels] Query failed for external geometry:', err);
-            this.showMessage('error', __t("failedToSelectFeaturesFromDrawing"));
+            this.showMessage('error', __t(event.detail?.parcel ? 'parcelSearchSelectionFailed' : 'failedToSelectFeaturesFromDrawing'));
         }
     };
 
@@ -1629,6 +1693,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
             const { selectionMethod } = this.props.config || {}
             if (selectionMethod === 'click' || selectionMethod === 'both') {
                 jimuMapView.view.on('click', (event: ViewClickEvent) => {
+                    if (this.state.isPickingParcels) return;
                     if (this.state.widgetOpen) {
                         event.stopPropagation();
                         this.onMapClick(event);
@@ -2242,6 +2307,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
     }
 
     clearSelection = () => {
+        this.parcelSearchRevision++;
         if (this.state.isDrawing) {
             this.cancelDrawing()
         }
@@ -2314,6 +2380,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
     }
 
     toggleDeleteMode = () => {
+        if (this.state.isPickingParcels) return;
         const newDeleteMode = !this.state.isDeleteMode;
 
 
@@ -2397,6 +2464,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
     }
 
     toggleAddMode = () => {
+        if (this.state.isPickingParcels) return;
         const newAddMode = !this.state.isAddMode;
 
 
@@ -2853,7 +2921,8 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
 
         // Clear any existing selection when switching address types
         if (this.state.selections.length > 0 || this.state.isDrawing) {
-            this.clearSelection();
+            if (this.props.config?.enableParcelSearch && !this.state.isDrawing) this.clearParcelMailingResults();
+            else this.clearSelection();
         }
 
         // Update the label type
@@ -3721,6 +3790,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
     };
 
     activateDrawTool = (tool: 'point' | 'polyline' | 'polygon' | 'rectangle' | 'circle' | 'multipoint') => {
+        if (this.state.isPickingParcels) return;
         if (!this.sketchVM || !this.state.mapView) {
             return;
         }
@@ -4069,6 +4139,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
 
         // FIXED: Use the CORRECT field configurations (removed the swap)
         const currentFields = this.state.labelType === 'owner' ? ownerFields : selectedFields;
+        const parcelVisible = showParcelSelection(this.props.config, this.state.labelType, inheritedParcelLayerId(this.props.config), !!currentLayer && !!this.state.mapView?.view && this.state.widgetOpen);
 
         const labelFormatOptions = [
             { value: 'avery5160', short: __t("avery5160"), long: __t("_2130Labels") },
@@ -4122,8 +4193,8 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
 
         // Backwards-compatible names (every existing panel uses these)
         const panelStyle: any = {
-            marginBottom: '8px',
-            padding: '10px 12px',
+            marginBottom: '4px',
+            padding: '5px 8px',
             background: tokens.bg,
             borderRadius: tokens.radius,
             border: `1px solid ${tokens.border}`,
@@ -4178,7 +4249,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
         // visibility of `body`. Keeps the same `panelStyle` look so the rest of the
         // widget stays consistent. Each card's `key` (also used by the partition
         // step) doubles as its collapse-state identifier.
-        const collapsibleCard = (key: string, title: string, body: any[], opts?: { headingId?: string }) => {
+        const collapsibleCard = (key: string, title: string, body: any[], opts?: { headingId?: string, keepMounted?: boolean }) => {
             const collapsed = !!this.state.collapsedSections[key];
             const headingId = opts?.headingId || `${key}-heading`;
             const bodyId = `${key}-body`;
@@ -4208,7 +4279,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                             cursor: 'pointer',
                             fontFamily: 'inherit',
                             // No bottom margin when collapsed — body is hidden, save the gap
-                            marginBottom: collapsed ? 0 : '8px',
+                            marginBottom: collapsed ? 0 : '5px',
                             textAlign: 'left'
                         },
                         children: [
@@ -4227,8 +4298,11 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                             })
                         ]
                     }),
-                    !collapsed && jsx('div', {
+                    // keepMounted: hide instead of unmount so a card that owns live state
+                    // (the parcel picker and its map overlay) survives being collapsed.
+                    (!collapsed || opts?.keepMounted) && jsx('div', {
                         key: 'card-body',
+                        hidden: collapsed,
                         id: bodyId,
                         children: body
                     })
@@ -4403,6 +4477,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
             const helpFeatures: HelpFeatures = {
                 mapConnected: !!mapWidgetId,
                 geometrySelection: (enableGeometrySelection !== false) && !!mapWidgetId,
+                parcelSearch: parcelVisible,
                 addressSearch: !!(this.props.config?.geocodeUrl && String(this.props.config.geocodeUrl).trim()),
                 ownerAddresses: showAddressTypeSelection
             };
@@ -4461,9 +4536,20 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
 
             const outputRows: any[] = [];
 
+            // Address type sits in its own small card above the selection tools, because
+            // it decides which of them apply (parcel search is owner-only).
+            const addressTypeCard = (controlNode: any) => jsx('div', {
+                key: 'row-type',
+                style: { ...panelStyle, display: 'flex', alignItems: 'center', gap: '10px' },
+                children: [
+                    jsx('span', { key: 'lbl', style: { ...headingStyle, marginBottom: 0, flexShrink: 0 }, children: __t("type") }),
+                    jsx('div', { key: 'ctl', style: { flex: 1, display: 'flex', alignItems: 'center', gap: '8px', minWidth: 0 }, children: controlNode })
+                ]
+            });
+
             // Row: address type (only when both are enabled)
             if (showAddressTypeSelection) {
-                outputRows.push(formRow('row-type', __t("type"), jsx('div', {
+                children.push(addressTypeCard(jsx('div', {
                     key: 'type-group',
                     role: 'radiogroup',
                     'aria-label': __t("labelType"),
@@ -4966,19 +5052,13 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                 }))
             }) : null;
 
-            // Reserve a stable height for the status line so the card doesn't
-            // shrink/grow as the user types (suggestions appear, search state
-            // flips, etc.). All status variants below render inside this fixed
-            // slot.
+            // Status line renders only when there is something to say (error,
+            // searching, found, hint). No reserved height, so the idle card stays compact.
             const statusSlotStyle: any = {
-                marginTop: '8px',
-                minHeight: '28px'
+                marginTop: '6px'
             };
 
-            const statusLine = jsx('div', {
-                key: 'addr-status-slot',
-                style: statusSlotStyle,
-                children: this.state.addressSearchError
+            const statusContent = this.state.addressSearchError
                     ? jsx('div', {
                         key: 'addr-error',
                         role: 'alert',
@@ -5048,8 +5128,10 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                                     style: { fontSize: '11.5px', color: tokens.textFaint },
                                     children: __t("typeAtLeast2Characters")
                                 })
-                                : null))
-            });
+                                : null));
+            const statusLine = statusContent
+                ? jsx('div', { key: 'addr-status-slot', style: statusSlotStyle, children: statusContent })
+                : null;
 
             // Buttons inherit the polished primary/secondary styles defined later for actions,
             // but we need them here too. Recreate locally with smaller padding.
@@ -5078,7 +5160,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
 
             const actionRow = jsx('div', {
                 key: 'addr-actions',
-                style: { display: 'flex', gap: '8px', marginTop: '10px', flexWrap: 'wrap' },
+                style: { display: 'flex', gap: '8px', marginTop: '8px', flexWrap: 'wrap' },
                 children: [
                     jsx('button', {
                         key: 'addr-select',
@@ -5114,6 +5196,27 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
             ]));
         }
 
+        if (parcelVisible) {
+            children.push(collapsibleCard('parcel-search-section', __t('parcelSelectionTitle'), [
+                jsx(ParcelSearch, {
+                    key: [this.parcelSearchRevision, inheritedParcelLayerId(this.props.config), this.props.config.parcelSearchField].join(':'),
+                    view: this.state.mapView.view,
+                    layerId: inheritedParcelLayerId(this.props.config),
+                    fieldName: this.props.config.parcelSearchField,
+                    fieldLabel: this.props.config.parcelSearchFieldAlias,
+                    bufferDistance: this.state.bufferDistance,
+                    bufferUnit: this.state.bufferUnit,
+                    onBufferChange: (distance: number, unit: string) => this.setState({ bufferDistance: distance, bufferUnit: unit }),
+                    onApply: this.applyParcelGeometry,
+                    onPickingChange: this.setParcelPicking,
+                    addressType: this.state.labelType,
+                    active: !this.state.collapsedSections['parcel-search-section'],
+                    onSelectionChange: this.clearParcelMailingResults,
+                    t: __t
+                })
+            ], { keepMounted: true }));
+        }
+
         // Drawing tools section - with accessibility improvements (WCAG 1.3.1, 4.1.2)
         if (enableGeometrySelection && currentLayer) {
             const drawSectionChildren = [
@@ -5129,7 +5232,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                                 size: 'sm',
                                 key: tool,
                                 onClick: () => this.activateDrawTool(tool as "polygon" | "point" | "rectangle" | "circle" | "polyline" | "multipoint"),
-                                disabled: this.state.isDrawing && this.state.currentTool !== tool,
+                                disabled: this.state.isPickingParcels || (this.state.isDrawing && this.state.currentTool !== tool),
                                 title: __t("drawToLowerCaseSelection", { toLowerCase: label.toLowerCase() }),
                                 'aria-label': __t("drawToLowerCaseSelection", { toLowerCase: label.toLowerCase() }),
                                 'aria-pressed': this.state.currentTool === tool ? 'true' : 'false',
@@ -5159,7 +5262,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                             size: 'sm',
                             key: 'add-mode',
                             onClick: this.toggleAddMode,
-                            disabled: this.state.isDrawing,
+                            disabled: this.state.isPickingParcels || this.state.isDrawing,
                             title: this.state.isAddMode ? __t("exitAddMode") : __t("addFeaturesToSelection"),
                             'aria-label': this.state.isAddMode ? __t("exitAddMode") : __t("addFeaturesToSelection"),
                             'aria-pressed': this.state.isAddMode ? 'true' : 'false',
@@ -5192,7 +5295,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                             size: 'sm',
                             key: 'delete-mode',
                             onClick: this.toggleDeleteMode,
-                            disabled: this.state.isDrawing,
+                            disabled: this.state.isPickingParcels || this.state.isDrawing,
                             title: this.state.isDeleteMode ? __t("exitDeleteMode") : __t("removeIndividualSelectionAreas"),
                             'aria-label': this.state.isDeleteMode ? __t("exitDeleteMode") : __t("removeIndividualSelectionAreas"),
                             'aria-pressed': this.state.isDeleteMode ? 'true' : 'false',
@@ -5653,7 +5756,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
         const partitioned: { header: any[]; find: any[]; configure: any[]; exportPart: any[]; overlay: any[] } = {
             header: [], find: [], configure: [], exportPart: [], overlay: []
         };
-        const FIND_KEYS = new Set(['address-search-section', 'draw-section']);
+        const FIND_KEYS = new Set(SELECTION_ORDER);
         const CONFIGURE_KEYS = new Set(['output-settings', 'start-position']);
         const EXPORT_KEYS = new Set(['preview-panel', 'action-buttons']);
         const OVERLAY_KEYS = new Set(['user-message', 'confirm-dialog']);
@@ -5667,6 +5770,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
             else partitioned.header.push(c);
         }
 
+        partitioned.find.sort((a, b) => SELECTION_ORDER.indexOf(a.key) - SELECTION_ORDER.indexOf(b.key));
         const ordered: any[] = [...partitioned.header];
         if (partitioned.find.length) {
             ordered.push(sectionPill(__t("findFeatures"), 'sec-find'));
@@ -5686,15 +5790,30 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
             style: {
                 height: '100%',
                 padding: '10px',
+                boxSizing: 'border-box',
+                minHeight: 0,
+                display: 'flex',
+                flexDirection: 'column',
                 background: tokens.bgSubtle,
-                overflowY: 'auto',
+                overflow: 'hidden',
                 fontFamily: tokens.fontStack,
                 color: tokens.text
             },
             className: 'jimu-widget widget-mailing-labels',
             role: 'region',
             'aria-label': __t("mailingLabelsWidget"),
-            children: ordered
+            children: [
+                jsx('div', {
+                    key: 'workflow',
+                    style: { flex: '1 1 auto', minHeight: 0, overflowY: 'auto' },
+                    children: ordered.filter(item => item.key !== 'action-buttons')
+                }),
+                jsx('div', {
+                    key: 'export-footer',
+                    style: { flex: '0 0 auto', paddingTop: '8px', background: tokens.bgSubtle },
+                    children: ordered.filter(item => item.key === 'action-buttons')
+                })
+            ]
         });
     }
 }

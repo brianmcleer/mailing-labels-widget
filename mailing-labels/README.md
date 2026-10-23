@@ -7,6 +7,18 @@ https://community.esri.com/t5/experience-builder-custom-widgets/mailing-labels-c
 
 ## Features
 
+### Select parcels (Owner addresses only)
+
+In Builder settings, enable **Parcel selection**. At runtime, choose **Owner** at the top: **Select parcels** appears after **Draw selection** and before **Output**. It is hidden for Physical addresses. It inherits the existing primary address layer (or the owner layer in an owner-only app); there is no second layer picker. That layer must contain parcel polygons. Choose an optional **Search field**, such as parcel number, or leave it empty for map picking only.
+
+Click **Pick parcels on map**, then click inside each parcel to add it. Keep clicking to add more. Click **Stop picking** or press Escape when done. Every click is processed in order; clicking a parcel twice does not duplicate it. For overlapping polygons, the first record returned at the click is added; use attribute search to distinguish overlaps. Searches match the full field value, respect layer filters, and show up to 50 matches with record IDs.
+
+Search matches join the same parcel list and automatically zoom to its extent. Map clicks keep the current extent so you can continue picking nearby parcels. All chosen parcels stay outlined, including when the parcel layer is hidden. Use **Zoom to parcels**, **Remove**, or **Clear parcels** to manage the selection. The list supports up to 100 source parcels and remains intact when its section is collapsed while opening Output.
+
+Set **Buffer distance** and its unit, then click **Select around parcels**. The combined full parcel polygons drive the buffer rather than centroids. Zero distance uses the unbuffered boundaries. Mailing records come from the current physical or owner address layer, and records touching the selection boundary are included. Changing parcels or distance clears the previous mailing results so you cannot export an outdated selection; click **Select around parcels** again to refresh them. The existing mailing-record cap still applies. Switching to Physical addresses removes the parcel list and its map outlines; choose Owner again to begin a new parcel selection.
+
+Drawing and the older add/delete tools are disabled while parcel picking is active. Stop picking before switching tools. Clear, map changes, closing the widget, and configuration changes cancel pending parcel requests and remove their highlights.
+
 ### Find features
 
 - Address search with type-ahead suggestions, map zoom, and a pin marker at the geocoded location
@@ -130,3 +142,11 @@ Apache-2.0. Copyright 2026 City of Grand Junction, CO.
 ## Localization checks
 
 Version 1.1.5 connects helper headings, label-format descriptions, selection notifications, and settings help to the app locale. Format metadata follows locale changes after import. French additions preserve placeholders and are marked as unreviewed machine translations; catalog coverage is not a native-language review. Other languages use Esri translations, the shared memory, and English fallbacks until translations are available. Run the i18n kit audit and test runtime and settings when changing UI text.
+
+## Parcel search validation
+
+Run `node --test tests/parcel-search.test.cjs` with Node 22.18+ and the Experience Builder client installed. Set `EXB_CLIENT` when the client is outside `C:/arcgis-experience-builder-1.21/client`. The tests cover query escaping, numeric identifiers, duplicate matches, layer filters, full parcel geometry, buffering, address-layer targeting, and stale requests. Before publishing, test Select parcels in the Builder and runtime against the configured parcel service, with zero and positive buffers and both address types.
+
+### Compact runtime layout
+
+The address-type switch stays at the top. Selection tools precede Output, and Print/PDF/CSV/Clear stay in a fixed footer. One detail panel expands at a time; Output, preview, address search, and partial-sheet settings start collapsed. Parcel inputs share rows and the parcel list has its own bounded scroll area. Short panels and increased browser zoom retain an internal overflow fallback rather than hiding controls. Fit depends on the widget dimensions assigned by the app builder, not just monitor resolution.

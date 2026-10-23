@@ -64,6 +64,14 @@ The zip is the widget only. The Visual Studio type shims in the repo (`mailing-l
 
 If you clone the repository instead of using the zip, delete `mailing-labels/src/exb-editor-shims.d.ts` before building; nothing else depends on it.
 
+## Parcel selection (1.2.0)
+
+Available only when **Owner** addresses are selected. The address-type switch is first, followed by Draw selection, Select parcels, and Output. Compact accordions keep one detail panel open, while export controls remain visible at the bottom.
+
+Enable **Parcel selection** in settings. It inherits the existing address layer, so there is no duplicate layer configuration. Optionally choose a search field, or leave it empty for map picking only.
+
+Users click **Pick parcels on map** and keep clicking to add parcels. Attribute-search matches join the same collection and zoom automatically. Selected boundaries stay outlined; **Zoom to parcels**, **Remove**, and **Clear parcels** manage the list. Set a distance and click **Select around parcels** to buffer all selected boundaries together. Changes to parcels, distance, or address type invalidate old mailing results. **Stop picking** or Escape exits the point tool without losing the parcel set.
+
 ## Configure
 
 Open the widget settings in the Builder:

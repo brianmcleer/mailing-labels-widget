@@ -1,3 +1,5 @@
 {
-  "exampleConfigProperty": "test"
+  "exampleConfigProperty": "test",
+  "enableParcelSearch": false,
+  "parcelSearchField": ""
 }

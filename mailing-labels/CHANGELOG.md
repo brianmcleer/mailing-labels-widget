@@ -2,6 +2,16 @@
 
 All notable changes to the Mailing Labels widget are recorded here, newest first.
 
+## 1.2.0 (2026-10-22)
+
+- Refine layout: owner-only parcel selection after Draw selection, address-type switch first, compact accordions, bounded parcel list, and a persistent export footer.
+
+- Add parcel selection using the existing address layer, with an optional attribute search field.
+- Support repeated map clicks, multiple parcels, automatic search zoom, persistent outlines, individual removal, and combined boundary buffers.
+- Use the chosen parcels' complete geometry with the existing buffer and mailing selection workflow, including separate owner/physical address layers.
+- Add exact text, numeric, and GUID searches, safe query values, duplicate-match choices, and stale-request protection.
+- Add localized controls, feature-gated help, and configuration documentation. New untranslated messages fall back to English.
+
 ## 1.1.5 (2026-10-09)
 
 - Localize section headings such as Draw selection, label-format descriptions, selection notifications, and settings help that previously bypassed translation calls.

@@ -12,6 +12,14 @@ export interface Config {
     /** Array of map widget IDs that this widget can connect to */
     useMapWidgetIds?: string[]
 
+    /** Parcel selection (owner addresses only) */
+    enableParcelSearch?: boolean
+    /** Which configured address layer holds the parcel polygons. Default 'owner'. */
+    parcelSearchLayer?: 'physical' | 'owner'
+    parcelSearchField?: string
+    /** Label shown above the parcel search box. Empty shows the field name. */
+    parcelSearchFieldAlias?: string
+
     /** Selected layer ID for physical address data */
     selectedLayerId?: string
 
@@ -270,6 +278,10 @@ export const LABEL_FORMATS: Record<LabelFormat, LabelFormatSpec> = {
  * Default widget configuration
  */
 export const DEFAULT_CONFIG: Config = {
+    enableParcelSearch: false,
+    parcelSearchLayer: 'owner',
+    parcelSearchField: '',
+    parcelSearchFieldAlias: '',
     useMapWidgetIds: [],
     selectedLayerId: '',
     ownerLayerId: '',

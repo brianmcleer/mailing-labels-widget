@@ -13,6 +13,7 @@ export interface HelpFeatures {
   geometrySelection: boolean
   /** The address search box is shown (config.geocodeUrl is set). */
   addressSearch: boolean
+  parcelSearch?: boolean
   /** Both Physical and Owner address types are offered (the Owner/Physical switch shows). */
   ownerAddresses: boolean
 }
@@ -48,6 +49,13 @@ export function buildHelpSections (t: T, f: HelpFeatures): HelpSection[] {
       icon: 'search',
       title: t('helpSearchTitle'),
       body: [t('helpSearch1'), t('helpSearch2')]
+    })
+  }
+
+  if (f.parcelSearch) {
+    sections.push({
+      key: 'parcel-search', icon: 'search', title: t('parcelSelectionTitle'),
+      body: [t('helpParcelOwnerOnly'), t('helpParcelSelection1'), t('helpParcelSelection2'), t('helpParcelSelection3')]
     })
   }
 

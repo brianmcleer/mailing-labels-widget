@@ -3,6 +3,23 @@ System.register([], function (e) {
   return {
     execute: function () {
       e({
+        parcelOwnerOnlySettingsHelp: "Available only for Owner addresses. Parcel selection appears after Draw selection and before Output; it is hidden for Physical addresses.",
+        parcelSelectionSettingsTitle: "Parcel selection",
+        parcelSelectionEnable: "Enable parcel selection",
+        parcelInheritedLayer: "Parcel layer: {layer}",
+        parcelInheritedSettingsHelp: "Users can click several parcels on the map. Optionally choose a search field to add parcels by attribute too. Leave it empty for map picking only.",
+        parcelInheritedLayerError: "The chosen address layer must be a polygon feature layer. Check the address-layer settings above, or switch the parcel layer source.",
+        parcelSearchLayerSource: "Parcel layer source",
+        parcelLayerOwner: "Savininko adreso sluoksnis",
+        parcelLayerPhysical: "Fizinio adreso lygmuo",
+        parcelSearchFieldAlias: "Search field label",
+        parcelSearchFieldAliasHelp: "Shown above the search box in the widget, for example Parcel number. Leave empty to show the field name.",
+        parcelSearchTitle: "Parcel attribute search",
+        parcelSearchEnable: "Enable parcel search",
+        parcelSearchLayer: "Parcel polygon layer",
+        parcelSearchField: "Search field",
+        parcelSearchSettingsHelp: "Choose the polygon layer and attribute users will search, such as parcel number. Searches match the full value. The parcel boundary drives the buffer; mailing records still come from the configured address layer.",
+        parcelSearchLayerError: "Choose an available polygon feature layer from the selected map.",
         _widgetLabel: "Pašto ženklai",
         _widgetDescription: "Generuoti spausdinamas pašto dėžutes iš žemėlapio sluoksnio duomenų su fizinio ir savininko adreso palaikymu",
         mapConfigurationSection: "Žemėlapio konfigūracija",
