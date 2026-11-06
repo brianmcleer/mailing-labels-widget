@@ -2979,9 +2979,9 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
      * We deliberately avoid the global fetch(). The host Experience Builder
      * deployment overrides window.fetch / self.fetch with a CDN cache shim that
      * prepends its own path to every requested URL, e.g. it turns
-     *   https://external-gis.gjcity.org/arcgis/.../GeocodeServer/suggest
+     *   https://gis.example.org/arcgis/.../GeocodeServer/suggest
      * into
-     *   https://external-gis.gjcity.org/CityMapExternal/cdn/17/9https://external-gis.gjcity.org/arcgis/.../suggest
+     *   https://gis.example.org/MapApp/cdn/17/9https://gis.example.org/arcgis/.../suggest
      * which the server rejects with HTTP 400 Bad Request. XMLHttpRequest is not
      * touched by that shim, which is also why the stock JSAPI Search widget works.
      *
@@ -3069,7 +3069,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
             // NOTE: this uses geocodeGet (XMLHttpRequest), NOT the global fetch().
             // The host EXB deployment overrides window.fetch/self.fetch with a CDN
             // cache shim that concatenates its own path onto every URL, e.g.
-            // https://external-gis.gjcity.org/CityMapExternal/cdn/17/9<absolute-url>,
+            // https://gis.example.org/MapApp/cdn/17/9<absolute-url>,
             // corrupting our absolute geocode URL into a 400 Bad Request. XHR is not
             // intercepted by that shim, which is why the stock JSAPI Search widget works.
             const data = await this.geocodeGet(`${baseUrl}/suggest`, params, controller.signal);
