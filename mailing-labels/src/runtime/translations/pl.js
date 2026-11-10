@@ -420,7 +420,23 @@ System.register([], function (e) {
         off: "Wył",
         physicalAddress: "Adres fizyczny",
         printing: "Drukowanie",
-        downloading: "pobieranie"
+        downloading: "pobieranie",
+        reviewListTitle: "Review list",
+        reviewIncludedCount: "{included} of {total} records will export",
+        reviewRestoreAll: "Restore all",
+        reviewRemove: "Usuń",
+        reviewRestore: "Przywróć",
+        reviewRemoveNamed: "Leave {label} out of the export",
+        reviewRestoreNamed: "Put {label} back in the export",
+        reviewFilterPlaceholder: "Filter by ID, name or address",
+        reviewNoMatches: "No records match the filter.",
+        reviewRowCap: "Showing the first {shown} of {total}. Type in the filter to find others.",
+        reviewNoMailingData: "(no mailing data)",
+        reviewAllRemoved: "Every selected record was removed in the Review list. Restore some records, then export again.",
+        helpReviewTitle: "Checking the list before you export",
+        helpReview1: "Open Review list to see every selected record with its ID, name and address.",
+        helpReview2: "Click Remove to leave a record out of the PDF, Print and CSV. Click Restore to put it back, or Restore all to undo every removal.",
+        helpReview3: "Removals clear when you clear the selection or switch between Owner and Physical."
       })
     }
   }

@@ -9,6 +9,9 @@ export interface Config {
   /** Show the question-mark button that opens the help guide. Undefined means on,
    *  so apps configured before this setting existed keep their help button. */
   showHelp?: boolean
+  /** Show the runtime Review list (see selected records, remove some before export).
+   *  Undefined means on. When off, the card, its help section and any removals are ignored. */
+  enableReviewList?: boolean
     /** Array of map widget IDs that this widget can connect to */
     useMapWidgetIds?: string[]
 
@@ -145,6 +148,9 @@ export interface FieldMappings {
 
     /** Field for company/organization name (optional) */
     company?: string
+
+    /** ID shown first on each Review list row, such as the parcel ID (optional, not printed) */
+    recordId?: string
 }
 
 /**

@@ -3,6 +3,10 @@ System.register([], function (e) {
   return {
     execute: function () {
       e({
+        uiShowReviewList: "Show Review list",
+        reviewListSettingHelp: "Lets users see every selected record and remove some before PDF, Print or CSV export. Set an ID field such as the parcel PID under each field mapping.",
+        reviewIdField: "ID field (Review list)",
+        reviewIdFieldHelp: "Shown first on each row of the runtime Review list, for example the parcel ID (PID). Not printed on labels. Leave empty to show name and address only.",
         parcelOwnerOnlySettingsHelp: "Disponible uniquement pour les adresses du propriétaire. La sélection des parcelles apparaît après la sélection du dessin et avant la sortie; elle est cachée pour les adresses physiques.",
         parcelSelectionSettingsTitle: "Sélection de parcelles",
         parcelSelectionEnable: "Activer la sélection des colis",

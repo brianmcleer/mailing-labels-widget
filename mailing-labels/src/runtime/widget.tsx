@@ -2,6 +2,7 @@ import { React, AllWidgetProps, css, jsx, appActions } from 'jimu-core'
 import { SELECTION_ORDER, showParcelSelection } from './layout'
 import { inheritedParcelLayerId } from './parcel-selection'
 import ParcelSearch from './components/ParcelSearch'
+import ReviewList, { ReviewRow } from './components/ReviewList'
 import { JimuMapViewComponent, JimuMapView } from 'jimu-arcgis'
 import { Button, Alert } from 'jimu-ui'
 import { SettingOutlined } from 'jimu-icons/outlined/application/setting'
@@ -355,6 +356,9 @@ interface State {
     // In-widget help guide
     helpOpen: boolean
     helpHintDismissed: boolean
+    // Review list: records the user left out of the export, keyed by object ID
+    excludedKeys: { [key: string]: boolean }
+    reviewFilter: string
 }
 
 // Generate unique IDs for form elements (WCAG accessibility)
@@ -496,7 +500,9 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
             collapsedSections: { 'start-position': true },
             formatDropdownOpen: false,
             helpOpen: false,
-            helpHintDismissed: hintDismissed
+            helpHintDismissed: hintDismissed,
+            excludedKeys: {},
+            reviewFilter: ''
         }
     }
 
@@ -556,7 +562,13 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
         }
     }
 
-    componentDidUpdate(prevProps: RuntimeWidgetProps) {
+    componentDidUpdate(prevProps: RuntimeWidgetProps, prevState?: State) {
+        // Review list removals belong to one selection on one layer. Forget them when the
+        // selection is cleared or the address type (and so the layer) changes.
+        if (prevState && Object.keys(this.state.excludedKeys).length > 0 &&
+            ((prevState.selections.length > 0 && this.state.selections.length === 0) || prevState.labelType !== this.state.labelType)) {
+            this.setState({ excludedKeys: {}, reviewFilter: '' });
+        }
         if (this.props.state === "CLOSED" && prevProps.state !== "CLOSED") {
             this.handleWidgetClose();
         }
@@ -1036,6 +1048,52 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
             collapsedSections: { ...prev.collapsedSections, [key]: !prev.collapsedSections[key] }
         }));
     }
+
+    // -- Review list: see every selected record and leave some out before export --------
+
+    /** Stable per-record key: the object ID on the active layer. */
+    getRecordKey = (feature: any): string => {
+        const oidField = this.getCurrentActiveLayer()?.objectIdField;
+        const value = oidField ? feature?.attributes?.[oidField] : undefined;
+        return value != null ? String(value) : '';
+    }
+
+    /** Every selected record once, in selection order. */
+    getSelectedRecords = (): any[] => {
+        const seen = new Set<string>();
+        const records: any[] = [];
+        this.state.selections.forEach(selection => (selection.features || []).forEach((feature: any) => {
+            const key = this.getRecordKey(feature);
+            if (key && seen.has(key)) return;
+            if (key) seen.add(key);
+            records.push(feature);
+        }));
+        return records;
+    }
+
+    /** Review list is on unless the developer turned it off in settings. */
+    reviewListEnabled = (): boolean => this.props.config?.enableReviewList !== false;
+
+    /** Drop records the user removed in the Review list. Applied to PDF, Print, CSV and the preview.
+     *  When the Review list is turned off, removals are ignored so nothing is silently left out. */
+    applyReviewExclusions = (features: any[]): any[] => {
+        if (!this.reviewListEnabled()) return features;
+        const excluded = this.state.excludedKeys;
+        if (!excluded || Object.keys(excluded).length === 0) return features;
+        return features.filter(feature => !excluded[this.getRecordKey(feature)]);
+    }
+
+    toggleRecordExcluded = (key: string) => {
+        if (!key) return;
+        if (!this.state.excludedKeys[key]) this.beacon?.action('review-remove');
+        this.setState(prev => {
+            const next = { ...prev.excludedKeys };
+            if (next[key]) delete next[key]; else next[key] = true;
+            return { excludedKeys: next };
+        });
+    }
+
+    restoreAllRecords = () => { this.setState({ excludedKeys: {} }); }
 
     showConfirmDialog = (message: string, onConfirm: () => void) => {
         this.setState({
@@ -3368,6 +3426,14 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                     )
                     features = uniqueFeatures
                 }
+
+                // Leave out records removed in the Review list
+                const beforeReview = features.length
+                features = this.applyReviewExclusions(features)
+                if (beforeReview > 0 && features.length === 0) {
+                    this.showMessage('warning', __t("reviewAllRemoved"))
+                    return
+                }
             } else {
                 try {
                     features = await this.queryAllFeaturesWithPagination(undefined, currentLayer)
@@ -3452,6 +3518,14 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                         )
                     );
                     features = uniqueFeatures;
+                }
+
+                // Leave out records removed in the Review list
+                const beforeReview = features.length;
+                features = this.applyReviewExclusions(features);
+                if (beforeReview > 0 && features.length === 0) {
+                    this.showMessage('warning', __t("reviewAllRemoved"));
+                    return;
                 }
             } else {
                 try {
@@ -4139,6 +4213,8 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
 
         // FIXED: Use the CORRECT field configurations (removed the swap)
         const currentFields = this.state.labelType === 'owner' ? ownerFields : selectedFields;
+        // Feature flags, computed once and passed down (WIDGETHANDOFF 12.7).
+        const reviewListOn = this.reviewListEnabled();
         const parcelVisible = showParcelSelection(this.props.config, this.state.labelType, inheritedParcelLayerId(this.props.config), !!currentLayer && !!this.state.mapView?.view && this.state.widgetOpen);
 
         const labelFormatOptions = [
@@ -4478,6 +4554,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
                 mapConnected: !!mapWidgetId,
                 geometrySelection: (enableGeometrySelection !== false) && !!mapWidgetId,
                 parcelSearch: parcelVisible,
+                reviewList: reviewListOn,
                 addressSearch: !!(this.props.config?.geocodeUrl && String(this.props.config.geocodeUrl).trim()),
                 ownerAddresses: showAddressTypeSelection
             };
@@ -5433,6 +5510,37 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
 
         // Selection summary moved to the header banner (top of widget) for visibility.
 
+        // Review list: every selected record with its ID, name and address, and a Remove/Restore
+        // button per row so users can leave specific records out of the export. The widget owns
+        // the exclusions; ReviewList only presents them (WIDGETHANDOFF 11.1, 11.2, 12.7).
+        if (reviewListOn && this.state.selections.length > 0 && currentFields) {
+            // Same order as the export: the active Sort applies to the list too.
+            const records = this.sortFeatures(this.getSelectedRecords(), currentFields, this.state.sortBy);
+            const idField = (currentFields as any).recordId as string | undefined;
+            const excluded = this.state.excludedKeys;
+            const rows: ReviewRow[] = records.map((feature: any) => {
+                const key = this.getRecordKey(feature);
+                return {
+                    key,
+                    idValue: idField ? String(this.getFieldValue(feature.attributes, idField) ?? '').trim() : '',
+                    lines: this.formatAddressLines(feature.attributes, currentFields).map((line: any) => String(line)),
+                    isOut: !!excluded[key]
+                };
+            });
+            children.push(collapsibleCard('review-list', __t('reviewListTitle'), [
+                jsx(ReviewList, {
+                    key: 'review',
+                    rows,
+                    filter: this.state.reviewFilter,
+                    onFilterChange: (value: string) => this.setState({ reviewFilter: value }),
+                    onToggle: this.toggleRecordExcluded,
+                    onRestoreAll: this.restoreAllRecords,
+                    busy: this.state.isGenerating,
+                    t: __t
+                })
+            ]));
+        }
+
         // Live label preview - shows what one label will look like with current settings.
         // Renders inline (HTML/CSS), updates as the user changes format/font/sort/mappings.
         {
@@ -5447,12 +5555,12 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
             if (firstFeature && currentFields) {
                 // Apply the active sort first so the user sees the *first label that will print*
                 const sorted = this.sortFeatures(
-                    this.state.selections.flatMap(s => s.features),
+                    this.applyReviewExclusions(this.state.selections.flatMap(s => s.features)),
                     currentFields,
                     this.state.sortBy
                 );
-                const top = sorted[0] || firstFeature;
-                previewLines = this.formatAddressLines(top.attributes, currentFields);
+                const top = sorted[0];
+                if (top) previewLines = this.formatAddressLines(top.attributes, currentFields);
             }
 
             const usingSample = previewLines.length === 0;
@@ -5758,7 +5866,7 @@ export default class MailingLabelWidget extends React.PureComponent<RuntimeWidge
         };
         const FIND_KEYS = new Set(SELECTION_ORDER);
         const CONFIGURE_KEYS = new Set(['output-settings', 'start-position']);
-        const EXPORT_KEYS = new Set(['preview-panel', 'action-buttons']);
+        const EXPORT_KEYS = new Set(['review-list', 'preview-panel', 'action-buttons']);
         const OVERLAY_KEYS = new Set(['user-message', 'confirm-dialog']);
 
         for (const c of children) {

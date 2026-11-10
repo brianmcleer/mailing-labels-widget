@@ -3,6 +3,10 @@ System.register([], function (e) {
   return {
     execute: function () {
       e({
+        uiShowReviewList: "Show Review list",
+        reviewListSettingHelp: "Lets users see every selected record and remove some before PDF, Print or CSV export. Set an ID field such as the parcel PID under each field mapping.",
+        reviewIdField: "ID field (Review list)",
+        reviewIdFieldHelp: "Shown first on each row of the runtime Review list, for example the parcel ID (PID). Not printed on labels. Leave empty to show name and address only.",
         parcelOwnerOnlySettingsHelp: "소유자 주소만 사용할 수 있습니다. 소포 선택은 선택 후 나타나고 출력하기 전에; 물리적 주소로 숨겨져 있습니다.",
         parcelSelectionSettingsTitle: "Parcel 선택",
         parcelSelectionEnable: "소포 선택",

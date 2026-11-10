@@ -3,6 +3,10 @@ System.register([], function (e) {
   return {
     execute: function () {
       e({
+        uiShowReviewList: "Show Review list",
+        reviewListSettingHelp: "Lets users see every selected record and remove some before PDF, Print or CSV export. Set an ID field such as the parcel PID under each field mapping.",
+        reviewIdField: "ID field (Review list)",
+        reviewIdFieldHelp: "Shown first on each row of the runtime Review list, for example the parcel ID (PID). Not printed on labels. Leave empty to show name and address only.",
         parcelOwnerOnlySettingsHelp: "Galima tik savininko adresų. Siuntinių pasirinkimas atsiranda po Draw atrankos ir prieš Išvesties; jis yra paslėptas fizinių adresų.",
         parcelSelectionSettingsTitle: "Siuntinių pasirinkimas",
         parcelSelectionEnable: "Įjungti siuntinių pasirinkimą",

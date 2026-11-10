@@ -2,7 +2,21 @@
 
 All notable changes to the Mailing Labels widget are recorded here, newest first.
 
+## 1.3.0 (2026-11-10)
+
+- Add a Review list above the preview, requested on Esri Community. It shows every selected record with its ID, name and address. Remove leaves a record out of PDF, Print and CSV export; Restore and Restore all put records back. A filter box appears for lists longer than eight records, and very long lists show the first 300 matches.
+- Rows follow the active Sort, so the list reads in the same order the labels print.
+- Add a Show Review list switch under Output defaults (on by default). Turning it off hides the card, its help section and the ID field settings, and ignores any removals, so nothing is silently left out.
+- Add an optional ID field (Review list) to the physical and owner field mappings, for example the parcel PID. It is shown in the list only and never printed.
+- Built as a function component (`components/ReviewList.tsx`) on jimu-ui `Button`/`TextInput` and theme tokens, per the shared widget playbook. Beacon records a `review-remove` action, with no record data.
+- The label preview now shows the first label that will actually print, skipping removed records.
+- Removals reset when the selection is cleared or the address type changes. Exporting with every record removed shows a message instead of an empty PDF.
+- Help guide: new "Checking the list before you export" section.
+- Tests: Review list coverage added; two layout tests updated for independent card collapse (the one-panel accordion was removed with the 1.2.0 release).
+
 ## 1.2.0 (2026-10-22)
+
+- Fix (released with 1.2.0): parcel selection could read the physical address-point layer instead of the owner parcels. A Parcel layer source setting (owner or physical) now picks it, with a configurable label for the search field. Parcel lists no longer show internal object IDs, and the address search card no longer reserves empty space.
 
 - Refine layout: owner-only parcel selection after Draw selection, address-type switch first, compact accordions, bounded parcel list, and a persistent export footer.
 

@@ -285,16 +285,15 @@ test('all parcel controls and help strings exist in all shipped locale catalogs'
     }
 })
 
-test('parcel visibility is owner-only and compact accordion opens one detail panel', () => {
+test('parcel visibility is owner-only and selection cards keep their order', () => {
     const layout = load('src/runtime/layout.ts')
     const config = { enableParcelSearch: true }
     assert.equal(layout.showParcelSelection(config, 'owner', 'parcels', true), true)
     assert.equal(layout.showParcelSelection(config, 'physical', 'parcels', true), false)
     assert.equal(layout.showParcelSelection(config, 'owner', 'parcels', false), false)
     assert.equal(layout.SELECTION_ORDER.join(','), 'address-search-section,draw-section,parcel-search-section')
-    const collapsed = layout.compactSections('output-settings')
-    assert.equal(collapsed['output-settings'], false)
-    assert.equal(Object.values(collapsed).filter(value => !value).length, 1)
+    // Cards collapse independently (Oct 2026 UX fix): no one-at-a-time accordion helper.
+    assert.equal(layout.compactSections, undefined)
 })
 
 test('render places owner parcels after drawing, before output, with persistent export footer', () => {
@@ -303,7 +302,7 @@ test('render places owner parcels after drawing, before output, with persistent 
         enabledAddressTypes: { physical: true, owner: true }, selectedFields: {}, ownerFields: {}, useMapWidgetIds: ['map'] }
     instance.state.selectedLayer = { id: 'parcels' }
     instance.state.labelType = 'owner'
-    instance.state.collapsedSections = load('src/runtime/layout.ts').compactSections('parcel-search-section')
+    instance.state.collapsedSections = { 'start-position': true }
     const root = instance.render()
     const workflow = root.props.children[0]
     const keys = workflow.props.children.map(item => item.key)
@@ -319,3 +318,177 @@ test('render places owner parcels after drawing, before output, with persistent 
 
 
 
+
+
+// ---- Review list (Esri Community request: see selected records, remove some before export) ----
+function reviewFixture() {
+    const f = fixture(async () => ({ features: [] }))
+    const ann = { attributes: { OID: 1, PID: 'A1', NAME: 'Ann', ADDR: '1 Main St' } }
+    const bob = { attributes: { OID: 2, PID: 'B2', NAME: 'Bob', ADDR: '2 Main St' } }
+    f.instance.props.config = { selectedLayerId: 'parcels', enabledAddressTypes: { physical: true }, useMapWidgetIds: ['map'],
+        selectedFields: { name: 'NAME', address1: 'ADDR', recordId: 'PID' } }
+    f.instance.state.selectedLayer = { id: 'parcels', objectIdField: 'OID' }
+    f.instance.state.labelType = 'physical'
+    f.instance.state.sortBy = 'none'
+    f.instance.state.selections = [
+        { selectionId: 's1', features: [ann, bob], featureObjectIds: [1, 2] },
+        { selectionId: 's2', features: [{ attributes: { ...ann.attributes } }], featureObjectIds: [1] }
+    ]
+    return f
+}
+const findByKey = (node, key) => {
+    if (!node || typeof node !== 'object') return null
+    if (node.key === key) return node
+    const kids = node.props && node.props.children
+    for (const child of Array.isArray(kids) ? kids : [kids]) { const hit = findByKey(child, key); if (hit) return hit }
+    return null
+}
+
+const reviewRows = instance => {
+    const workflow = instance.render().props.children[0]
+    const card = workflow.props.children.find(item => item.key === 'review-list')
+    return card ? findByKey(card, 'review').props.rows : null
+}
+
+test('review list dedupes records and Remove/Restore drive the exclusions', () => {
+    const { instance } = reviewFixture()
+    const records = instance.getSelectedRecords()
+    assert.deepEqual([...records].map(r => r.attributes.OID), [1, 2])
+    instance.toggleRecordExcluded('2')
+    assert.deepEqual([...instance.applyReviewExclusions(records)].map(r => r.attributes.OID), [1])
+    instance.toggleRecordExcluded('2')
+    assert.deepEqual([...instance.applyReviewExclusions(records)].map(r => r.attributes.OID), [1, 2])
+    instance.toggleRecordExcluded('1'); instance.toggleRecordExcluded('2')
+    instance.restoreAllRecords()
+    assert.equal(instance.applyReviewExclusions(records).length, 2)
+})
+
+test('review list follows the active Sort, matching the export order', () => {
+    const { instance } = reviewFixture()
+    const ann = { attributes: { OID: 1, PID: 'A1', NAME: 'Ann', ADDR: '1 Main St' } }
+    const bob = { attributes: { OID: 2, PID: 'B2', NAME: 'Bob', ADDR: '2 Main St' } }
+    instance.state.selections = [{ selectionId: 's1', features: [bob, ann], featureObjectIds: [2, 1] }]
+    instance.state.sortBy = 'none'
+    assert.equal(reviewRows(instance)[0].idValue, 'B2')
+    instance.state.sortBy = 'name'
+    assert.equal(reviewRows(instance)[0].idValue, 'A1')
+})
+
+test('developer can turn the Review list off: no card, no help section, removals ignored', async () => {
+    const { instance } = reviewFixture()
+    instance.toggleRecordExcluded('2')
+    instance.props.config = { ...instance.props.config, enableReviewList: false }
+    const keys = instance.render().props.children[0].props.children.map(item => item.key)
+    assert.equal(keys.includes('review-list'), false)
+    let printed = null
+    instance.generatePDF = async features => { printed = features }
+    await instance.executeGeneratePDFLabels('download')
+    assert.deepEqual([...printed].map(r => r.attributes.OID), [1, 2])
+    const base = { mapConnected: true, geometrySelection: true, addressSearch: false, ownerAddresses: false }
+    assert.equal(help.buildHelpSections(id => id, { ...base, reviewList: false }).some(s => s.key === 'review'), false)
+    assert.equal(help.buildHelpSections(id => id, { ...base, reviewList: true }).some(s => s.key === 'review'), true)
+})
+
+test('removed records never reach the PDF, and removing every record blocks export with a message', async () => {
+    const { instance } = reviewFixture()
+    let printed = null
+    const messages = []
+    instance.generatePDF = async features => { printed = features }
+    instance.showMessage = (type, text) => messages.push([type, text])
+    instance.toggleRecordExcluded('2')
+    await instance.executeGeneratePDFLabels('download')
+    assert.deepEqual(printed.map(r => r.attributes.OID), [1])
+    printed = null
+    instance.toggleRecordExcluded('1')
+    await instance.executeGeneratePDFLabels('download')
+    assert.equal(printed, null)
+    assert.ok(messages.some(([type, text]) => type === 'warning' && /Review list/.test(text)))
+})
+
+test('review card renders above the preview with ID, name and address, and clears with the selection', () => {
+    const { instance } = reviewFixture()
+    instance.toggleRecordExcluded('2')
+    const workflow = instance.render().props.children[0]
+    const keys = workflow.props.children.map(item => item.key)
+    assert.ok(keys.includes('review-list'))
+    assert.ok(keys.indexOf('review-list') < keys.indexOf('preview-panel'))
+    const rows = reviewRows(instance)
+    assert.equal(rows.length, 2)
+    assert.equal(rows[0].idValue, 'A1')
+    assert.equal(rows[0].lines[0], 'Ann')
+    assert.equal(rows[0].isOut, false)
+    assert.equal(rows[1].isOut, true)
+    const before = { ...instance.state }
+    instance.state.selections = []
+    instance.componentDidUpdate(instance.props, before)
+    assert.equal(Object.keys(instance.state.excludedKeys).length, 0)
+})
+
+
+// ReviewList component on its own: jimu-ui controls, theme tokens, filter, cap, two-row action.
+function renderReviewList(props) {
+    const el = (type, p, key) => ({ type, key, props: p || {} })
+    const tokens = { text: 'T', textSecondary: 'T2', divider: 'D', radius: '4px', surface: 'S', primary: 'P' }
+    const mod = load('src/runtime/components/ReviewList.tsx', {
+        'jimu-core': { React: {} },
+        'jimu-ui': { Button: 'Button', TextInput: 'TextInput' },
+        '../theme': { useTokens: () => tokens },
+        'react/jsx-runtime': { jsx: el, jsxs: el, Fragment: 'Fragment' }
+    })
+    const calls = []
+    const tree = mod.default({ rows: [], filter: '', busy: false, t: (id, v) => v ? `${id}:${JSON.stringify(v)}` : id,
+        onFilterChange: v => calls.push(['filter', v]), onToggle: k => calls.push(['toggle', k]), onRestoreAll: () => calls.push(['restore']), ...props })
+    return { tree, calls, mod }
+}
+const collect = (node, pred, out = []) => {
+    if (!node || typeof node !== 'object') return out
+    if (pred(node)) out.push(node)
+    const kids = node.props && node.props.children
+    for (const child of Array.isArray(kids) ? kids : [kids]) collect(child, pred, out)
+    return out
+}
+const row = (key, id, name, isOut = false) => ({ key, idValue: id, lines: [name, '1 Main St'], isOut })
+
+test('ReviewList uses jimu-ui Buttons, no hand-rolled controls, and wires Remove/Restore', () => {
+    const { tree, calls } = renderReviewList({ rows: [row('1', 'A1', 'Ann'), row('2', 'B2', 'Bob', true)] })
+    assert.equal(tree.type, 'section')
+    assert.equal(collect(tree, n => n.type === 'button' || n.type === 'input').length, 0)
+    const buttons = collect(tree, n => n.type === 'Button')
+    const rowButtons = buttons.filter(b => b.props['aria-pressed'] !== undefined)
+    assert.deepEqual(rowButtons.map(b => b.props['aria-pressed']), [false, true])
+    rowButtons[1].props.onClick()
+    assert.deepEqual(calls.pop(), ['toggle', '2'])
+    // Restore all sits on its own row, below the count (WIDGETHANDOFF 11.3)
+    const restore = buttons.find(b => b.props.children === 'reviewRestoreAll')
+    assert.ok(restore)
+    restore.props.onClick()
+    assert.deepEqual(calls.pop(), ['restore'])
+})
+
+test('ReviewList filter appears only for longer lists and matches ID, name or address', () => {
+    const few = renderReviewList({ rows: [row('1', 'A1', 'Ann')] })
+    assert.equal(collect(few.tree, n => n.type === 'TextInput').length, 0)
+    const many = Array.from({ length: 12 }, (_, i) => row(String(i), `P${i}`, `Name ${i}`))
+    const filtered = renderReviewList({ rows: many, filter: 'p11' })
+    assert.equal(collect(filtered.tree, n => n.type === 'TextInput').length, 1)
+    assert.equal(collect(filtered.tree, n => n.type === 'li').length, 1)
+    const none = renderReviewList({ rows: many, filter: 'zzz' })
+    assert.equal(collect(none.tree, n => n.type === 'li').length, 0)
+    assert.ok(collect(none.tree, n => n.props.children === 'reviewNoMatches').length)
+})
+
+test('ReviewList caps rendered rows and says how to find the rest', () => {
+    const { mod } = renderReviewList({})
+    const big = Array.from({ length: mod.REVIEW_ROW_CAP + 5 }, (_, i) => row(String(i), `P${i}`, `N${i}`))
+    const { tree } = renderReviewList({ rows: big })
+    assert.equal(collect(tree, n => n.type === 'li').length, mod.REVIEW_ROW_CAP)
+    assert.ok(collect(tree, n => typeof n.props.children === 'string' && n.props.children.startsWith('reviewRowCap')).length)
+})
+
+test('Review list strings follow the help writing rules: no em or en dashes, ICU placeholders intact', () => {
+    const keys = Object.keys(messages).filter(k => /^(review|helpReview)/.test(k))
+    assert.ok(keys.length >= 15)
+    for (const k of keys) assert.doesNotMatch(messages[k], /[–—]/, k)
+    assert.match(messages.reviewIncludedCount, /\{included\}.*\{total\}/)
+    assert.match(messages.reviewRemoveNamed, /\{label\}/)
+})

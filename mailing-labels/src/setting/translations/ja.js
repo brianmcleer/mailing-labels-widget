@@ -3,6 +3,10 @@ System.register([], function (e) {
   return {
     execute: function () {
       e({
+        uiShowReviewList: "Show Review list",
+        reviewListSettingHelp: "Lets users see every selected record and remove some before PDF, Print or CSV export. Set an ID field such as the parcel PID under each field mapping.",
+        reviewIdField: "ID field (Review list)",
+        reviewIdFieldHelp: "Shown first on each row of the runtime Review list, for example the parcel ID (PID). Not printed on labels. Leave empty to show name and address only.",
         parcelOwnerOnlySettingsHelp: "所有者の住所のみ利用可能です。 選択を引いた後および出力の前に小包の選択は現れます;それは物理的な住所のために隠されます。",
         parcelSelectionSettingsTitle: "小包選択",
         parcelSelectionEnable: "小包の選択を有効にする",

@@ -14,6 +14,8 @@ export interface HelpFeatures {
   /** The address search box is shown (config.geocodeUrl is set). */
   addressSearch: boolean
   parcelSearch?: boolean
+  /** The Review list card is shown (config.enableReviewList !== false). */
+  reviewList?: boolean
   /** Both Physical and Owner address types are offered (the Owner/Physical switch shows). */
   ownerAddresses: boolean
 }
@@ -75,6 +77,15 @@ export function buildHelpSections (t: T, f: HelpFeatures): HelpSection[] {
     intro: t('helpFormatIntro'),
     body: [t('helpFormat1'), t('helpFormat2'), t('helpFormat3'), t('helpFormat4')]
   })
+
+  if (f.reviewList) {
+    sections.push({
+      key: 'review',
+      icon: 'list-check',
+      title: t('helpReviewTitle'),
+      body: [t('helpReview1'), t('helpReview2'), t('helpReview3')]
+    })
+  }
 
   sections.push({
     key: 'export',

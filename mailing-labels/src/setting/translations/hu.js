@@ -3,6 +3,10 @@ System.register([], function (e) {
   return {
     execute: function () {
       e({
+        uiShowReviewList: "Show Review list",
+        reviewListSettingHelp: "Lets users see every selected record and remove some before PDF, Print or CSV export. Set an ID field such as the parcel PID under each field mapping.",
+        reviewIdField: "ID field (Review list)",
+        reviewIdFieldHelp: "Shown first on each row of the runtime Review list, for example the parcel ID (PID). Not printed on labels. Leave empty to show name and address only.",
         parcelOwnerOnlySettingsHelp: "Csak tulajdonosi címekre áll rendelkezésre. A Parcel selection a Kiválasztás után és a Kimenet előtt jelenik meg; fizikai címekhez van elrejtve.",
         parcelSelectionSettingsTitle: "A parcellák kiválasztása",
         parcelSelectionEnable: "A csomagválasztás engedélyezése",

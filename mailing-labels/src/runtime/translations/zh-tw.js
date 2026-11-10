@@ -420,7 +420,23 @@ System.register([], function (e) {
         off: "關閉",
         physicalAddress: "物理地址",
         printing: "正在列印",
-        downloading: "下載中"
+        downloading: "下載中",
+        reviewListTitle: "Review list",
+        reviewIncludedCount: "{included} of {total} records will export",
+        reviewRestoreAll: "Restore all",
+        reviewRemove: "移除",
+        reviewRestore: "復原",
+        reviewRemoveNamed: "Leave {label} out of the export",
+        reviewRestoreNamed: "Put {label} back in the export",
+        reviewFilterPlaceholder: "Filter by ID, name or address",
+        reviewNoMatches: "No records match the filter.",
+        reviewRowCap: "Showing the first {shown} of {total}. Type in the filter to find others.",
+        reviewNoMailingData: "(no mailing data)",
+        reviewAllRemoved: "Every selected record was removed in the Review list. Restore some records, then export again.",
+        helpReviewTitle: "Checking the list before you export",
+        helpReview1: "Open Review list to see every selected record with its ID, name and address.",
+        helpReview2: "Click Remove to leave a record out of the PDF, Print and CSV. Click Restore to put it back, or Restore all to undo every removal.",
+        helpReview3: "Removals clear when you clear the selection or switch between Owner and Physical."
       })
     }
   }

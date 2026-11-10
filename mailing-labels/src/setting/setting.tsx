@@ -19,6 +19,7 @@ const __t = (id: string, values?: { [key: string]: any }): string => {
 
 interface Config {
     showHelp?: boolean
+    enableReviewList?: boolean
     useMapWidgetIds?: string[] | any // Allow both regular array and ImmutableArray
     enableParcelSearch?: boolean
     parcelSearchLayer?: 'physical' | 'owner'
@@ -818,12 +819,17 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
                         this.fieldSelect(mappings.name, fields, (v) => onMap('name', v), __t("nameField2")))}
 
                 {Object.keys(mappings)
-                    .filter(key => key !== 'name' && key !== 'nameCustomText' && key !== 'useCustomName')
+                    .filter(key => key !== 'name' && key !== 'nameCustomText' && key !== 'useCustomName' && key !== 'recordId')
                     .map(key => this.stackedRow(
                         Setting.FIELD_LABELS[key] || key.charAt(0).toUpperCase() + key.slice(1),
                         this.fieldSelect(mappings[key], fields, (v) => onMap(key, v), `${key} field`),
                         `${kind}-${key}`
                     ))}
+
+                {this.props.config?.enableReviewList !== false && this.stackedRow(__t("reviewIdField"),
+                    this.fieldSelect(mappings.recordId, fields, (v) => onMap('recordId', v), __t("reviewIdField")),
+                    `${kind}-recordId`)}
+                {this.props.config?.enableReviewList !== false && this.descRow(__t("reviewIdFieldHelp"), `${kind}-recordId-help`)}
             </>
         )
     }
@@ -1095,6 +1101,19 @@ export default class Setting extends React.PureComponent<SettingProps, State> {
                             {this.descRow(this.props.config.wrapLongLines
                                 ? __t("textWiderThanTheLabelSuch")
                                 : __t("eachLineStaysOnOneLine"))}
+                            <SettingRow tag="label" label={__t("uiShowReviewList")}>
+                                <Switch
+                                    checked={this.props.config?.enableReviewList !== false}
+                                    onChange={(evt: any) => {
+                                        this.props.onSettingChange({
+                                            id: this.props.id,
+                                            config: (this.props.config as any).set('enableReviewList', evt.target.checked)
+                                        })
+                                    }}
+                                    aria-label={__t("uiShowReviewList")}
+                                />
+                            </SettingRow>
+                            {this.descRow(__t("reviewListSettingHelp"))}
                         </SettingSection>
 
                         {/* Map behavior */}

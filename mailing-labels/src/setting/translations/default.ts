@@ -1,4 +1,8 @@
 ﻿export default {
+  uiShowReviewList: "Show Review list",
+  reviewListSettingHelp: "Lets users see every selected record and remove some before PDF, Print or CSV export. Set an ID field such as the parcel PID under each field mapping.",
+  reviewIdField: "ID field (Review list)",
+  reviewIdFieldHelp: "Shown first on each row of the runtime Review list, for example the parcel ID (PID). Not printed on labels. Leave empty to show name and address only.",
   parcelOwnerOnlySettingsHelp: "Available only for Owner addresses. Parcel selection appears after Draw selection and before Output; it is hidden for Physical addresses.",
   parcelSelectionSettingsTitle: "Parcel selection",
   parcelSelectionEnable: "Enable parcel selection",

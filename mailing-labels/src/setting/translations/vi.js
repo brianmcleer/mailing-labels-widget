@@ -3,6 +3,10 @@ System.register([], function (e) {
   return {
     execute: function () {
       e({
+        uiShowReviewList: "Show Review list",
+        reviewListSettingHelp: "Lets users see every selected record and remove some before PDF, Print or CSV export. Set an ID field such as the parcel PID under each field mapping.",
+        reviewIdField: "ID field (Review list)",
+        reviewIdFieldHelp: "Shown first on each row of the runtime Review list, for example the parcel ID (PID). Not printed on labels. Leave empty to show name and address only.",
         parcelOwnerOnlySettingsHelp: "Chỉ sẵn sàng cho địa chỉ người chủ. Chọn phân vùng xuất hiện sau khi vẽ vùng chọn và trước khi xuất ra; nó bị ẩn cho các địa chỉ vật lý.",
         parcelSelectionSettingsTitle: "Chọn",
         parcelSelectionEnable: "Bật phần chọn",

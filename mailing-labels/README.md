@@ -48,6 +48,7 @@ Drawing and the older add/delete tools are disabled while parcel picking is acti
 
 ### Preview and export
 
+- Review list of every selected record with its ID, name and address, in the same order as the active Sort. Remove leaves a record out of the PDF, Print and CSV; Restore or Restore all puts it back. A filter box appears for longer lists. The ID column comes from the optional ID field set in each field mapping (for example the parcel PID); it is never printed on labels
 - Live label preview that shows what one label will look like at the current format, font, and field mappings, using the first real selected feature
 - Optional Wrap long lines setting (off by default). When on, lines wider than the label, such as lengthy owner names, continue on the next line, and the font steps down (to a 5pt floor) if needed so no line is dropped. When off, each line stays on one line and is trimmed with an ellipsis at the label edge
 - Print labels button that opens the PDF directly in a new tab with the print dialog primed
@@ -84,6 +85,7 @@ Open the widget settings in the Builder and configure:
 3. **Geometry selection** - enable click selection, draw selection, or both. Optionally allow the widget to accept geometry from the Custom Draw widget.
 4. **Label format and font** - defaults for the dropdowns. Users can change these at runtime.
 5. **Geocode service URL** - paste your GeocodeServer URL to enable address search. A Test button verifies the service responds before saving.
+6. **Review list** - the **Show Review list** switch under Output defaults turns the feature on or off (on by default). When it is on, the optional **ID field (Review list)** under each field mapping picks the field users recognize records by, such as the parcel PID. It shows first on each row and is not printed.
 
 ## Install
 
@@ -145,8 +147,8 @@ Version 1.1.5 connects helper headings, label-format descriptions, selection not
 
 ## Parcel search validation
 
-Run `node --test tests/parcel-search.test.cjs` with Node 22.18+ and the Experience Builder client installed. Set `EXB_CLIENT` when the client is outside `C:/arcgis-experience-builder-1.21/client`. The tests cover query escaping, numeric identifiers, duplicate matches, layer filters, full parcel geometry, buffering, address-layer targeting, and stale requests. Before publishing, test Select parcels in the Builder and runtime against the configured parcel service, with zero and positive buffers and both address types.
+Run `node --test tests/parcel-search.test.cjs` with Node 22.18+ and the Experience Builder client installed. Set `EXB_CLIENT` when the client is outside `C:/arcgis-experience-builder-1.21/client`. The tests cover query escaping, numeric identifiers, duplicate matches, layer filters, full parcel geometry, buffering, address-layer targeting, stale requests, and the Review list (deduping, Remove/Restore, export exclusion, and reset on clear). Before publishing, test Select parcels in the Builder and runtime against the configured parcel service, with zero and positive buffers and both address types.
 
 ### Compact runtime layout
 
-The address-type switch stays at the top. Selection tools precede Output, and Print/PDF/CSV/Clear stay in a fixed footer. One detail panel expands at a time; Output, preview, address search, and partial-sheet settings start collapsed. Parcel inputs share rows and the parcel list has its own bounded scroll area. Short panels and increased browser zoom retain an internal overflow fallback rather than hiding controls. Fit depends on the widget dimensions assigned by the app builder, not just monitor resolution.
+The address-type switch stays at the top. Selection tools precede Output, the Review list and preview sit just above the export buttons, and Print/PDF/CSV/Clear stay in a fixed footer. Each panel opens and closes on its own; only Partial sheet starts collapsed. Parcel inputs share rows and the parcel list has its own bounded scroll area. Short panels and increased browser zoom retain an internal overflow fallback rather than hiding controls. Fit depends on the widget dimensions assigned by the app builder, not just monitor resolution.
